@@ -1,0 +1,5 @@
+[user]
+	name = Jonathan Warykowski
+	email = jonathan.warykowski@gmail.com
+[core]
+	editor = nvim

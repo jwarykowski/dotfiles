@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# GitHub "Open Pull Request" script
+#
+# Add somewhere in your path, then opening a PR is as easy as typing `pr` while you're 
+# on the branch you want to open a Pull Request for
+#
+# NOTES:
+# - If working from a fork, name your fork's remote "origin" and the main repo "upstream"
+# - `pr <branch_name>` will open a PR against the branch you give - rather than "master".
+# - Use `git config pr.defaultbranch <branch_name>` to tell this script the correct branch
+#   to use by default (ie if your repos default branch is not "master")
+# - If you're working against a GitHub enterprise instance, set the github URL with `git config pr.githuburl`
+#   eg $ git config pr.githuburl "https://git.mycompany.com"
+set -e
+
+LOCAL_BRANCH=`git branch | grep ^\* | sed 's/^* //'`
+MERGE_BRANCH=$1
+BOX=`uname -s`
+
+git push origin $LOCAL_BRANCH
+
+set +e
+ORIGIN_ORG_NAME=`git config remote.origin.url | sed -E 's/.*:(.*)\/.*/\1/'`
+UPSTREAM_ORG_NAME=`git config remote.upstream.url | sed -E 's/.*:(.*)\/.*/\1/'`
+REPO_NAME=`git config remote.upstream.url | sed -E 's/.*\/([^\/]*)\.git/\1/'`
+GITHUB_URL=`git config pr.githuburl`
+set -e
+
+if [ "$GITHUB_URL" == "" ]; then
+    GITHUB_URL=https://github.com
+fi
+if [ "$MERGE_BRANCH" == "" ]; then
+    set +e
+    MERGE_BRANCH=`git config pr.defaultbranch`
+    if [ "$MERGE_BRANCH" == "" ]; then
+        MERGE_BRANCH=master
+    fi
+    set -e
+fi
+
+if [ "$ORIGIN_ORG_NAME" == "" ]; then
+    echo Cannot divine the origin organisation name. Ensure you have a remote called "origin"
+    exit 1
+fi
+if [ "$UPSTREAM_ORG_NAME" == "" ]; then
+    UPSTREAM_ORG_NAME=$ORIGIN_ORG_NAME
+fi
+if [ "$REPO_NAME" == "" ]; then
+    REPO_NAME=`git config remote.origin.url | sed -E 's/.*\/([^\/]*)\.git/\1/'`
+fi
+
+URL=$GITHUB_URL/$UPSTREAM_ORG_NAME/$REPO_NAME/pull/new/$MERGE_BRANCH...$ORIGIN_ORG_NAME:$LOCAL_BRANCH
+
+echo Opening $URL
+if [ "$BOX" == "Linux" ]; then
+    xdg-open $URL > /dev/null
+elif [ "$BOX" == "Darwin" ]; then
+    open $URL
+else
+    explorer.exe $URL
+fi

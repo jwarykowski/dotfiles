@@ -9,6 +9,12 @@ export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/pla
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
+# nvm
+[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
+source /usr/share/nvm/nvm.sh
+source /usr/share/nvm/bash_completion
+source /usr/share/nvm/install-nvm-exec
+
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 

@@ -60,12 +60,6 @@ setopt interactivecomments
 # direnv
 eval "$(direnv hook zsh)"
 
-# nvm
-[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-source /usr/share/nvm/install-nvm-exec
-
 # prompt
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit

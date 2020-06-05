@@ -12,15 +12,11 @@ plugins=(
   git
   git-extras
   yarn
-  zsh-syntax-highlighting
-  zsh-completions
   zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
   z
 )
-
-# completions
-[[ -f "$ZSH_CONFIG/completion.zsh" ]] \
-    && source "$ZSH_CONFIG/completion.zsh"
 
 # oh-my-zsh
 [[ -f "$ZSH/oh-my-zsh.sh" ]] \

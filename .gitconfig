@@ -3,3 +3,5 @@
 	email = jonathan.warykowski@gmail.com
 [core]
 	editor = nvim
+[pull]
+	rebase = true

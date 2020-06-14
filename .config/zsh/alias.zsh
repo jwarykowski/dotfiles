@@ -26,3 +26,8 @@ alias li="cd ~/development/lighthouse"
 
 # system
 alias rm="trash"
+
+# vimwiki
+alias studying="nvim vimwiki/Studying.wiki"
+alias todos="nvim vimwiki/Todos.wiki"
+alias wiki="nvim vimwiki/index.wiki"

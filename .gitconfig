@@ -1,6 +1,7 @@
 [user]
 	name = Jonathan Warykowski
 	email = jonathan.warykowski@gmail.com
+	signingkey = B181E89D04FA40B7
 [core]
 	editor = nvim
 [pull]

@@ -23,19 +23,10 @@ plugins=(
     && source "$ZSH/oh-my-zsh.sh"
 
 # options
-setopt complete_aliases
 setopt hist_ignore_space
-setopt noflowcontrol
-setopt prompt_subst
 setopt append_history
 setopt extended_history
-setopt longlistjobs
-setopt nonomatch
-setopt notify
 setopt hash_list_all
-setopt completeinword
-setopt noshwordsplit
-setopt interactivecomments
 
 # aliases
 [[ -f "$ZSH_CONFIG/alias.zsh" ]] \

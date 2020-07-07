@@ -181,8 +181,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # start up
-# compton
-exec_always --no-startup-id compton -b -f
+# picom
+exec_always --no-startup-id picom -b
 
 # conky
 # exec_always --no-startup-id conky -c ~/.config/conky/conky.conf

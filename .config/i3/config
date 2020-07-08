@@ -194,7 +194,7 @@ exec_always --no-startup-id picom -b
 exec --no-startup-id /usr/bin/nm-applet --sm-disable
 
 # wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/wallpapers/swirls.png
+exec_always --no-startup-id feh --bg-fill $HOME/wallpapers/painterly-wave.jpg
 
 # border
 for_window [class="^.*"] border pixel 2

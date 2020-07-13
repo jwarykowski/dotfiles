@@ -26,7 +26,6 @@ plugins=(
 setopt hist_ignore_space
 setopt append_history
 setopt extended_history
-setopt hash_list_all
 
 # aliases
 [[ -f "$ZSH_CONFIG/alias.zsh" ]] \

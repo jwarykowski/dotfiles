@@ -1,11 +1,26 @@
 [user]
-	name = Jonathan Warykowski
-	email = jonathan@warykowski.com
-	signingkey = 1E7AD9E76A140B21
+  email = jonathan@warykowski.com
+  name = Jonathan Warykowski
+  signingkey = 1E7AD9E76A140B21
+
 [commit]
-        template = ~/.git-commit-template
-	gpgsign = true
+  gpgsign = true
+  template = ~/.git-commit-template
+
 [core]
-	editor = nvim
+  editor = nvim
+
+[merge]
+  conflictstyle = diff3
+
 [pull]
-	rebase = true
+  rebase = true
+
+[push]
+  default = simple
+
+[status]
+  showUntrackedFiles = all
+
+[transfer]
+  fsckobjects = true

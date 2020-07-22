@@ -6,6 +6,9 @@ export ZSH="$HOME/.oh-my-zsh"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
+# cargo package manager
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 

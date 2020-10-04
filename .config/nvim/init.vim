@@ -26,6 +26,9 @@ set cmdheight=1
 " completion
 set shortmess+=c
 
+" parcel safe write https://en.parceljs.org/hmr.html#safe-write
+set backupcopy=yes
+
 " plugins
 try
   " denite

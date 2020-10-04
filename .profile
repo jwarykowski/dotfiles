@@ -9,6 +9,12 @@ export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/pla
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# go package manager
+export PATH="$HOME/go/bin:$PATH"
+
+# ruby package manager
+export PATH="$HOME:$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 

@@ -31,6 +31,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 
+" go
+Plug 'fatih/vim-go'
+
 " javascript
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mxw/vim-jsx'

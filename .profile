@@ -7,9 +7,7 @@ export ANDROID_HOME="$HOME/Android/Sdk"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
 # brew package manager
-if [ -f "`which brew`" ]; then
- eval $(/opt/homebrew/bin/brew shellenv)
-fi
+command -v brew > /dev/null 2>&1 || eval $(/opt/homebrew/bin/brew shellenv)
 
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -24,10 +22,7 @@ export PATH="$HOME/go/bin:$PATH"
 export GPG_TTY=$(tty)
 
 # ruby rbenv package manager
-if [ -f "`which rbenv`" ]; then
- export PATH="$HOME/.rbenv/bin:$PATH"
- eval "$(rbenv init -)"
-fi
+command -v rbenv > /dev/null 2>&1 || export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"
 
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"

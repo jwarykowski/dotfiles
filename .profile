@@ -5,8 +5,14 @@ export EDITOR="$VISUAL"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
-# brew package manager
-command -v brew > /dev/null 2>&1 || eval $(/opt/homebrew/bin/brew shellenv)
+# if darwin load brew package manager
+if [ "$(uname)" = "Darwin" ]; then
+  # brew package manager
+  command -v brew > /dev/null 2>&1 || eval $(/opt/homebrew/bin/brew shellenv)
+
+  # ruby rbenv package manager
+  command -v rbenv > /dev/null 2>&1 || export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"
+fi
 
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -19,9 +25,6 @@ export PATH="$HOME/go/bin:$PATH"
 
 # gpg - to provide password
 export GPG_TTY=$(tty)
-
-# ruby rbenv package manager
-command -v rbenv > /dev/null 2>&1 || export PATH="$HOME/.rbenv/bin:$PATH" && eval "$(rbenv init -)"
 
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"

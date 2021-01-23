@@ -43,12 +43,6 @@ setopt extended_history
 [[ -f "$ZSH_CONFIG/key_bindings.zsh" ]] \
     && source "$ZSH_CONFIG/key_bindings.zsh"
 
-# direnv
-eval "$(direnv hook zsh)"
-
-# gpg - to provide password
-export GPG_TTY=$(tty)
-
 # prompt
 fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit

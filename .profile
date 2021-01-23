@@ -12,8 +12,14 @@ eval $(/opt/homebrew/bin/brew shellenv)
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # go package manager
 export PATH="$HOME/go/bin:$PATH"
+
+# gpg - to provide password
+export GPG_TTY=$(tty)
 
 # ruby rbenv package manager
 export PATH="$HOME/.rbenv/bin:$PATH"

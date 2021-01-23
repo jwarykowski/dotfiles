@@ -6,23 +6,25 @@ export ZSH="$HOME/.oh-my-zsh"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
+# brew package manager
+eval $(/opt/homebrew/bin/brew shellenv)
+
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # go package manager
 export PATH="$HOME/go/bin:$PATH"
 
-# ruby package manager
-export PATH="$HOME:$(ruby -e 'puts Gem.user_dir')/bin:$PATH"
+# ruby rbenv package manager
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
 
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"
 
 # nvm
-[ -z "$NVM_DIR" ] && export NVM_DIR="$HOME/.nvm"
-source /usr/share/nvm/nvm.sh
-source /usr/share/nvm/bash_completion
-source /usr/share/nvm/install-nvm-exec
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"

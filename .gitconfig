@@ -1,11 +1,11 @@
 [user]
   email = jonathan@warykowski.io
   name = Jonathan Warykowski
-  signingkey = 1E7AD9E76A140B21
+	signingkey = 5BDDDCC0485A12EB
 
 [commit]
-  gpgsign = true
   template = ~/.git-commit-template
+	gpgSign = true
 
 [core]
   editor = nvim
@@ -24,3 +24,5 @@
 
 [transfer]
   fsckobjects = true
+[tag]
+	gpgSign = true

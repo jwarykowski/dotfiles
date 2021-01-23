@@ -3,8 +3,8 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 
 # profile
-[[ -f "$HOME/.zprofile" ]] \
-    && source "$HOME/.zprofile"
+[[ -f "$HOME/.profile" ]] \
+    && source "$HOME/.profile"
 
 plugins=(
   bgnotify
@@ -45,6 +45,9 @@ setopt extended_history
 
 # direnv
 eval "$(direnv hook zsh)"
+
+# gpg - to provide password
+export GPG_TTY=$(tty)
 
 # prompt
 fpath+=$HOME/.zsh/pure

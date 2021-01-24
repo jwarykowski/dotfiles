@@ -25,4 +25,9 @@ alias dev="cd ~/development"
 alias li="cd ~/development/lighthouse"
 
 # system
-# alias rm="trash"
+
+if [ "$(uname)" = "Darwin" ]; then
+  alias rm="/bin/rm -irv"
+else
+  alias rm="/usr/bin/rm -irv"
+fi

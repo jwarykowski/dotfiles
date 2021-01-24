@@ -3,6 +3,7 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -15,7 +16,7 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:JetBrains Mono Regular 11
+font pango:JetBrainsMono Nerd Font Mono 11
 # DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -105,28 +106,28 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+Ctrl+q workspace $ws1
+bindsym $mod+Ctrl+w workspace $ws2
+bindsym $mod+Ctrl+e workspace $ws3
+bindsym $mod+Ctrl+r workspace $ws4
+bindsym $mod+Ctrl+t workspace $ws5
+bindsym $mod+Ctrl+y workspace $ws6
+bindsym $mod+Ctrl+u workspace $ws7
+bindsym $mod+Ctrl+i workspace $ws8
+bindsym $mod+Ctrl+o workspace $ws9
+bindsym $mod+Ctrl+p workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Ctrl+Shift+q move container to workspace $ws1
+bindsym $mod+Ctrl+Shift+w move container to workspace $ws2
+bindsym $mod+Ctrl+Shift+e move container to workspace $ws3
+bindsym $mod+Ctrl+Shift+r move container to workspace $ws4
+bindsym $mod+Ctrl+Shift+t move container to workspace $ws5
+bindsym $mod+Ctrl+Shift+y move container to workspace $ws6
+bindsym $mod+Ctrl+Shift+u move container to workspace $ws7
+bindsym $mod+Ctrl+Shift+i move container to workspace $ws8
+bindsym $mod+Ctrl+Shift+o move container to workspace $ws9
+bindsym $mod+Ctrl+Shift+p move container to workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -195,7 +196,7 @@ exec_always --no-startup-id picom -b
 exec --no-startup-id /usr/bin/nm-applet --sm-disable
 
 # wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/wallpapers/swirls.png
+exec_always --no-startup-id feh --bg-fill $HOME/resources/wallpapers/purple-waves.jpg
 
 # border
 for_window [class="^.*"] border pixel 2

@@ -1,11 +1,17 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
-# android
-export ANDROID_HOME="$HOME/Android/Sdk"
+# android studio
+if [ "$(uname)" = "Darwin" ]; then
+  ANDROID_HOME="$HOME/Libary/Android/sdk"
+else
+  ANDROID_HOME="$HOME/Android/Sdk"
+fi
+
+export ANDROID_HOME
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
-# if darwin load brew package manager
+# brew and rbenv
 if [ "$(uname)" = "Darwin" ]; then
   # brew package manager
   command -v brew > /dev/null 2>&1 || eval $(/opt/homebrew/bin/brew shellenv)

@@ -8,7 +8,7 @@ set nocompatible
 set modifiable
 set nonumber
 set noshowcmd
-set clipboard=unnamed
+set clipboard=unnamedplus
 set hidden
 
 filetype plugin on

@@ -37,7 +37,6 @@ Plug 'fatih/vim-go'
 " javascript
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mxw/vim-jsx'
-Plug 'heavenshell/vim-jsdoc'
 
 " syntax
 Plug 'othree/javascript-libraries-syntax.vim'

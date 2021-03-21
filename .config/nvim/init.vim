@@ -302,9 +302,6 @@ map <leader>w <Plug>(easymotion-bd-w)
 " save files you opened without write permissions via sudo
 cmap w!! w !sudo tee %
 
-" vim-jsdoc
-nmap <leader>z :JsDoc<CR>
-
 " misc
 set ignorecase
 set smartcase

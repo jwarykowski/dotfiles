@@ -5,7 +5,7 @@ export EDITOR="$VISUAL"
 if [ "$(uname)" = "Darwin" ]; then
   ANDROID_HOME="$HOME/Libary/Android/sdk"
 else
-  ANDROID_HOME="$HOME/Android/Sdk"
+  ANDROID_HOME="$HOME/shared/Android/Sdk"
 fi
 
 export ANDROID_HOME

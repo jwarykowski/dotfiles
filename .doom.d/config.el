@@ -19,7 +19,10 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "JetBrains Mono" :size 14 :weight 'Regular) doom-variable-pitch-font (font-spec :family "sans" :size 12))
+(setq
+ doom-font (font-spec :family "JetBrains Mono" :size 16 :weight 'Regular)
+ doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 14 :weight 'Regular)
+)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -50,3 +53,18 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; key bindings
+(map!
+ ;; evil
+ :n "RET"     #'evil-goto-line
+
+ ;; directory navigation
+ :n "-"       #'deer
+
+ ;; window navigation
+ :n "C-h"     #'evil-window-left
+ :n "C-j"     #'evil-window-down
+ :n "C-k"     #'evil-window-up
+ :n "C-l"     #'evil-window-right
+)

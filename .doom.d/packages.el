@@ -50,3 +50,4 @@
 ;(unpin! t)
 
 (package! ranger)
+(package! prettier-js)

@@ -68,3 +68,6 @@
  :n "C-k"     #'evil-window-up
  :n "C-l"     #'evil-window-right
 )
+
+;; which-key
+(setq which-key-idle-delay 0.2)

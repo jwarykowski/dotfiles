@@ -1,7 +1,7 @@
 [user]
   email = jonathan@warykowski.io
   name = Jonathan Warykowski
-	signingkey = 5BDDDCC0485A12EB
+	signingkey = 1B4B7BE67054B6B3
 
 [commit]
   template = ~/.git-commit-template

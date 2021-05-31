@@ -70,4 +70,4 @@
 )
 
 ;; which-key
-(setq which-key-idle-delay 0.2)
+(setq which-key-idle-delay 0.1)

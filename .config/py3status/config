@@ -1,0 +1,80 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+general {
+  colors = false
+  interval = 5
+}
+
+order += 'yubikey'
+# order += "ipv6"
+order += "wireless _first_"
+# order += "ethernet _first_"
+# order += "battery all"
+order += "disk /"
+order += "load"
+order += "memory"
+order += "tztime local"
+order += "tztime pst"
+order += "tztime est"
+order += "tztime utc"
+order += "volume master"
+
+wireless _first_ {
+  format_up = "W: (%quality %essid) %ip"
+  format_down = "W: down"
+}
+
+ethernet _first_ {
+  format_up = "E: %ip (%speed)"
+  format_down = "E: down"
+}
+
+battery all {
+  format = "%status %percentage %remaining"
+}
+
+disk "/" {
+  format = "%avail"
+}
+
+load {
+  format = "%1min"
+}
+
+memory {
+  format = "%used"
+  threshold_degraded = "1G"
+  format_degraded = "MEMORY < %available"
+}
+
+tztime pst {
+  format = "%H:%M PST"
+  timezone = "America/Los_Angeles"
+}
+
+tztime est {
+  format = "%H:%M EST"
+  timezone = "America/New_York"
+}
+
+tztime utc {
+  format = "%H:%M UTC"
+  timezone = "UTC"
+}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M:%S"
+}
+
+volume master {
+  format = "♪ %volume"
+  format_muted = "♪ muted (%volume)"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+yubikey {
+  format = '[[\?if=is_gpg ][\?if=is_u2f ]  ]'
+}

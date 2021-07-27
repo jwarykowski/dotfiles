@@ -67,7 +67,53 @@
  :n "C-j"     #'evil-window-down
  :n "C-k"     #'evil-window-up
  :n "C-l"     #'evil-window-right
+
+ ;; leader key mappings
+ (:leader
+        :desc "Workspace 1"             :nv "1"  #'+workspace/switch-to-0
+        :desc "Workspace 2"             :nv "2"  #'+workspace/switch-to-1
+        :desc "Workspace 3"             :nv "3"  #'+workspace/switch-to-2
+        :desc "Workspace 4"             :nv "4"  #'+workspace/switch-to-3
+        :desc "Workspace 5"             :nv "5"  #'+workspace/switch-to-4
+        :desc "Workspace 6"             :nv "6"  #'+workspace/switch-to-5
+        :desc "Workspace 7"             :nv "7"  #'+workspace/switch-to-6
+        :desc "Workspace 8"             :nv "8"  #'+workspace/switch-to-7
+        :desc "Workspace 9"             :nv "9"  #'+workspace/switch-to-8
+        :desc "Project search"          :nv "/"  #'+default/project-search
+        :desc "M-x"                     :nv ";"  #'execute-extended-command
+        :desc "list projects"           :nv "l"  #'+workspace/display
+        (:desc "file" :prefix "f"
+                :desc "save"     :n "S" #'save-buffer
+                :desc "save all" :n "s" (lambda() (interactive) (save-some-buffers t) ))
+        (:desc "project" :prefix "p"
+                :desc "switch project" :n "l" #'projectile-switch-project)
+        (:desc "open" :prefix "o"
+                :desc "personal" :n "n" (lambda() (interactive) (find-file "~/org/personal.org"))
+                :desc "work" :n "w" (lambda() (interactive) (find-file "~/org/lighthouse.org"))
+                :desc "scratch" :n "s" (lambda() (interactive) (find-file "~/org/scratch.org")))
+        )
 )
 
 ;; which-key
 (setq which-key-idle-delay 0.1)
+
+;; tide
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+;; company aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; org mode
+(setq org-agenda-files (list "~/org/lighthouse.org" "~/org/personal.org"))

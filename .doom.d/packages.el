@@ -49,5 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! ranger)
 (package! prettier-js)
+(package! ranger)
+(package! tide)

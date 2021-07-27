@@ -7,7 +7,6 @@ export EDITOR="$VISUAL"
 export ANDROID_HOME="$HOME/shared/Android/Sdk"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
 
-
 # cargo package manager
 export PATH="$HOME/.cargo/bin:$PATH"
 

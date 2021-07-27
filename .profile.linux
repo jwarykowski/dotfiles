@@ -1,0 +1,45 @@
+# linux profile
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+# android studio
+export ANDROID_HOME="$HOME/shared/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+
+
+# cargo package manager
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# go package manager
+export PATH="$HOME/go/bin:$PATH"
+
+# gpg - to provide password
+export GPG_TTY=$(tty)
+
+# nvim
+export MYVIMRC="$HOME/.config/nvim/init.vim"
+
+# nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# rbenv
+eval "$(rbenv init -)"
+
+# ssh
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye > /dev/null
+
+# neofetch
+neofetch
+
+# asdf
+. /opt/asdf-vm/asdf.sh
+
+# volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"est

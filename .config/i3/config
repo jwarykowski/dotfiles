@@ -3,7 +3,6 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -16,7 +15,7 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:JetBrainsMono Nerd Font Mono 11
+font pango:JetBrainsMono Nerd Font Mono 10
 # DejaVu Sans Mono 8
 
 # Before i3 v4.8, we used to recommend this one as the default:
@@ -177,7 +176,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
 
-bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
@@ -201,23 +200,22 @@ exec_always --no-startup-id feh --bg-fill $HOME/resources/wallpapers/swirls.png
 # border
 for_window [class="^.*"] border pixel 2
 
-# kill plasma
-exec --no-startup-id wmctrl -c Plasma
-for_window [title="Desktop — Plasma"] kill, floating enable, border none
+# kde plasma
 
-## Avoid tiling popups, dropdown windows from plasma
-# for the first time, manually resize them, i3 will remember the setting for floating windows
-for_window [title="Desktop — Plasma"] kill; floating enable; border none
-for_window [class="plasmashell"] floating enable;
-for_window [class="Plasma"] floating enable; border none
-for_window [title="plasma-desktop"] floating enable; border none
-for_window [title="win7"] floating enable; border none
-for_window [class="krunner"] floating enable; border none
-for_window [class="Kmix"] floating enable; border none
-for_window [class="Klipper"] floating enable; border none
-for_window [class="Plasmoidviewer"] floating enable; border none
-for_window [class="(?i)*nextcloud*"] floating disable
-for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
+# kill plasma
+# exec --no-startup-id wmctrl -c Plasma
+# for_window [title="Desktop — Plasma"] kill, floating enable, border none
+# for_window [title="Desktop — Plasma"] kill; floating enable; border none
+# for_window [class="plasmashell"] floating enable;
+# for_window [class="Plasma"] floating enable; border none
+# for_window [title="plasma-desktop"] floating enable; border none
+# for_window [title="win7"] floating enable; border none
+# for_window [class="krunner"] floating enable; border none
+# for_window [class="Kmix"] floating enable; border none
+# for_window [class="Klipper"] floating enable; border none
+# for_window [class="Plasmoidviewer"] floating enable; border none
+# for_window [class="(?i)*nextcloud*"] floating disable
+# for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
 
 # microsoft teams temporary fix
 for_window [title="Microsoft Teams Notification"] floating enable

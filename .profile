@@ -4,3 +4,5 @@ if [ "$(uname)" = "Darwin" ]; then
 else
   source "$HOME/.profile.linux"
 fi
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

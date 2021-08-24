@@ -85,25 +85,6 @@ fkill() {
   fi
 }
 
-# browse chrome history
-ch() {
-  local cols sep google_history open
-  cols=$(( COLUMNS / 3 ))
-  sep='{::}'
-
-  google_history="$HOME/.config/chromium/Default/History"
-  open="mimeopen -n"
-
-  cp -f "$google_history" /tmp/h
-  sqlite3 -separator "$sep" /tmp/h \
-      "select substr(title, 1, $cols), url
-  from urls order by last_visit_time desc" \
-      | awk -F "$sep" '{printf "%-'$cols's  \x1b[36m%s\x1b[m\n", $1, $2}' \
-      | fzf --ansi -m \
-      | sed 's#.*\(https*://\)#\1#' \
-      | xargs "$open" > /dev/null 2> /dev/null
-}
-
 # man search
 fman() {
   man "$(apropos . | fzf | sed 's/ .*//')"

@@ -24,6 +24,9 @@
  doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 18 :weight 'Regular)
 )
 
+;; prevent killing emacs
+(setq confirm-kill-emacs nil)
+
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:

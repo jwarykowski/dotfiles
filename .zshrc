@@ -1,5 +1,7 @@
 export ZSH_CONFIG="$HOME/.config/zsh"
 export ZSH="$HOME/.oh-my-zsh"
+
+TERM=xterm-256color
 ZSH_THEME=""
 
 # profile

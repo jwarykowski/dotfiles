@@ -15,9 +15,7 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias zshconfig="nvim ~/.zshrc"
 
 # dotfiles
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-alias dfa="dotfiles add"
-alias dfs="dotfiles status"
+alias dfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 # projects
 alias dev="cd ~/work"

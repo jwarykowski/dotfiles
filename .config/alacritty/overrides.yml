@@ -1,0 +1,9 @@
+# Override configuration for Alacritty
+
+window:
+  padding:
+    x: 0
+    y: 0
+
+font:
+  size: 16

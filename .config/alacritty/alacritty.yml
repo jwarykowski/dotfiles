@@ -2,7 +2,7 @@
 
 # os specific overrides
 import:
-  - ~/.alacritty.yml
+  - ~/.config/alacritty/overrides.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -47,7 +47,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: none
+  decorations: transparent
 
   # Startup Mode (changes require restart)
   #
@@ -145,8 +145,8 @@ font:
     # The `style` can be specified to pick a specific face.
     #style: Bold Italic
 
-  # Point size - must define in override file
-  size: 8
+  # Point size
+  #size: 8
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -505,7 +505,9 @@ live_config_reload: true
 # binding with the same triggers is defined. To unset a default binding, it can
 # be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
 # a no-op if you do not wish to receive input characters for that binding.
-#key_bindings:
+key_bindings:
+  - { key: N,        mods: Alt, action: SpawnNewInstance            }
+
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }

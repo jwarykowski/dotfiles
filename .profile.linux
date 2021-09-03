@@ -14,6 +14,9 @@ export PATH="$HOME/go/bin:$PATH"
 
 # gpg - to provide password
 export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-agent --options "$HOME/.config/.gnupg/gpg-agent-linux.conf"
+gpg-connect-agent updatestartuptty /bye > /dev/null
 
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.vim"
@@ -26,10 +29,6 @@ export NVM_DIR="$HOME/.nvm"
 # rbenv
 # eval "$(rbenv init -)"
 
-# ssh
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-connect-agent updatestartuptty /bye > /dev/null
-
 # neofetch
 neofetch
 
@@ -37,9 +36,8 @@ neofetch
 # . /opt/asdf-vm/asdf.sh
 
 # volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"est
+#export VOLTA_HOME="$HOME/.volta"
+#export PATH="$VOLTA_HOME/bin:$PATH"est
 
 # z
 . /usr/bin/z.sh
-

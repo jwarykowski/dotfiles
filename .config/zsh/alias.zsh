@@ -15,11 +15,10 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias zshconfig="nvim ~/.zshrc"
 
 # dotfiles
-alias dfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias cfg="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 # projects
-alias dev="cd ~/work"
-alias li="cd ~/work/lighthouse"
+alias dev="cd ~/development"
 
 # system
 if [ "$(uname)" = "Darwin" ]; then

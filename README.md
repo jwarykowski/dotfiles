@@ -6,8 +6,6 @@
 
 These dotfiles are my personal configuration across Linux (Fedora) and Mac OS X.
 
-## overview
-
 + **Machines**: [Intel Nuc Hades Canyon](https://www.scorptec.com.au/product/Branded-Systems/NUC-&-Mini-PC/71990-BOXNUC8I7HVK4) / [Macbook Pro](https://www.apple.com/au/macbook-pro/)
 + **WM**: [i3](https://github.com/i3/i3) / [yabai](https://github.com/koekeishiya/yabai)
 + **OS**: [fedora](https://getfedora.org/) / [mac os x big sur](https://www.apple.com/au/macos/big-sur/)

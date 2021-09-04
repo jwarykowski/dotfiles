@@ -26,3 +26,6 @@ if [ "$(uname)" = "Darwin" ]; then
 else
   alias rm="/usr/bin/rm -irv"
 fi
+
+# yubikey switch
+alias switch-yubikey="gpg-connect-agent 'scd serialno' 'learn --force' /bye"

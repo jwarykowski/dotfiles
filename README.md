@@ -12,7 +12,7 @@ These dotfiles are my personal configuration across Linux (Fedora) and Mac OS X.
 + **WM**: [i3](https://github.com/i3/i3) / [yabai](https://github.com/koekeishiya/yabai)
 + **OS**: [fedora](https://getfedora.org/) / [mac os x big sur](https://www.apple.com/au/macos/big-sur/)
 + **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh)
-+ **Shell Framework**: [on-my-zsh](https://ohmyz.sh/)
++ **Shell Framework**: [oh-my-zsh](https://ohmyz.sh/)
 + **Terminal**: [alacritty](https://github.com/alacritty/alacritty)
 + **Editor**: [neovim](https://github.com/neovim/neovim/) / [doom emacs](https://github.com/hlissner/doom-emacs/)
 + **Font**: [jetbrains mono](https://www.jetbrains.com/lp/mono/)

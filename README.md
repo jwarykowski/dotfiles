@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/jwarykowski/dotfiles/assets/406799/ab603ef8-85d7-4a1b-8663-b5ad4dce9fc2" alt="My Project GIF" text-align="center">
+  <img src="https://github.com/jwarykowski/dotfiles/assets/406799/ab603ef8-85d7-4a1b-8663-b5ad4dce9fc2" alt="My Project GIF" text-align="center" height="400">
 </p>
 
 # dotfiles

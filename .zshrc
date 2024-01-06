@@ -44,10 +44,6 @@ setopt extended_history
 [[ -f "$ZSH_CONFIG/functions.zsh" ]] \
     && source "$ZSH_CONFIG/functions.zsh"
 
-# key_bindings
-[[ -f "$ZSH_CONFIG/key_bindings.zsh" ]] \
-    && source "$ZSH_CONFIG/key_bindings.zsh"
-
 # bun completions
 [ -s "/Users/jwarykowski/.bun/_bun" ] && source "/Users/jwarykowski/.bun/_bun"
 

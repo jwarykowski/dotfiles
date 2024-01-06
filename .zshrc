@@ -1,4 +1,3 @@
-t
 # zmodload zsh/zprof
 
 export VISUAL=nvim

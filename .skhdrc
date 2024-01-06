@@ -1,0 +1,39 @@
+# restart yabai
+ctrl + alt + cmd - r : yabai --restart-service
+
+# navigation
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# moving windows
+shift + alt - h : yabai -m window --warp west
+shift + alt - j : yabai -m window --warp south
+shift + alt - k : yabai -m window --warp north
+shift + alt - l : yabai -m window --warp east
+
+# misc windows
+# toggle window zoom
+alt - t : yabai -m window --toggle zoom-parent
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# toggle whether the focused window should be tiled (only on bsp spaces)
+alt - f : yabai -m window --toggle float
+
+# float / unfloat window and center on screen
+alt - c : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# increas window size
+shift + alt - a : yabai -m window --resize left:-50:0
+shift + alt - s : yabai -m window --resize bottom:0:50
+shift + alt - w : yabai -m window --resize top:0:-50
+shift + alt - d : yabai -m window --resize right:50:0
+
+# decrease window size
+shift + cmd - a : yabai -m window --resize left:50:0
+shift + cmd - s : yabai -m window --resize bottom:0:-50
+shift + cmd - w : yabai -m window --resize top:0:50
+shift + cmd - d : yabai -m window --resize right:-50:0

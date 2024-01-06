@@ -12,5 +12,5 @@ These dotfiles are my personal configuration across Linux (Fedora) and Mac OS X.
 + **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh)
 + **Shell Framework**: [oh-my-zsh](https://ohmyz.sh/)
 + **Terminal**: [warp](http://warp.dev/)
-+ **Editor**: [neovim](https://github.com/neovim/neovim/)
++ **Editor**: [neovim](https://github.com/neovim/neovim/) / [lazy-vim](https://www.lazyvim.org/)
 + **Font**: [berkley mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)

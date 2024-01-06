@@ -1,14 +1,21 @@
 [user]
-  email = jonathan@warykowski.io
+  email = jonathan@myzeller.com
   name = Jonathan Warykowski
-	signingkey = 1B4B7BE67054B6B3
+	signingKey = F21DC55BCB19C299
+
+[includeIf "gitdir:~/development/"]
+  path = ~/development/.gitconfig
+
+[checkout]
+  defaultRemote = origin
 
 [commit]
   template = ~/.git-commit-template
-	gpgSign = true
+	gpgsign = true
 
 [core]
   editor = nvim
+  excludesfile = /Users/jwarykowski/.gitignore
 
 [merge]
   conflictstyle = diff3
@@ -18,11 +25,22 @@
 
 [push]
   default = simple
+  autoSetupRemote = true
 
 [status]
   showUntrackedFiles = all
 
 [transfer]
   fsckobjects = true
+
 [tag]
-	gpgSign = true
+  gpgSign = true
+
+[rebase]
+  updateRefs = true
+
+[fetch]
+  prune = true
+
+[init]
+  defaultBranch = master

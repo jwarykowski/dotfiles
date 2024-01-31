@@ -24,16 +24,18 @@ alt - e : yabai -m window --toggle split
 alt - f : yabai -m window --toggle float
 
 # float / unfloat window and center on screen
-alt - c : yabai -m window --toggle float --grid 4:4:1:1:2:2
+alt - c : yabai -m window --toggle float --grid 1:1:1:1:1:1
 
-# increas window size
+# increase window size
 shift + alt - a : yabai -m window --resize left:-50:0
 shift + alt - s : yabai -m window --resize bottom:0:50
 shift + alt - w : yabai -m window --resize top:0:-50
 shift + alt - d : yabai -m window --resize right:50:0
 
-# decrease window size
-shift + cmd - a : yabai -m window --resize left:50:0
 shift + cmd - s : yabai -m window --resize bottom:0:-50
 shift + cmd - w : yabai -m window --resize top:0:50
 shift + cmd - d : yabai -m window --resize right:-50:0
+
+# change layout of desktop
+ctrl + alt - z : yabai -m space --layout bsp
+ctrl + alt - f : yabai -m space --layout float

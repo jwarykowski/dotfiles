@@ -6,26 +6,36 @@
 [includeIf "gitdir:~/development/"]
   path = ~/development/.gitconfig
 
+[branch]
+  sort = committerdate
+
 [checkout]
   defaultRemote = origin
 
 [commit]
-  template = ~/.git-commit-template
 	gpgsign = true
+  template = ~/.git-commit-template
+  verbose = true
 
 [core]
   editor = nvim
   excludesfile = /Users/jwarykowski/.gitignore
 
+[diff]
+  algorithm = histogram
+
+[help]
+  autocorrect = prompt
+
 [merge]
-  conflictstyle = diff3
+  conflictstyle = zdiff3
 
 [pull]
   rebase = true
 
 [push]
-  default = simple
   autoSetupRemote = true
+  default = simple
 
 [status]
   showUntrackedFiles = all

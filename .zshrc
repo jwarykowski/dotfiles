@@ -70,6 +70,9 @@ export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
 # ruby
 eval "$(rbenv init - zsh)"
 
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # nvim
 export MYVIMRC="$HOME/.config/nvim/init.lua"
 

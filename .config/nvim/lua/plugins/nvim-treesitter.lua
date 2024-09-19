@@ -1,13 +1,14 @@
 return {
-  { import = "lazyvim.plugins.extras.lang.json" },
-  { import = "lazyvim.plugins.extras.lang.typescript" },
-
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
+    build = ":TSUpdate",
+    config = function()
+      local config = require("nvim-treesitter.configs")
+
+      config.setup({
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true },
       })
     end,
   },

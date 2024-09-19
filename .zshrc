@@ -8,14 +8,11 @@ export ZSH_CONFIG="$HOME/.config/zsh"
 TERM=xterm-256color
 ZSH_THEME=""
 
-zstyle ':rmz:plugins:nvm' lazy yes
-
 plugins=(
   bgnotify
   command-not-found
   git
   git-extras
-  nvm
   yarn
   zsh-autosuggestions
   zsh-completions
@@ -58,11 +55,18 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # direnv
 eval "$(direnv hook zsh)"
 
+# fzf homebrew
+source <(fzf --zsh)
+
 # gpg
-export GPG_TTY=$(tty)
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-agent --options "$HOME/.config/.gnupg/gpg-agent-mac.conf"
-gpg-connect-agent updatestartuptty /bye > /dev/null
+# export GPG_TTY=$(tty)
+# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+# gpg-agent --options "$HOME/.config/.gnupg/gpg-agent-mac.conf"
+# gpg-connect-agent updatestartuptty /bye > /dev/null
+
+# fnm
+export PATH="/Users/jwarykowski_1/Library/Application Support/fnm:$PATH"
+eval "`fnm env`"
 
 # java
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
@@ -84,6 +88,10 @@ prompt pure
 # puppeteer
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+
+# banner
+clear
+neofetch
 
 # profile load times end
 # zprof

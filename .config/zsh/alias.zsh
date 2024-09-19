@@ -26,6 +26,9 @@ alias restart-ggp-agent-daemon="pkill -9 gpg-agent && source <(gpg-agent --daemo
 # projects
 alias dev="cd ~/development"
 
+# python
+alias python=python3
+
 # system bin
 if [ "$(uname)" = "Darwin" ]; then
   alias rm="/bin/rm -irv"

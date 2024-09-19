@@ -53,4 +53,4 @@ yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info
 yabai -m rule --add label="Software Update" title="Software Update" manage=off
 yabai -m rule --add app="^Slack$" title="Window Title" border=off
 
-borders active_color=0xFF0071CE inactive_color=0xFFFF9900 width=5.0 &
+borders active_color=0xFF0071CE inactive_color=0xFFFF9900 width=10.0 &

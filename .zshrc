@@ -52,6 +52,9 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# deno
+export PATH="$HOME/.deno/bin:$PATH"
+
 # direnv
 eval "$(direnv hook zsh)"
 
@@ -65,7 +68,7 @@ source <(fzf --zsh)
 # gpg-connect-agent updatestartuptty /bye > /dev/null
 
 # fnm
-export PATH="/Users/jwarykowski_1/Library/Application Support/fnm:$PATH"
+export PATH="/Users/jwarykowski_1/Library/Application\ Support/fnm:$PATH"
 eval "`fnm env`"
 
 # java
@@ -95,3 +98,6 @@ neofetch
 
 # profile load times end
 # zprof
+
+# Created by `pipx` on 2024-11-19 11:20:24
+export PATH="$PATH:/Users/jwarykowski_1/.local/bin"

@@ -51,12 +51,5 @@ return {
       end,
       desc = "explore neotree (cwd)",
     },
-    {
-      "<leader>be",
-      function()
-        require("neo-tree.command").execute({ source = "buffers", toggle = true })
-      end,
-      desc = "buffer explorer",
-    },
   },
 }

@@ -1,5 +1,0 @@
-return {
-  {
-    "preservim/nerdcommenter",
-  },
-}

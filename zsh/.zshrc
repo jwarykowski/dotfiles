@@ -98,6 +98,3 @@ neofetch
 
 # profile load times end
 # zprof
-
-# Created by `pipx` on 2024-11-19 11:20:24
-e

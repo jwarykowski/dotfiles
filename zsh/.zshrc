@@ -60,12 +60,6 @@ eval "$(direnv hook zsh)"
 # fzf homebrew
 source <(fzf --zsh)
 
-# gpg
-# export GPG_TTY=$(tty)
-# export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-# gpg-agent --options "$HOME/.config/.gnupg/gpg-agent-mac.conf"
-# gpg-connect-agent updatestartuptty /bye > /dev/null
-
 # fnm
 export PATH="/Users/jwarykowski_1/Library/Application\ Support/fnm:$PATH"
 eval "`fnm env`"

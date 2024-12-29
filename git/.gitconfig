@@ -3,9 +3,6 @@
   name = Jonathan Warykowski
 	signingKey = F21DC55BCB19C299
 
-[includeIf "gitdir:~/development/"]
-  path = ~/development/.gitconfig
-
 [branch]
   sort = committerdate
 

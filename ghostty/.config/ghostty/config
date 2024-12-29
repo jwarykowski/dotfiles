@@ -1,0 +1,9 @@
+# options
+background=#0A0A0A
+font-family=Berkeley Mono
+font-size=18
+foreground=#DEEEED
+macos-titlebar-style=hidden
+
+# keybindings
+keybind = global:unconsumed:ctrl+r=reload_config

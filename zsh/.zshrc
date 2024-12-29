@@ -88,7 +88,7 @@ autoload -U promptinit; promptinit
 prompt pure
 
 # banner
-fastfetch
+fastfetch -l "none"
 
 # profile load times end
 # zprof

@@ -45,7 +45,7 @@ setopt extended_history
 [ -s "/Users/jwarykowski/.bun/_bun" ] && source "/Users/jwarykowski/.bun/_bun"
 
 # brew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -s "/opt/homebrew/bin/brew shellenv" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # android studio
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -88,13 +88,8 @@ fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure
 
-# puppeteer
-export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-export PUPPETEER_EXECUTABLE_PATH=`which chromium`
-
 # banner
-clear
-neofetch
+fastfetch
 
 # profile load times end
 # zprof

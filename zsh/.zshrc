@@ -9,7 +9,6 @@ TERM=xterm-256color
 ZSH_THEME=""
 
 plugins=(
-  bgnotify
   command-not-found
   git
   git-extras

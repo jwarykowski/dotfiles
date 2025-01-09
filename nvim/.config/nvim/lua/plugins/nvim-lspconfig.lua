@@ -44,7 +44,7 @@ return {
         vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
       end
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       mason_lspconfig.setup_handlers({
         function(server_name)

@@ -13,15 +13,14 @@ plugins=(
   git
   git-extras
   yarn
+  z
   zsh-autosuggestions
   zsh-completions
   zsh-syntax-highlighting
-  z
 )
 
 # oh-my-zsh
-[[ -f "$ZSH/oh-my-zsh.sh" ]] \
-    && source "$ZSH/oh-my-zsh.sh"
+[[ -f "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
 # options
 setopt hist_ignore_space
@@ -61,8 +60,11 @@ eval "$(direnv hook zsh)"
 source <(fzf --zsh)
 
 # fnm
-export PATH="/Users/jwarykowski_1/Library/Application\ Support/fnm:$PATH"
-eval "`fnm env`"
+FNM_PATH="/home/jwarykowski/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/jwarykowski/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
 
 # java
 export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"

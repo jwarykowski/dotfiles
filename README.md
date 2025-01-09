@@ -7,6 +7,6 @@ These dotfiles are my personal configuration across Linux (Fedora) and Mac OS X.
 + **OS**: [fedora](https://getfedora.org/) / [mac os x sonoma](https://www.apple.com/au/macos/sonoma/)
 + **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh)
 + **Shell Framework**: [oh-my-zsh](https://ohmyz.sh/)
-+ **Terminal**: [kitty](https://sw.kovidgoyal.net/kitty/)
++ **Terminal**: [kitty](https://sw.kovidgoyal.net/kitty/) / [ghostty](https://ghostty.org/)
 + **Editor**: [neovim](https://github.com/neovim/neovim/) / [lazy-vim](https://www.lazyvim.org/)
 + **Font**: [berkeley mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)

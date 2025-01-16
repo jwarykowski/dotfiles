@@ -7,9 +7,9 @@ macos-option-as-alt = true
 macos-titlebar-style = hidden
 
 # keybindings
-keybind = global:unconsumed:ctrl+shift+r=reload_config
 keybind = alt+left=unbind
 keybind = alt+right=unbind
+keybind = global:unconsumed:ctrl+shift+r=reload_config
 
 # lackluster theming
 palette = 0=#080808

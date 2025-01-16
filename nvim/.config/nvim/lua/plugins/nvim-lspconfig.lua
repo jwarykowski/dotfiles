@@ -31,19 +31,6 @@ return {
     config = function()
       local mason_lspconfig = require("mason-lspconfig")
       local lspconfig = require("lspconfig")
-
-      local on_attach = function(_, bufnr)
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-      end
-
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       mason_lspconfig.setup_handlers({
@@ -64,17 +51,6 @@ return {
             on_attach = on_attach,
             root_dir = lspconfig.util.root_pattern("package.json"),
             single_file_support = false,
-          })
-        end,
-        ["sourcekit"] = function()
-          lspconfig.sourcekit.setup({
-            capabilities = {
-              workspace = {
-                didChangeWatchedFiles = {
-                  dynamicRegistration = true,
-                },
-              },
-            },
           })
         end,
       })

@@ -20,6 +20,7 @@ map(
 map({ "n", "v", "x" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
 map({ "n", "v", "x" }, "<leader>Y", '"+yy', { noremap = true, silent = true, desc = "Yank line to clipboard" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
+map("n", "<leader>^", '<cmd>:let @+ = expand("%")<cr>', { noremap = true, silent = true, desc = "Yank buffer path" })
 
 -- delete word backwards
 map("n", "dw", "vb_d")

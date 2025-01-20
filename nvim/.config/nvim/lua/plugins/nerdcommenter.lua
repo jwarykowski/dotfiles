@@ -1,5 +1,5 @@
 return {
-  {
-    "preservim/nerdcommenter",
-  },
+	{
+		"preservim/nerdcommenter",
+	},
 }

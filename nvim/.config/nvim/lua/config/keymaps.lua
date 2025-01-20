@@ -10,10 +10,10 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "escape and clear hlsea
 
 -- clear search, diff update and redraw
 map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "redraw / clear hlsearch / diff update" }
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "redraw / clear hlsearch / diff update" }
 )
 
 -- clipboard

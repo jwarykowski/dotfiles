@@ -1,5 +1,6 @@
 return {
 	"folke/snacks.nvim",
+	---@type snacks.Config
 	priority = 1000,
 	lazy = false,
 	opts = {
@@ -7,6 +8,7 @@ return {
 		picker = {
 			enabled = true,
 			layout = {
+				preview = false,
 				preset = "ivy",
 			},
 		},

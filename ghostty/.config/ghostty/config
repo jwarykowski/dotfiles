@@ -1,10 +1,11 @@
 # options
 background = #0A0A0A
 font-family = Berkeley Mono
-font-size = 16
+font-size = 18
 foreground = #DEEEED
 macos-option-as-alt = true
-macos-titlebar-style = hidden
+# macos-titlebar-style = hidden
+macos-icon = blueprint
 
 # keybindings
 keybind = alt+left=unbind

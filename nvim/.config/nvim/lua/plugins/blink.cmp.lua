@@ -8,15 +8,17 @@ return {
 		keymap = {
 			preset = "enter",
 
-			cmdline = {
-				preset = "default",
-			},
-
 			completion = {
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 50,
 				},
+			},
+		},
+
+		cmdline = {
+			keymap = {
+				preset = "default",
 			},
 		},
 

@@ -23,3 +23,9 @@ vim.opt.showmode = false
 vim.opt.smartcase = true
 vim.opt.splitright = true
 vim.opt.swapfile = false
+
+vim.diagnostic.config({
+	virtual_lines = {
+		current_line = true,
+	},
+})

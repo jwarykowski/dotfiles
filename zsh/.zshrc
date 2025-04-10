@@ -60,9 +60,9 @@ eval "$(direnv hook zsh)"
 source <(fzf --zsh)
 
 # fnm
-FNM_PATH="/home/jwarykowski/.local/share/fnm"
+FNM_PATH="/Users/jwarykowski_1/Library/Application Support/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/jwarykowski/.local/share/fnm:$PATH"
+  export PATH="/Users/jwarykowski_1/Library/Application Support/fnm:$PATH"
   eval "`fnm env`"
 fi
 

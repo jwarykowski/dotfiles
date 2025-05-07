@@ -1,3 +1,5 @@
+shell-integration = zsh
+
 # options
 background = #0A0A0A
 font-family = Berkeley Mono
@@ -8,8 +10,6 @@ macos-option-as-alt = true
 macos-icon = blueprint
 
 # keybindings
-keybind = alt+left=unbind
-keybind = alt+right=unbind
 keybind = global:unconsumed:ctrl+shift+r=reload_config
 
 # lackluster theming

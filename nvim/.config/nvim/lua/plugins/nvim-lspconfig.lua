@@ -12,7 +12,6 @@ return {
 		opts = {
 			ensure_installed = {
 				"cssls",
-				"denols",
 				"html",
 				"jsonls",
 				"lua_ls",
@@ -22,38 +21,33 @@ return {
 				"tailwindcss",
 				"yamlls",
 			},
-			automatic_installation = true,
+			automatic_enable = false,
 		},
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = { "saghen/blink.cmp" },
 		lazy = false,
 		config = function()
-			local mason_lspconfig = require("mason-lspconfig")
 			local lspconfig = require("lspconfig")
+			local mason_lspconfig = require("mason-lspconfig")
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-			mason_lspconfig.setup_handlers({
-				function(server_name)
-					lspconfig[server_name].setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-					})
-				end,
-				["denols"] = function()
-					lspconfig.denols.setup({
-						on_attach = on_attach,
-						root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-					})
-				end,
-				["ts_ls"] = function()
-					lspconfig.ts_ls.setup({
-						on_attach = on_attach,
-						root_dir = lspconfig.util.root_pattern("package.json"),
-						single_file_support = false,
-					})
-				end,
-			})
+			-- local function on_attach(client, bufnr) end
+
+			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+				lspconfig[server_name].setup({
+					-- on_attach = on_attach,
+					capabilities = capabilities,
+				})
+			end
+		end,
+		opts = function(_, opts)
+			opts.diagnostics = {
+				float = {
+					border = "rounded",
+				},
+			}
 		end,
 	},
 }

@@ -55,9 +55,6 @@ map("n", "<C-j>", "<C-w>j", { desc = "move to right window", remap = true })
 map("n", "<C-k>", "<C-w>k", { desc = "go to top window", remap = true })
 map("n", "<C-l>", "<C-w>l", { desc = "go to bottom window", remap = true })
 
--- select all
-map("n", "<C-a>", "gg<S-v>G")
-
 -- split window
 map("n", "ss", ":split<Return>", { noremap = true, silent = true })
 map("n", "sv", ":vsplit<Return>", { noremap = true, silent = true })

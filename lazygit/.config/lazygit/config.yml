@@ -1,0 +1,17 @@
+notARepository: quit
+
+gui:
+  border: 'single'
+  commandLogSize: 1
+  mouseEvents: false
+  showBottomLine: false
+  showBranchCommitHash: true
+  showFileTree: false
+  showRandomTip: false
+
+customCommands:
+  - key: <c-p>
+    description: "Prune"
+    context: localBranches
+    command: git remote prune origin
+    loadingText: pruning...

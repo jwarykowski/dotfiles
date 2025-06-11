@@ -13,9 +13,6 @@ return {
 			},
 		},
 		notifier = { enabled = true, style = "minimal" },
-		scratch = {
-			enabled = true,
-		},
 	},
 	keys = {
 		{
@@ -60,13 +57,6 @@ return {
 				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 			end,
 			desc = "Find Config File",
-		},
-		{
-			"<leader>ff",
-			function()
-				Snacks.picker.files()
-			end,
-			desc = "Find Files",
 		},
 		{
 			"<leader>fg",
@@ -278,18 +268,11 @@ return {
 			desc = "LSP Symbols",
 		},
 		{
-			"<leader>.",
+			"<leader>sp",
 			function()
-				Snacks.scratch()
+				Snacks.picker.pickers()
 			end,
-			desc = "Toggle Scratch Buffer",
-		},
-		{
-			"<leader>S",
-			function()
-				Snacks.scratch.select()
-			end,
-			desc = "Select Scratch Buffer",
+			desc = "Snack Pickers",
 		},
 	},
 }

@@ -2,6 +2,7 @@
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export XDG_CONFIG_HOME="$HOME/.config"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CONFIG="$HOME/.config/zsh"
 
@@ -56,6 +57,11 @@ export PATH="$HOME/.deno/bin:$PATH"
 # direnv
 eval "$(direnv hook zsh)"
 
+# dotnet
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$HOME/.dotnet:$PATH"
+export PATH="$PATH:/Users/jwarykowski_1/.dotnet/tools"
+
 # fzf homebrew
 source <(fzf --zsh)
 
@@ -66,8 +72,8 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-# java
-export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+# java - react native
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
 # ruby
 eval "$(rbenv init - zsh)"

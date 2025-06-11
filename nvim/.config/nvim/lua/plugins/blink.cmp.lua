@@ -1,6 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = "rafamadriz/friendly-snippets",
+	dependencies = "echasnovski/mini.snippets",
 	version = "*",
 	opts = {
 		-- https://cmp.saghen.dev/configuration/keymap.html#presets
@@ -21,6 +21,7 @@ return {
 		appearance = {
 			use_nvim_cmp_as_default = true,
 		},
+		snippets = { preset = "mini_snippets" },
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},

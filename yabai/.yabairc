@@ -13,9 +13,7 @@
 
 # global settings
 yabai -m config \
-  external_bar off
-  mouse_follows_focus off \
-  focus_follows_mouse off \
+  external_bar off \
   window_origin_display default \
   window_placement second_child \
   window_insertion_point focused \
@@ -54,6 +52,3 @@ yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add label="Software Update" title="Software Update" manage=off
 yabai -m rule --add app="^Slack$" title="Window Title" border=off
-
-# https://github.com/FelixKratz/JankyBorders
-borders style=round hidpi=true active_color=0xFF0071CE inactive_color=0xFFFF9900 width=5.0

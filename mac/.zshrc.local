@@ -27,7 +27,7 @@ source <(fzf --zsh)
 FNM_PATH="/Users/jwarykowski_1/Library/Application Support/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="/Users/jwarykowski_1/Library/Application Support/fnm:$PATH"
-  eval "`fnm env`"
+  eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
 # java - react native

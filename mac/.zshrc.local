@@ -1,0 +1,48 @@
+# bun completions
+[ -s "/Users/jwarykowski/.bun/_bun" ] && source "/Users/jwarykowski/.bun/_bun"
+
+# brew
+[ -s "/opt/homebrew/bin/brew shellenv" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# android studio
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# deno
+export PATH="$HOME/.deno/bin:$PATH"
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# dotnet
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$HOME/.dotnet:$PATH"
+export PATH="$PATH:/Users/jwarykowski_1/.dotnet/tools"
+
+# fzf homebrew
+source <(fzf --zsh)
+
+# fnm
+FNM_PATH="/Users/jwarykowski_1/Library/Application Support/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/Users/jwarykowski_1/Library/Application Support/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+# java - react native
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+
+# ruby
+eval "$(rbenv init - zsh)"
+
+# rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# nvim
+export MYVIMRC="$HOME/.config/nvim/init.lua"
+
+# prompt
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+prompt pure

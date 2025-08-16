@@ -1,0 +1,7 @@
+shell-integration = zsh
+theme = lackluster
+
+font-family = Berkeley Mono
+font-size = 14
+
+keybind = global:unconsumed:ctrl+shift+r=reload_config

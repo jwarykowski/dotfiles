@@ -1,0 +1,10 @@
+shell-integration = zsh
+theme = lackluster
+
+font-family = Berkeley Mono
+font-size = 18
+macos-option-as-alt = true
+# macos-titlebar-style = hidden
+macos-icon = blueprint
+
+keybind = global:unconsumed:ctrl+shift+r=reload_config

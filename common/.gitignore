@@ -1,0 +1,91 @@
+# ---- os / system ----
+# macos
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# linux
+*~
+.Trash-*
+.nfs*
+
+# ---- editor / ide ----
+# vim / neovim
+*.swp
+*.swo
+*.swm
+*.swn
+*.bak
+*.tmp
+*.temp
+*.orig
+
+# vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# jetbrains ides
+.idea/
+*.iml
+
+# ---- logs ----
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- dependencies ----
+node_modules/
+bower_components/
+
+# ---- build outputs ----
+dist/
+build/
+coverage/
+.next/
+out/
+.nuxt/
+.svelte-kit/
+.storybook/
+.stylelintcache
+.eslintcache
+
+# nx
+tmp/
+.nx/cache/
+.nx/workspace-data/
+
+# ---- testing / temp ----
+*.tsbuildinfo
+.jest/
+.cache/
+.tmp/
+
+# ---- env / secrets ----
+.env
+.env.local
+.env.development
+.env.development.local
+.env.staging
+.env.staging.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# ---- misc ----
+*.tgz
+*.zip
+*.tar
+*.tar.gz
+*.gz
+*.out

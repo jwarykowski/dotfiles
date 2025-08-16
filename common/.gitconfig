@@ -1,0 +1,54 @@
+[user]
+  email = jonathan@myzeller.com
+  name = Jonathan Warykowski
+	signingKey = F21DC55BCB19C299
+
+[branch]
+  sort = committerdate
+
+[checkout]
+  defaultRemote = origin
+
+[commit]
+	gpgsign = true
+  template = ~/.git-commit-template
+  verbose = true
+
+[core]
+  editor = nvim
+  excludesfile = ~/.gitignore
+	ignorecase = false
+
+[diff]
+  algorithm = histogram
+
+[help]
+  autocorrect = prompt
+
+[merge]
+  conflictstyle = zdiff3
+
+[pull]
+  rebase = true
+
+[push]
+  autoSetupRemote = true
+  default = simple
+
+[status]
+  showUntrackedFiles = all
+
+[transfer]
+  fsckobjects = true
+
+[tag]
+  gpgSign = true
+
+[rebase]
+  updateRefs = true
+
+[fetch]
+  prune = true
+
+[init]
+  defaultBranch = master

@@ -1,7 +1,4 @@
-export EDITOR="$VISUAL"
-export MYVIMRC="$HOME/.config/nvim/init.lua"
-export VISUAL=nvim
-export XDG_CONFIG_HOME="$HOME/.config"
+source $HOME/.config/zsh/utils.zsh
 
 [[ -r ~/Repos/znap/znap.zsh ]] ||
     git clone --depth 1 -- \
@@ -14,6 +11,7 @@ znap prompt sindresorhus/pure # theme
 
 ## plugins
 znap source marlonrichert/zsh-autocomplete
+zstyle ':autocomplete:*' delay 0.5
 
 ZSH_AUTOSUGGEST_STRATEGY=( history )
 znap source zsh-users/zsh-autosuggestions
@@ -28,6 +26,10 @@ fi
 
 znap clone https://github.com/agkozak/zsh-z.git
 znap source zsh-z
+
+# common aliases/utilities
+source_recursive "$HOME/.config/zsh/aliases" "zsh"
+source_recursive "$HOME/.config/zsh/functions" "zsh"
 
 # local additions/overrides
 if [[ -f "$HOME/.zshrc.local" ]]; then

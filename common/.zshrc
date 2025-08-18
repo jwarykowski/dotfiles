@@ -10,9 +10,6 @@ source ~/Repos/znap/znap.zsh  # start znap
 znap prompt sindresorhus/pure # theme
 
 ## plugins
-znap source marlonrichert/zsh-autocomplete
-zstyle ':autocomplete:*' delay 0.5
-
 ZSH_AUTOSUGGEST_STRATEGY=( history )
 znap source zsh-users/zsh-autosuggestions
 

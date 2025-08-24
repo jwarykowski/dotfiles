@@ -48,6 +48,45 @@ taruncompress() {
   pv -s "$size" "$archive" | tar -xzf - -C "$dest"
 }
 
+# compress directory into zip using 7z
+zipcompress() {
+  if [[ $# -lt 2 ]]; then
+    echo "usage: zipcompress <directory> <archive.zip>"
+    return 1
+  fi
+  local src="$1"
+  local dest="$2"
+
+  # ensure destination folder for archive exists
+  mkdir -p "$(dirname "$dest")"
+
+  # compress with 7z (zip format)
+  7z a -tzip "$dest" "$src" -mx=9
+}
+
+# uncompress zip file with progress using 7z
+zipuncompress() {
+  if [[ $# -lt 1 ]]; then
+    echo "usage: zipuncompress <archive.zip> [destination]"
+    return 1
+  fi
+  local archive="$1"
+  local dest="${2:-.}"
+
+  # ensure destination exists
+  mkdir -p "$dest"
+
+  # get total archive size
+  local size
+  size=$(du -sb "$archive" | awk '{print $1}')
+
+  # show progress while extracting (based on archive size)
+  pv -s "$size" "$archive" > /dev/null
+
+  # extract with 7z
+  7z x "$archive" -o"$dest" -y
+}
+
 ## networking
 # my public ip
 myip() {

@@ -1,10 +1,12 @@
 shell-integration = zsh
 theme = lackluster
 
+cursor-style = bar
+cursor-style-blink = false
 font-family = Berkeley Mono
-font-size = 18
-macos-option-as-alt = true
-# macos-titlebar-style = hidden
+font-size = 24
 macos-icon = blueprint
+macos-option-as-alt = true
+shell-integration-features = "no-cursor"
 
 keybind = global:unconsumed:ctrl+shift+r=reload_config

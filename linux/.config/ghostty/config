@@ -1,7 +1,10 @@
 shell-integration = zsh
 theme = lackluster
 
+cursor-style = bar
+cursor-style-blink = false
 font-family = Berkeley Mono
 font-size = 14
+shell-integration-features = "no-cursor"
 
 keybind = global:unconsumed:ctrl+shift+r=reload_config

@@ -18,9 +18,6 @@ return {
 					gen_loader.from_file("~/.config/nvim/snippets/tsdoc.json"),
 					gen_loader.from_file("~/.config/nvim/snippets/typescript.json"),
 					gen_loader.from_file("~/.config/nvim/snippets/typescriptreact.json"),
-
-					-- note: investigate why this doesn't work
-					-- gen_loader.from_lang(),
 				},
 			})
 		end,

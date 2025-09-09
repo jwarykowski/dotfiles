@@ -3,23 +3,24 @@ return {
 	dependencies = "echasnovski/mini.snippets",
 	version = "*",
 	opts = {
-		-- https://cmp.saghen.dev/configuration/keymap.html#presets
-		keymap = {
-			preset = "enter",
-			completion = {
-				documentation = {
-					auto_show = true,
-					auto_show_delay_ms = 50,
-				},
-			},
+		appearance = {
+			use_nvim_cmp_as_default = true,
 		},
+		-- https://cmp.saghen.dev/configuration/keymap.html#presets
 		cmdline = {
 			keymap = {
 				preset = "default",
 			},
 		},
-		appearance = {
-			use_nvim_cmp_as_default = true,
+		completion = {
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 500,
+			},
+		},
+		fuzzy = { implementation = "prefer_rust_with_warning" },
+		keymap = {
+			preset = "enter",
 		},
 		snippets = { preset = "mini_snippets" },
 		sources = {

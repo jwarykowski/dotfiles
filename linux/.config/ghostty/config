@@ -4,7 +4,7 @@ theme = lackluster
 cursor-style = bar
 cursor-style-blink = false
 font-family = Berkeley Mono
-font-size = 14
+font-size = 16
 shell-integration-features = "no-cursor"
 
 keybind = global:unconsumed:ctrl+shift+r=reload_config

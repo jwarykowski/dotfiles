@@ -66,8 +66,14 @@ return {
 
 				-- diagnostics
 				kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
-				-- kmap("n", "[d", vim.diagnostic.goto_prev, "prev diagnostic")
-				-- kmap("n", "]d", vim.diagnostic.goto_next, "next diagnostic")
+				kmap("n", "<leader>dn", vim.diagnostic.goto_next, "next diagnostic")
+				kmap("n", "<leader>dp", vim.diagnostic.goto_prev, "previous diagnostic")
+				kmap("n", "<leader>en", function()
+					vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.ERROR } })
+				end, "next error")
+				kmap("n", "<leader>ep", function()
+					vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.ERROR } })
+				end, "previous error")
 			end
 
 			lspconfig.omnisharp.setup({

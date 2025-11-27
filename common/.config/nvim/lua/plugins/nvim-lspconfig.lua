@@ -18,6 +18,7 @@ return {
 				"omnisharp",
 				"pyright",
 				"rust_analyzer",
+				"stylua",
 				"tailwindcss",
 				"ts_ls",
 				"yamlls",

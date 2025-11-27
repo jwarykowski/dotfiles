@@ -20,6 +20,10 @@ export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$HOME/.dotnet:$PATH"
 export PATH="$PATH:/Users/jwarykowski_1/.dotnet/tools"
 
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
 # fzf homebrew
 source <(fzf --zsh)
 

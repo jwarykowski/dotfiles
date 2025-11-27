@@ -6,6 +6,9 @@ return {
 			local gen_loader = require("mini.snippets").gen_loader
 
 			require("mini.snippets").setup({
+				mappings = {
+					stop = "<Esc>",
+				},
 				snippets = {
 					gen_loader.from_file("~/.config/nvim/snippets/css.json"),
 					gen_loader.from_file("~/.config/nvim/snippets/global.json"),

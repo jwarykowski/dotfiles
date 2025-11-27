@@ -33,7 +33,9 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities({
+				textDocument = { completion = { completionItem = { snippetSupport = false } } },
+			})
 
 			local function on_attach(client, bufnr)
 				local kmap = function(mode, keys, func, desc)

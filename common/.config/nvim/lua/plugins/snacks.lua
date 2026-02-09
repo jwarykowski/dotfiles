@@ -1,14 +1,13 @@
 return {
 	"folke/snacks.nvim",
-	---@type snacks.Config
 	priority = 1000,
 	lazy = false,
+	---@type snacks.Config
 	opts = {
 		---@type snacks.picker.Config
 		picker = {
 			enabled = true,
 			layout = {
-				preview = false,
 				preset = "ivy",
 			},
 		},
@@ -20,28 +19,28 @@ return {
 			function()
 				Snacks.picker.buffers()
 			end,
-			desc = "Buffers",
+			desc = "buffers",
 		},
 		{
 			"<leader>/",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({ hidden = true })
 			end,
-			desc = "Grep",
+			desc = "grep",
 		},
 		{
 			"<leader>:",
 			function()
 				Snacks.picker.command_history()
 			end,
-			desc = "Command History",
+			desc = "command history",
 		},
 		{
 			"<leader><space>",
 			function()
 				Snacks.picker.files()
 			end,
-			desc = "Find Files",
+			desc = "find files",
 		},
 		-- find
 		{
@@ -49,28 +48,28 @@ return {
 			function()
 				Snacks.picker.buffers()
 			end,
-			desc = "Buffers",
+			desc = "buffers",
 		},
 		{
 			"<leader>fc",
 			function()
 				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 			end,
-			desc = "Find Config File",
+			desc = "find config file",
 		},
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files()
+				Snacks.picker.git_files({ hidden = true })
 			end,
-			desc = "Find Git Files",
+			desc = "find git files",
 		},
 		{
 			"<leader>fr",
 			function()
 				Snacks.picker.recent()
 			end,
-			desc = "Recent",
+			desc = "recent",
 		},
 		-- git
 		{
@@ -78,14 +77,21 @@ return {
 			function()
 				Snacks.picker.git_log()
 			end,
-			desc = "Git Log",
+			desc = "git commit log",
+		},
+		{
+			"<leader>gfc",
+			function()
+				Snacks.picker.git_log_file()
+			end,
+			desc = "git file commit log",
 		},
 		{
 			"<leader>gs",
 			function()
 				Snacks.picker.git_status()
 			end,
-			desc = "Git Status",
+			desc = "git status",
 		},
 		-- Grep
 		{
@@ -93,28 +99,28 @@ return {
 			function()
 				Snacks.picker.lines()
 			end,
-			desc = "Buffer Lines",
+			desc = "buffer lines",
 		},
 		{
 			"<leader>sB",
 			function()
 				Snacks.picker.grep_buffers()
 			end,
-			desc = "Grep Open Buffers",
+			desc = "grep open buffers",
 		},
 		{
 			"<leader>sg",
 			function()
 				Snacks.picker.grep()
 			end,
-			desc = "Grep",
+			desc = "grep",
 		},
 		{
 			"<leader>sw",
 			function()
 				Snacks.picker.grep_word()
 			end,
-			desc = "Visual selection or word",
+			desc = "visual selection or word",
 			mode = { "n", "x" },
 		},
 		-- search
@@ -123,112 +129,112 @@ return {
 			function()
 				Snacks.picker.registers()
 			end,
-			desc = "Registers",
+			desc = "registers",
 		},
 		{
 			"<leader>sa",
 			function()
 				Snacks.picker.autocmds()
 			end,
-			desc = "Autocmds",
+			desc = "autocmds",
 		},
 		{
 			"<leader>sc",
 			function()
 				Snacks.picker.command_history()
 			end,
-			desc = "Command History",
+			desc = "comamand history",
 		},
 		{
 			"<leader>sC",
 			function()
 				Snacks.picker.commands()
 			end,
-			desc = "Commands",
+			desc = "commands",
 		},
 		{
 			"<leader>sd",
 			function()
 				Snacks.picker.diagnostics()
 			end,
-			desc = "Diagnostics",
+			desc = "diagnostics",
 		},
 		{
 			"<leader>sh",
 			function()
 				Snacks.picker.help()
 			end,
-			desc = "Help Pages",
+			desc = "help pages",
 		},
 		{
 			"<leader>sH",
 			function()
 				Snacks.picker.highlights()
 			end,
-			desc = "Highlights",
+			desc = "highlights",
 		},
 		{
 			"<leader>sj",
 			function()
 				Snacks.picker.jumps()
 			end,
-			desc = "Jumps",
+			desc = "jumps",
 		},
 		{
 			"<leader>sk",
 			function()
 				Snacks.picker.keymaps()
 			end,
-			desc = "Keymaps",
+			desc = "keymaps",
 		},
 		{
 			"<leader>sl",
 			function()
 				Snacks.picker.loclist()
 			end,
-			desc = "Location List",
+			desc = "location list",
 		},
 		{
 			"<leader>sM",
 			function()
 				Snacks.picker.man()
 			end,
-			desc = "Man Pages",
+			desc = "man pages",
 		},
 		{
 			"<leader>sm",
 			function()
 				Snacks.picker.marks()
 			end,
-			desc = "Marks",
+			desc = "marks",
 		},
 		{
 			"<leader>sR",
 			function()
 				Snacks.picker.resume()
 			end,
-			desc = "Resume",
+			desc = "resume",
 		},
 		{
 			"<leader>sq",
 			function()
 				Snacks.picker.qflist()
 			end,
-			desc = "Quickfix List",
+			desc = "quickfix list",
 		},
 		{
 			"<leader>uC",
 			function()
 				Snacks.picker.colorschemes()
 			end,
-			desc = "Colorschemes",
+			desc = "colour schemes",
 		},
 		{
 			"<leader>qp",
 			function()
 				Snacks.picker.projects()
 			end,
-			desc = "Projects",
+			desc = "projects",
 		},
 		-- LSP
 		{
@@ -236,7 +242,7 @@ return {
 			function()
 				Snacks.picker.lsp_definitions()
 			end,
-			desc = "Goto Definition",
+			desc = "goto definition",
 		},
 		{
 			"gr",
@@ -244,35 +250,35 @@ return {
 				Snacks.picker.lsp_references()
 			end,
 			nowait = true,
-			desc = "References",
+			desc = "references",
 		},
 		{
 			"gI",
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
-			desc = "Goto Implementation",
+			desc = "goto implementation",
 		},
 		{
 			"gy",
 			function()
 				Snacks.picker.lsp_type_definitions()
 			end,
-			desc = "Goto T[y]pe Definition",
+			desc = "goto t[y]pe Definition",
 		},
 		{
 			"<leader>ss",
 			function()
 				Snacks.picker.lsp_symbols()
 			end,
-			desc = "LSP Symbols",
+			desc = "lsp symbols",
 		},
 		{
 			"<leader>sp",
 			function()
 				Snacks.picker.pickers()
 			end,
-			desc = "Snack Pickers",
+			desc = "snack pickers",
 		},
 	},
 }

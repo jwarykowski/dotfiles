@@ -11,6 +11,7 @@ return {
 		lazy = false,
 		opts = {
 			ensure_installed = {
+				"bashls",
 				"cssls",
 				"html",
 				"jsonls",

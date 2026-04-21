@@ -20,24 +20,22 @@ return {
 				agent = { adapter = "gemini_cli" },
 			},
 			adapters = {
-				acp = {
-					gemini_cli = function()
-						return require("codecompanion.adapters").extend("gemini_cli", {
-							defaults = {
-								auth_method = "gemini-api-key",
-								model = "gemini-2.5-flash",
-							},
-							env = {
-								GEMINI_API_KEY = "cmd: gpg --batch --quiet --decrypt ~/.config/ai/tokens/gemini-token.gpg",
-							},
-						})
-					end,
-				},
+				gemini_cli = function()
+					return require("codecompanion.adapters").extend("gemini_cli", {
+						defaults = {
+							auth_method = "gemini-api-key",
+							model = "gemini-2.5-flash",
+						},
+						env = {
+							GEMINI_API_KEY = "cmd: gpg --batch --quiet --decrypt ~/.config/ai/tokens/gemini-token.gpg",
+						},
+					})
+				end,
 				copilot = function()
 					return require("codecompanion.adapters").extend("copilot", {
 						schema = {
 							model = {
-								default = "claude-3.5-sonnet",
+								default = "claude-sonnet-4-5",
 							},
 						},
 					})

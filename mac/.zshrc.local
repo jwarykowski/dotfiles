@@ -9,6 +9,12 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# bob
+. "/Users/jwarykowski_old/.local/share/bob/env/env.sh"
+
+# cmake
+export CMAKE_GENERATOR="Ninja"
+
 # deno
 export PATH="$HOME/.deno/bin:$PATH"
 
@@ -32,6 +38,9 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 
 # java - react native
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+
+#  llvm
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # ruby
 eval "$(rbenv init - zsh)"

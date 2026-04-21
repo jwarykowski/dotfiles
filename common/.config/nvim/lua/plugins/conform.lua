@@ -5,6 +5,8 @@ return {
 		require("conform").setup({
 			formatters_by_ft = {
 				css = { "prettierd", "prettier", stop_after_first = true },
+				cpp = { "clang_format" },
+				c = { "clang_format" },
 				html = { "prettierd", "prettier", stop_after_first = true },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 				json = { "jq" },

@@ -143,7 +143,7 @@ return {
 			function()
 				Snacks.picker.command_history()
 			end,
-			desc = "comamand history",
+			desc = "command history",
 		},
 		{
 			"<leader>sC",

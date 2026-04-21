@@ -44,10 +44,7 @@ return {
 						vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. (desc or "") })
 					end
 
-					kmap("n", "gd", vim.lsp.buf.definition, "go to definition")
-					kmap("n", "grr", vim.lsp.buf.references, "references")
 					kmap("n", "gD", vim.lsp.buf.declaration, "go to declaration")
-					kmap("n", "gri", vim.lsp.buf.implementation, "go to implementation")
 					kmap("n", "K", vim.lsp.buf.hover, "hover documentation")
 					kmap("n", "<leader>k", vim.lsp.buf.signature_help, "signature help")
 					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
@@ -120,12 +117,5 @@ return {
 				vim.lsp.enable(server_name)
 			end
 		end,
-		opts = {
-			diagnostics = {
-				float = { border = "rounded" },
-				severity_sort = true,
-				update_in_insert = false,
-			},
-		},
 	},
 }

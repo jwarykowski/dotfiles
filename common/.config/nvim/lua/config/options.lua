@@ -1,6 +1,6 @@
 -- global settings
 vim.g.mapleader = ";"
-vim.g.background = "dark"
+vim.o.background = "dark"
 
 local opt = vim.opt
 

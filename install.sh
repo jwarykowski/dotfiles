@@ -27,16 +27,19 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
+# ensure directories referenced in .zshenv exist
+mkdir -p "$HOME/.cache/tmp"
+
 # always stow "common" if it exists
 if [ -d "common" ]; then
     echo "stowing common configs..."
-    stow -v common
+    stow -v --adopt common
 fi
 
 # stow platform-specific configs
 if [ -d "$platform" ]; then
     echo "stowing $platform configs..."
-    stow -v "$platform"
+    stow -v --adopt "$platform"
 fi
 
 echo "thy dotfiles be stowed for $platform"

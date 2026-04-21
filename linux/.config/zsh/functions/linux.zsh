@@ -76,13 +76,6 @@ zipuncompress() {
   # ensure destination exists
   mkdir -p "$dest"
 
-  # get total archive size
-  local size
-  size=$(du -sb "$archive" | awk '{print $1}')
-
-  # show progress while extracting (based on archive size)
-  pv -s "$size" "$archive" > /dev/null
-
   # extract with 7z
   7z x "$archive" -o"$dest" -y
 }

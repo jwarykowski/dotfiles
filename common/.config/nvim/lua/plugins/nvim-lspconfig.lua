@@ -108,6 +108,7 @@ return {
 					return vim.fs.root(bufnr, { "*.sln", "*.csproj", ".git" })
 				end,
 			})
+			vim.lsp.enable("omnisharp_mono")
 
 			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
 				-- if we haven't defined a custom config above, use the default

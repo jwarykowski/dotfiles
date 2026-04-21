@@ -1,10 +1,10 @@
-# recursively source all files with a given extension
-source_recursive() {
+# source all files with a given extension in a directory
+source_dir() {
   local dir="$1"
   local ext="$2"
 
   if [[ -z "$dir" || -z "$ext" ]]; then
-    echo "usage: source_recursive <directory> <extension>"
+    echo "usage: source_dir <directory> <extension>"
     return 1
   fi
 

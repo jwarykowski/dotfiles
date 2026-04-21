@@ -25,8 +25,8 @@ znap clone https://github.com/agkozak/zsh-z.git
 znap source zsh-z
 
 # common aliases/utilities
-source_recursive "$HOME/.config/zsh/aliases" "zsh"
-source_recursive "$HOME/.config/zsh/functions" "zsh"
+source_dir "$HOME/.config/zsh/aliases" "zsh"
+source_dir "$HOME/.config/zsh/functions" "zsh"
 
 # local additions/overrides
 if [[ -f "$HOME/.zshrc.local" ]]; then

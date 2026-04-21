@@ -16,7 +16,7 @@ return {
 				"html",
 				"jsonls",
 				"lua_ls",
-				"omnisharp",
+				"omnisharp_mono",
 				"pyright",
 				"rust_analyzer",
 				"stylua",
@@ -56,27 +56,54 @@ return {
 					kmap("n", "gra", vim.lsp.buf.code_action, "code action")
 					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
-					kmap("n", "<leader>dn", vim.diagnostic.goto_next, "next diagnostic")
-					kmap("n", "<leader>dp", vim.diagnostic.goto_prev, "previous diagnostic")
+					-- standard diagnostics
+					kmap("n", "<leader>dn", function()
+						vim.diagnostic.jump({ count = 1, float = true })
+					end, "next diagnostic")
+
+					kmap("n", "<leader>dp", function()
+						vim.diagnostic.jump({ count = -1, float = true })
+					end, "previous diagnostic")
+					-- error-specific jumping
 					kmap("n", "<leader>en", function()
-						vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.ERROR } })
+						vim.diagnostic.jump({
+							count = 1,
+							severity = vim.diagnostic.severity.ERROR,
+							float = true,
+						})
 					end, "next error")
 					kmap("n", "<leader>ep", function()
-						vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.ERROR } })
+						vim.diagnostic.jump({
+							count = -1,
+							severity = vim.diagnostic.severity.ERROR,
+							float = true,
+						})
 					end, "previous error")
 				end,
 			})
 
-			vim.lsp.config("omnisharp", {
-				cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/omnisharp/omnisharp") },
+			-- sourcekit setup
+			vim.lsp.config("sourcekit", {
+				capabilities = capabilities,
+				root_dir = function(bufnr)
+					return vim.fs.root(bufnr, {
+						"Package.swift",
+						".git",
+						"*.xcodeproj",
+						"*.xcworkspace",
+					})
+				end,
+			})
+			vim.lsp.enable("sourcekit")
+
+			-- omnisharp_mono setup
+			vim.lsp.config("omnisharp_mono", {
 				capabilities = capabilities,
 				settings = {
-					enable_roslyn_analyzers = true,
 					enable_editorconfig_support = true,
 					enable_import_completion = true,
+					enable_roslyn_analyzers = true,
 					organize_imports_on_format = true,
-					sdk_include_prereleases = true,
-					analyze_open_documents_only = false,
 				},
 				root_dir = function(bufnr)
 					return vim.fs.root(bufnr, { "*.sln", "*.csproj", ".git" })
@@ -84,7 +111,8 @@ return {
 			})
 
 			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-				if server_name ~= "omnisharp" then
+				-- if we haven't defined a custom config above, use the default
+				if not vim.lsp.type_to_host or not vim.lsp.type_to_host[server_name] then
 					vim.lsp.config(server_name, {
 						capabilities = capabilities,
 					})

@@ -52,6 +52,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export MYVIMRC="$HOME/.config/nvim/init.lua"
 
 # prompt
-fpath+=$HOME/.zsh/pure
 autoload -U promptinit; promptinit
 prompt pure

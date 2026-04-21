@@ -20,7 +20,7 @@ alias gbm='git branch -m'
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gcd='git checkout develop'
-alias gcm='git checkout main'
+alias gcom='git checkout main'
 alias gcs='git checkout staging'
 alias gct='git checkout trunk'
 

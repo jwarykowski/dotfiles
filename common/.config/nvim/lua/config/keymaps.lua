@@ -9,9 +9,8 @@ map("n", "<leader><tab>", "<cmd>e #<cr>", { desc = "buffer: switch to last" })
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "clear search highlights" })
 
 -- clipboard
-local clip_opts = { silent = true, desc = "clipboard: yank" }
-map({ "n", "v", "x" }, "<leader>y", '"+y', clip_opts)
-map({ "n", "v", "x" }, "<leader>y", '"+yy', { silent = true, desc = "clipboard: yank line" })
+map({ "n", "v", "x" }, "<leader>y", '"+y', { silent = true, desc = "clipboard: yank" })
+map("n", "<leader>Y", '"+yy', { silent = true, desc = "clipboard: yank line" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { silent = true, desc = "clipboard: paste" })
 map("n", "<leader>^", '<cmd>let @+ = expand("%:p")<cr>', { silent = true, desc = "clipboard: copy full path" })
 

@@ -12,6 +12,7 @@ return {
 		opts = {
 			ensure_installed = {
 				"bashls",
+				"clangd",
 				"cssls",
 				"html",
 				"jsonls",
@@ -77,6 +78,19 @@ return {
 					end, "previous error")
 				end,
 			})
+
+			-- clangd setup
+			vim.lsp.config("clangd", {
+				capabilities = capabilities,
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--header-insertion=never",
+					"--query-driver=/usr/bin/clang++,/usr/bin/g++,/opt/homebrew/bin/*",
+				},
+			})
+			vim.lsp.enable("clangd")
 
 			-- sourcekit setup
 			vim.lsp.config("sourcekit", {

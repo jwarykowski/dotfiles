@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "=== disk usage ==="
+df -h --output=source,size,used,avail,pcent,target | bat --language=log
+
+echo ""
+echo "=== largest dirs in ~ ==="
+du -sh "$HOME"/.*/ "$HOME"/*/ 2>/dev/null | sort -rh | head -20 | bat --language=log

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() { echo "==> $*"; }
+
+log "dnf autoremove..."
+sudo dnf autoremove -y
+
+log "dnf clean packages..."
+sudo dnf clean packages
+
+log "journal vacuum (keep 2 weeks)..."
+sudo journalctl --vacuum-time=2weeks
+
+if command -v cargo-cache >/dev/null 2>&1; then
+  log "cargo cache..."
+  cargo cache --autoclean
+fi
+
+log "npm cache..."
+npm cache clean --force 2>/dev/null || true
+
+log "disk usage after:"
+df -h /

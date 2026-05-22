@@ -1,0 +1,59 @@
+[manager]
+keymap = [
+  { on = ["<Esc>"], run = "escape", desc = "exit visual/select mode, clear filter" },
+  { on = ["q"], run = "quit", desc = "quit" },
+  { on = ["Q"], run = "quit --no-cwd-file", desc = "quit without writing cwd" },
+
+  # navigation
+  { on = ["k"], run = "arrow -1", desc = "move up" },
+  { on = ["j"], run = "arrow 1", desc = "move down" },
+  { on = ["K"], run = "arrow -5", desc = "move up 5" },
+  { on = ["J"], run = "arrow 5", desc = "move down 5" },
+  { on = ["g", "g"], run = "arrow -99999999", desc = "move to top" },
+  { on = ["G"], run = "arrow 99999999", desc = "move to bottom" },
+  { on = ["h"], run = "leave", desc = "go to parent" },
+  { on = ["l"], run = "enter", desc = "enter dir / open file" },
+  { on = ["<Enter>"], run = "open", desc = "open selected" },
+  { on = ["<Space>"], run = "select --state=none", desc = "toggle selection" },
+
+  # operations
+  { on = ["y"], run = "yank", desc = "yank (copy)" },
+  { on = ["x"], run = "yank --cut", desc = "yank (cut)" },
+  { on = ["p"], run = "paste", desc = "paste" },
+  { on = ["P"], run = "paste --force", desc = "paste (overwrite)" },
+  { on = ["d"], run = "remove --permanently", desc = "delete" },
+  { on = ["r"], run = "rename --cursor=before_ext", desc = "rename" },
+  { on = ["a"], run = "create", desc = "create file/dir" },
+
+  # filter / search
+  { on = ["/"], run = "filter --smart", desc = "filter" },
+  { on = ["f"], run = "search --via=fd", desc = "search via fd" },
+  { on = ["F"], run = "search --via=rg", desc = "search contents via rg" },
+
+  # tabs
+  { on = ["t"], run = "tab_create --current", desc = "new tab" },
+  { on = ["["], run = "tab_switch -1 --relative", desc = "prev tab" },
+  { on = ["]"], run = "tab_switch 1 --relative", desc = "next tab" },
+
+  # misc
+  { on = ["<C-r>"], run = "refresh", desc = "refresh" },
+  { on = ["."], run = "hidden toggle", desc = "toggle hidden files" },
+  { on = ["~"], run = "cd ~", desc = "go home" },
+]
+
+[input]
+keymap = [
+  { on = ["<Esc>"], run = "close", desc = "cancel" },
+  { on = ["<Enter>"], run = "submit", desc = "confirm" },
+  { on = ["<C-c>"], run = "close", desc = "cancel" },
+  { on = ["<C-a>"], run = "move -999", desc = "move to start" },
+  { on = ["<C-e>"], run = "move 999", desc = "move to end" },
+]
+
+[completion]
+keymap = [
+  { on = ["<Esc>"], run = "close", desc = "cancel" },
+  { on = ["<Tab>"], run = "arrow 1", desc = "next" },
+  { on = ["<S-Tab>"], run = "arrow -1", desc = "prev" },
+  { on = ["<Enter>"], run = "close --submit", desc = "confirm" },
+]

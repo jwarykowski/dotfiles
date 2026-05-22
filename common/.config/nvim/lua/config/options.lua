@@ -17,6 +17,7 @@ opt.softtabstop = 2 -- number of spaces tabs count for
 opt.tabstop = 2 -- number of spaces tabs count for
 
 -- ui / behavior
+opt.number = true -- absolute line number on current line
 opt.relativenumber = true -- relative line numbers
 opt.showmode = false -- don't show mode (already in statusline)
 opt.splitright = true -- vertical splits to the right
@@ -25,6 +26,12 @@ opt.ignorecase = true -- ignore case in search patterns
 opt.smartcase = true -- smart case searching
 opt.inccommand = "split" -- preview incremental substitute in a split
 opt.winborder = "rounded" -- set borders for windows
+opt.shortmess:append("I") -- suppress intro message
+opt.cursorline = true -- highlight current line
+opt.signcolumn = "yes" -- fixed sign column, prevents layout shift
+opt.updatetime = 300 -- faster hover/gitsigns/cursorhold
+opt.scrolloff = 8 -- scroll context lines
+opt.conceallevel = 2 -- required for render-markdown
 
 -- folding (treesitter native)
 opt.foldcolumn = "0"
@@ -48,14 +55,3 @@ vim.diagnostic.config({
 	virtual_text = { spacing = 4, prefix = "●", source = "if_many" },
 })
 
--- disable heavy features for large files
-vim.api.nvim_create_autocmd("BufReadPre", {
-	callback = function(ev)
-		local ok, stats = pcall(vim.uv.fs_stat, ev.match)
-		if ok and stats and stats.size > 1024 * 500 then -- 500 kb limit
-			vim.b.slow_file = true
-			vim.opt_local.foldmethod = "manual"
-			vim.opt_local.spell = false
-		end
-	end,
-})

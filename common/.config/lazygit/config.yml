@@ -1,4 +1,5 @@
 notARepository: quit
+promptToReturnFromSubprocess: false
 
 gui:
   border: 'single'
@@ -8,6 +9,27 @@ gui:
   showBranchCommitHash: true
   showFileTree: false
   showRandomTip: false
+  showDivergenceFromBaseBranch: arrowAndNumber
+  filterMode: fuzzy
+  commitLength:
+    show: true
+  sidePanelWidth: 0.3
+  expandFocusedSidePanel: true
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --pager "less -R"
+  autoFetch: true
+  autoRefresh: true
+  fetchAll: true
+  mainBranches: [master, main]
+  overrideGpg: true
+  log:
+    showGraph: always
+
+os:
+  editPreset: nvim
 
 customCommands:
   - key: <c-p>
@@ -15,3 +37,64 @@ customCommands:
     context: localBranches
     command: git remote prune origin
     loadingText: pruning...
+
+  - key: F
+    description: "Fetch all remotes"
+    context: global
+    command: git fetch --all --prune
+    loadingText: fetching...
+
+  - key: W
+    description: "Push force-with-lease"
+    context: files
+    command: git push --force-with-lease
+    loadingText: pushing...
+
+  - key: <c-r>
+    description: "Rebase onto branch"
+    context: localBranches
+    command: git rebase {{.SelectedLocalBranch.Name}}
+    loadingText: rebasing...
+
+  - key: C
+    description: "Conventional commit"
+    context: files
+    prompts:
+      - type: menu
+        title: "Commit type"
+        key: Type
+        options:
+          - name: feat
+            description: "new feature"
+            value: feat
+          - name: fix
+            description: "bug fix"
+            value: fix
+          - name: chore
+            description: "chores / maintenance"
+            value: chore
+          - name: refactor
+            description: "refactoring"
+            value: refactor
+          - name: docs
+            description: "documentation"
+            value: docs
+          - name: test
+            description: "tests"
+            value: test
+          - name: style
+            description: "formatting / style"
+            value: style
+          - name: perf
+            description: "performance"
+            value: perf
+      - type: input
+        title: "Scope (optional)"
+        key: Scope
+        initialValue: ""
+      - type: input
+        title: "Message"
+        key: Message
+    command: >-
+      git commit -m "{{.Form.Type}}{{if .Form.Scope}}({{.Form.Scope}}){{end}}: {{.Form.Message}}"
+    loadingText: committing...

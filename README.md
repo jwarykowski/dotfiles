@@ -8,26 +8,106 @@
 
 ## overview
 
-- **Machines**: [Intel Nuc Hades Canyon](https://www.scorptec.com.au/product/Branded-Systems/NUC-&-Mini-PC/71990-BOXNUC8I7HVK4) / [Macbook Pro](https://www.apple.com/au/macbook-pro/)
-- **WM**: [i3](https://github.com/i3/i3) / [yabai](https://github.com/koekeishiya/yabai)
-- **OS**: [fedora](https://getfedora.org/) / [mac os x sonoma](https://www.apple.com/au/macos/sonoma/)
+| | Linux | Mac |
+|---|---|---|
+| **Machine** | [Intel NUC Hades Canyon](https://www.scorptec.com.au/product/Branded-Systems/NUC-&-Mini-PC/71990-BOXNUC8I7HVK4) | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
+| **OS** | [Fedora](https://getfedora.org/) | macOS |
+| **WM** | [Hyprland](https://hyprland.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
+
 - **Dotfile Manager**: [GNU Stow](https://www.gnu.org/software/stow/)
-- **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh)
-- **Shell Framework**: [znap](https://github.com/marlonrichert/zsh-snap)
-- **Terminal**: [ghostty](https://ghostty.org/)
-- **Editor**: [neovim](https://github.com/neovim/neovim/) / [lazy-vim](https://www.lazyvim.org/)
-- **Font**: [berkeley mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
+- **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
+- **Terminal**: [Ghostty](https://ghostty.org/)
+- **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
+- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm)
+- **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
+- **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
+
+## structure
+
+```
+dotfiles/
+├── common/                  # configs for all platforms
+│   ├── .config/
+│   │   ├── nvim/            # neovim
+│   │   ├── zsh/             # aliases, functions, utils
+│   │   ├── lazygit/         # lazygit
+│   │   ├── yazi/            # yazi file manager
+│   │   ├── btop/            # btop system monitor
+│   │   ├── bat/             # bat
+│   │   ├── ripgrep/         # ripgrep
+│   │   └── ai/              # ai prompts + tokens
+│   ├── .ssh/
+│   │   └── config.template  # ssh config template
+│   ├── .gitconfig
+│   ├── .gitignore
+│   ├── .tmux.conf
+│   ├── .editorconfig
+│   ├── .npmrc
+│   ├── .zshrc
+│   └── .zshenv
+├── linux/                   # fedora-specific configs
+│   ├── .config/
+│   │   ├── ghostty/         # ghostty terminal
+│   │   └── hypr/            # hyprland wm
+│   └── .local/bin/          # linux scripts (auto on PATH)
+│       ├── update           # update all packages + tools
+│       ├── cleanup          # free disk space
+│       ├── journalctl-report
+│       ├── system-ports
+│       ├── systemctl-browser
+│       ├── systemctl-failed
+│       └── systemctl-logs
+├── mac/                     # macos-specific configs
+│   ├── .config/
+│   │   └── ghostty/         # ghostty terminal
+│   ├── .gnupg/              # gpg agent config
+│   └── .local/bin/          # mac scripts (auto on PATH)
+│       ├── update           # update all packages + tools
+│       └── cleanup          # free disk space
+├── scripts/
+│   ├── install-packages-fedora.sh
+│   ├── install-packages-mac.sh
+│   └── macos-defaults.sh
+└── install.sh
+```
 
 ## getting started
 
-Clone the repo into your home directory:
+Clone into your home directory:
 
 ```sh
 git clone git@github.com:jwarykowski/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ```
 
-Optionally run the `install.sh` script to boot:
+### fresh machine
+
+Install packages then stow dotfiles:
 
 ```sh
-cd ~/dotfiles && ./install.sh
+./install.sh --packages
 ```
+
+### existing machine
+
+Adopt current configs into the repo, then stow:
+
+```sh
+./install.sh --adopt
+```
+
+### subsequent runs
+
+Re-apply dotfiles (safe, idempotent):
+
+```sh
+./install.sh
+```
+
+## post-install
+
+- **tmux plugins**: open tmux and press `prefix + I` to install plugins via tpm
+- **neovim plugins**: open nvim — lazy.nvim installs automatically on first launch, mason installs LSPs
+- **zsh plugins**: znap clones and caches plugins automatically on first shell start
+- **zsh default shell**: `chsh -s $(which zsh)`
+- **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts

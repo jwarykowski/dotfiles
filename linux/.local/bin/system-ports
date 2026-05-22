@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ss -tlnp | fzf --ansi --header-lines=1 --prompt="port> "

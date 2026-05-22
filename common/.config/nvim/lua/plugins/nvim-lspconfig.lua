@@ -34,9 +34,7 @@ return {
 		lazy = false,
 		config = function()
 			local mason_lspconfig = require("mason-lspconfig")
-			local capabilities = require("blink.cmp").get_lsp_capabilities({
-				textDocument = { completion = { completionItem = { snippetSupport = false } } },
-			})
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
@@ -46,11 +44,8 @@ return {
 					end
 
 					kmap("n", "gD", vim.lsp.buf.declaration, "go to declaration")
-					kmap("n", "K", vim.lsp.buf.hover, "hover documentation")
 					kmap("n", "<leader>k", vim.lsp.buf.signature_help, "signature help")
 					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
-					kmap("n", "grn", vim.lsp.buf.rename, "rename")
-					kmap("n", "gra", vim.lsp.buf.code_action, "code action")
 					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
 					-- standard diagnostics
@@ -121,12 +116,10 @@ return {
 			})
 			vim.lsp.enable("omnisharp_mono")
 
+			local custom_servers = { clangd = true, sourcekit = true, omnisharp_mono = true }
 			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-				-- if we haven't defined a custom config above, use the default
-				if not vim.lsp.type_to_host or not vim.lsp.type_to_host[server_name] then
-					vim.lsp.config(server_name, {
-						capabilities = capabilities,
-					})
+				if not custom_servers[server_name] then
+					vim.lsp.config(server_name, { capabilities = capabilities })
 				end
 				vim.lsp.enable(server_name)
 			end

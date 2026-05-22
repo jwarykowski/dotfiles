@@ -19,10 +19,17 @@ alias gbm='git branch -m'
 # checkout
 alias gco='git checkout'
 alias gcb='git checkout -b'
-alias gcd='git checkout develop'
 alias gcom='git checkout main'
 alias gcs='git checkout staging'
 alias gct='git checkout trunk'
+
+# switch (modern)
+alias gsw='git switch'
+alias gswc='git switch -c'
+
+# restore (modern)
+alias gres='git restore'
+alias gress='git restore --staged'
 
 # commit
 alias gc='git commit -v'
@@ -47,7 +54,7 @@ alias glol="git log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Cres
 alias glola="git log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 
 # stash
-alias gsta='git stash save'
+alias gsta='git stash push'
 alias gstaa='git stash apply'
 alias gstc='git stash clear'
 alias gstd='git stash drop'
@@ -102,6 +109,7 @@ alias grhk='git reset --keep'
 
 # clean
 alias gclean='git clean -fd'
+alias gcleann='git clean -nfd'
 alias gpristine='git reset --hard && git clean -dfx'
 
 # cherry-pick
@@ -126,11 +134,6 @@ alias gnote='git notes'
 alias gnotesh='git notes show'
 
 # helpers
-
-# rename a branch
-gbrename() {
-  git branch -m "$1" "$2"
-}
 
 # show commit count per author
 gcount() {

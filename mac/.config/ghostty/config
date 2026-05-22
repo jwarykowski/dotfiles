@@ -9,4 +9,8 @@ macos-icon = blueprint
 macos-option-as-alt = true
 shell-integration-features = "no-cursor"
 
+copy-on-select = true
+window-padding-x = 8
+window-padding-y = 8
+
 keybind = global:unconsumed:ctrl+shift+r=reload_config

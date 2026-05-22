@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() { echo "==> $*"; }
+
+log "brew upgrade..."
+brew upgrade
+
+log "brew cask upgrade..."
+brew upgrade --cask --greedy
+
+log "nvim plugins..."
+nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
+
+log "tmux plugins..."
+~/.tmux/plugins/tpm/bin/update_plugins all 2>/dev/null || true
+
+if command -v cargo-install-update >/dev/null 2>&1; then
+  log "cargo packages..."
+  cargo install-update -a
+fi
+
+log "npm globals..."
+npm update -g 2>/dev/null || true
+
+log "done"

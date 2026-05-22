@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() { echo "==> $*"; }
+
+log "brew cleanup..."
+brew cleanup --prune=7
+
+log "brew autoremove..."
+brew autoremove
+
+if command -v cargo-cache >/dev/null 2>&1; then
+  log "cargo cache..."
+  cargo cache --autoclean
+fi
+
+log "npm cache..."
+npm cache clean --force 2>/dev/null || true
+
+log "xcode derived data..."
+rm -rf ~/Library/Developer/Xcode/DerivedData/* 2>/dev/null || true
+
+log "disk usage after:"
+df -h /

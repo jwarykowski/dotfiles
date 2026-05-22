@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+systemctl --failed --no-pager | bat --language=log

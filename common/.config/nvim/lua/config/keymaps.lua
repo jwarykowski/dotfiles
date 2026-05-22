@@ -10,9 +10,9 @@ map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "clear search highlight
 
 -- clipboard
 map({ "n", "v", "x" }, "<leader>y", '"+y', { silent = true, desc = "clipboard: yank" })
-map("n", "<leader>Y", '"+yy', { silent = true, desc = "clipboard: yank line" })
+map("n", "<leader>Y", '"+y$', { silent = true, desc = "clipboard: yank to end of line" })
 map({ "n", "v", "x" }, "<leader>p", '"+p', { silent = true, desc = "clipboard: paste" })
-map("n", "<leader>^", '<cmd>let @+ = expand("%:p")<cr>', { silent = true, desc = "clipboard: copy full path" })
+map("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<cr>', { silent = true, desc = "clipboard: copy path" })
 
 -- indenting
 map("v", "<", "<gv")
@@ -27,6 +27,13 @@ map("n", "<c-l>", "<c-w>l", { desc = "go to right window", remap = true })
 -- splits
 map("n", "ss", "<cmd>split<cr>", { desc = "split horizontal" })
 map("n", "sv", "<cmd>vsplit<cr>", { desc = "split vertical" })
+
+-- scrolling
+map("n", "<C-d>", "<C-d>zz", { desc = "scroll down centered" })
+map("n", "<C-u>", "<C-u>zz", { desc = "scroll up centered" })
+
+-- saving
+map("n", "<leader>w", "<cmd>w<cr>", { desc = "save file" })
 
 -- quiting
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "quit all" })

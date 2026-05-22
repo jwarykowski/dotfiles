@@ -11,8 +11,13 @@ return {
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 				json = { "jq" },
 				lua = { "stylua" },
+				markdown = { "prettierd", "prettier", stop_after_first = true },
+				python = { "ruff_format" },
+				sh = { "shfmt" },
+				bash = { "shfmt" },
 				typescript = { "prettierd", "prettier", stop_after_first = true },
 				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+				yaml = { "prettierd", "prettier", stop_after_first = true },
 			},
 			format_on_save = function(bufnr)
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then

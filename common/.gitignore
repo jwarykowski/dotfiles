@@ -13,6 +13,9 @@
 .Trash-*
 .nfs*
 
+# ---- zsh compiled ----
+*.zwc
+
 # ---- editor / ide ----
 # vim / neovim
 *.swp

@@ -13,9 +13,7 @@ source_dir() {
     return 1
   fi
 
-  for file in "$dir"/*."$ext"; do
-    if [[ -r "$file" ]]; then
-      source "$file"
-    fi
+  for file in "$dir"/*."$ext"(N); do
+    source "$file"
   done
 }

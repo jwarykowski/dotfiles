@@ -12,6 +12,15 @@ return {
 			},
 		},
 		notifier = { enabled = true, style = "minimal" },
+		lazygit = { enabled = true },
+		gitbrowse = { enabled = true },
+		gh = { enabled = true },
+		words = { enabled = true },
+		bufdelete = { enabled = true },
+		input = { enabled = true },
+		rename = { enabled = true },
+		scroll = { enabled = true },
+		toggle = { enabled = true },
 	},
 	keys = {
 		{
@@ -44,13 +53,6 @@ return {
 		},
 		-- find
 		{
-			"<leader>fb",
-			function()
-				Snacks.picker.buffers()
-			end,
-			desc = "buffers",
-		},
-		{
 			"<leader>fc",
 			function()
 				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
@@ -70,6 +72,81 @@ return {
 				Snacks.picker.recent()
 			end,
 			desc = "recent",
+		},
+		-- toggles
+		{
+			"<leader>ud",
+			function()
+				Snacks.toggle.diagnostics()
+			end,
+			desc = "toggle diagnostics",
+		},
+		{
+			"<leader>us",
+			function()
+				Snacks.toggle.option("spell")
+			end,
+			desc = "toggle spell",
+		},
+		{
+			"<leader>uw",
+			function()
+				Snacks.toggle.option("wrap")
+			end,
+			desc = "toggle wrap",
+		},
+		{
+			"<leader>uh",
+			function()
+				Snacks.toggle.inlay_hints()
+			end,
+			desc = "toggle inlay hints",
+		},
+		-- buffers
+		{
+			"<leader>Q",
+			function()
+				Snacks.bufdelete()
+			end,
+			desc = "delete buffer",
+		},
+		-- github
+		{
+			"<leader>ghi",
+			function()
+				Snacks.picker.gh_issue()
+			end,
+			desc = "gh issues",
+		},
+		{
+			"<leader>ghp",
+			function()
+				Snacks.picker.gh_pr()
+			end,
+			desc = "gh pull requests",
+		},
+		{
+			"<leader>ghd",
+			function()
+				Snacks.picker.gh_diff()
+			end,
+			desc = "gh pr diff",
+		},
+		{
+			"<leader>gB",
+			function()
+				Snacks.gitbrowse()
+			end,
+			desc = "open in browser",
+			mode = { "n", "v" },
+		},
+		-- lazygit
+		{
+			"<leader>lg",
+			function()
+				Snacks.lazygit()
+			end,
+			desc = "lazygit",
 		},
 		-- git
 		{
@@ -111,7 +188,7 @@ return {
 		{
 			"<leader>sg",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({ hidden = true })
 			end,
 			desc = "grep",
 		},
@@ -137,13 +214,6 @@ return {
 				Snacks.picker.autocmds()
 			end,
 			desc = "autocmds",
-		},
-		{
-			"<leader>sc",
-			function()
-				Snacks.picker.command_history()
-			end,
-			desc = "command history",
 		},
 		{
 			"<leader>sC",

@@ -10,7 +10,7 @@ return {
 		{ "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", mode = { "n", "v" }, desc = "AI Chat Toggle" },
 		{ "<leader>aa", "<cmd>CodeCompanionActions<cr>", mode = { "n", "v" }, desc = "AI Actions" },
 		{ "<leader>ae", "<cmd>CodeCompanion /explain<cr>", mode = "v", desc = "AI Explain Code" },
-		{ "<leader>ai", "mz:CodeCompanion ", mode = "n", desc = "AI Inline Prompt" },
+		{ "<leader>ai", ":CodeCompanion ", mode = "n", desc = "AI Inline Prompt" },
 	},
 	config = function()
 		require("codecompanion").setup({
@@ -35,7 +35,7 @@ return {
 					return require("codecompanion.adapters").extend("copilot", {
 						schema = {
 							model = {
-								default = "claude-sonnet-4-5",
+								default = "claude-sonnet-4-6",
 							},
 						},
 					})

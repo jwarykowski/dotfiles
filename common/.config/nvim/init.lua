@@ -1,6 +1,4 @@
-if vim.loader then
-	vim.loader.enable()
-end
+vim.loader.enable()
 
 vim.opt.shada = {
 	"!",
@@ -30,3 +28,4 @@ require("lazy").setup("plugins", {
 })
 
 require("config.keymaps")
+require("config.autocmds")

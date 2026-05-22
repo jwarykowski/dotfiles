@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+service=$(systemctl list-units --all --type=service --no-pager --no-legend \
+  | fzf --ansi --prompt="service> " \
+  | awk '{print $1}')
+
+[[ -z "$service" ]] && exit 0
+
+action=$(printf "status\nrestart\nstart\nstop\nlogs\nenable\ndisable" \
+  | fzf --prompt="$service > ")
+
+[[ -z "$action" ]] && exit 0
+
+case "$action" in
+  status)  systemctl status "$service" | bat --language=log ;;
+  restart) sudo systemctl restart "$service" ;;
+  start)   sudo systemctl start "$service" ;;
+  stop)    sudo systemctl stop "$service" ;;
+  logs)    journalctl -u "$service" --since "24 hours ago" --no-pager | bat --language=log ;;
+  enable)  sudo systemctl enable "$service" ;;
+  disable) sudo systemctl disable "$service" ;;
+esac

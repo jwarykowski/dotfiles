@@ -2,15 +2,12 @@
 [ -s "/Users/jwarykowski/.bun/_bun" ] && source "/Users/jwarykowski/.bun/_bun"
 
 # brew
-[ -s "/opt/homebrew/bin/brew shellenv" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -x "/opt/homebrew/bin/brew" ] && znap eval brew '/opt/homebrew/bin/brew shellenv'
 
 # android studio
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-# bob
-. "/Users/jwarykowski_old/.local/share/bob/env/env.sh"
 
 # cmake
 export CMAKE_GENERATOR="Ninja"
@@ -19,22 +16,19 @@ export CMAKE_GENERATOR="Ninja"
 export PATH="$HOME/.deno/bin:$PATH"
 
 # direnv
-eval "$(direnv hook zsh)"
+znap eval direnv 'direnv hook zsh'
 
 # dotnet
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$HOME/.dotnet:$PATH"
-export PATH="$PATH:/Users/jwarykowski_1/.dotnet/tools"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
-# fzf homebrew
-source <(fzf --zsh)
-
 # fnm
-eval "$(fnm env --use-on-cd --shell zsh)"
+znap eval fnm 'fnm env --use-on-cd --shell zsh'
 
 # java - react native
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
@@ -43,14 +37,8 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # ruby
-eval "$(rbenv init - zsh)"
+znap eval rbenv 'rbenv init - zsh'
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# nvim
-export MYVIMRC="$HOME/.config/nvim/init.lua"
-
-# prompt
-autoload -U promptinit; promptinit
-prompt pure

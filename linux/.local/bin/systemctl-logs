@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -z "${1:-}" ]]; then
+  service=$(systemctl list-units --all --type=service --no-pager --no-legend \
+    | fzf --prompt="service> " | awk '{print $1}')
+else
+  service="$1"
+fi
+
+[[ -z "$service" ]] && exit 0
+
+journalctl -u "$service" --since "24 hours ago" --no-pager | bat --language=log

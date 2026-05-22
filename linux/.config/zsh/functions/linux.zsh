@@ -1,20 +1,4 @@
-## directories
-# mkdir + cd
-mkcd() {
-  [[ $# -gt 1 ]] && return 1
-  mkdir -p "$1" && cd "$1" || return 1
-}
-
-
-## documentation
-# man search
-fman() {
-  man "$(apropos . | fzf | sed 's/ .*//')"
-}
-
-
 ## files
-# compress file as tar with progress
 tarcompress() {
   if [[ $# -lt 2 ]]; then
     echo "usage: tarcompress <directory> <archive.tar.gz>"
@@ -22,16 +6,11 @@ tarcompress() {
   fi
   local src="$1"
   local dest="$2"
-
-  # get total size in bytes
   local size
   size=$(du -sb "$src" | awk '{print $1}')
-
-  # create archive with progress
   tar -cf - "$src" | pv -s "$size" | gzip > "$dest"
 }
 
-# uncompress file as tar with progress
 taruncompress() {
   if [[ $# -lt 1 ]]; then
     echo "usage: taruncompress <archive.tar.gz> [destination]"
@@ -39,16 +18,11 @@ taruncompress() {
   fi
   local archive="$1"
   local dest="${2:-.}"
-
-  # get total size from compressed archive
   local size
   size=$(du -sb "$archive" | awk '{print $1}')
-
-  # extract with progress
   pv -s "$size" "$archive" | tar -xzf - -C "$dest"
 }
 
-# compress directory into zip using 7z
 zipcompress() {
   if [[ $# -lt 2 ]]; then
     echo "usage: zipcompress <directory> <archive.zip>"
@@ -56,15 +30,10 @@ zipcompress() {
   fi
   local src="$1"
   local dest="$2"
-
-  # ensure destination folder for archive exists
   mkdir -p "$(dirname "$dest")"
-
-  # compress with 7z (zip format)
   7z a -tzip "$dest" "$src" -mx=9
 }
 
-# uncompress zip file with progress using 7z
 zipuncompress() {
   if [[ $# -lt 1 ]]; then
     echo "usage: zipuncompress <archive.zip> [destination]"
@@ -72,49 +41,9 @@ zipuncompress() {
   fi
   local archive="$1"
   local dest="${2:-.}"
-
-  # ensure destination exists
   mkdir -p "$dest"
-
-  # extract with 7z
   7z x "$archive" -o"$dest" -y
 }
-
-## networking
-# my public ip
-myip() {
-  curl -s ifconfig.me
-}
-
-
-## processes
-# kill process
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
-
-  if [ "x$pid" != "x" ]; then
-    echo "$pid" | xargs kill -"${1:-9}"
-  fi
-}
-
-# cpu usage (top 20)
-cputop() {
-  ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 20
-}
-
-# memory usage (top 20)
-memtop() {
-  ps aux --sort=-%mem | head -n 20
-}
-
-
-## storage
-# disk usage summary
-diskusage() {
-  df -h | grep -E 'Filesystem|/dev/'
-}
-
 
 ## utils
 uuid() {

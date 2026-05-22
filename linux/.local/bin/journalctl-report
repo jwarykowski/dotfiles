@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="bat"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --fzf) mode="fzf"; shift ;;
+    --bat) mode="bat"; shift ;;
+    *) echo "usage: journalctl-errors [--bat|--fzf]" >&2; exit 1 ;;
+  esac
+done
+
+logs=$(journalctl --since "7 days ago" --priority=warning --no-pager --tac)
+
+case "$mode" in
+  bat) echo "$logs" | bat --language=log ;;
+  fzf) echo "$logs" | fzf --ansi --no-sort --preview 'echo {}' --preview-window=down:3:wrap ;;
+esac

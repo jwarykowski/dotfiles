@@ -4,7 +4,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	callback = function()
 		if vim.fn.argc() == 0 then
 			vim.schedule(function()
-				Snacks.picker.files({ layout = { preset = "default", preview = false } })
+				Snacks.picker.files({
+					hidden = true,
+					layout = {
+						fullscreen = true,
+						hidden = { "preview" },
+					},
+				})
 			end)
 		end
 	end,

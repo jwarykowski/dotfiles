@@ -8,7 +8,7 @@ return {
 		picker = {
 			enabled = true,
 			layout = {
-				preset = "ivy",
+				hidden = { "preview" },
 			},
 		},
 		notifier = { enabled = true, style = "minimal" },
@@ -33,7 +33,12 @@ return {
 		{
 			"<leader>/",
 			function()
-				Snacks.picker.grep({ hidden = true })
+				Snacks.picker.grep({
+					hidden = true,
+					layout = {
+						hidden = { "preview" },
+					},
+				})
 			end,
 			desc = "grep",
 		},
@@ -62,7 +67,12 @@ return {
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files({ hidden = true })
+				Snacks.picker.git_files({
+					hidden = true,
+					layout = {
+						hidden = { "preview" },
+					},
+				})
 			end,
 			desc = "find git files",
 		},

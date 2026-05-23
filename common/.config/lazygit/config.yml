@@ -1,6 +1,5 @@
 notARepository: quit
 promptToReturnFromSubprocess: false
-
 gui:
   border: 'single'
   commandLogSize: 1
@@ -15,11 +14,10 @@ gui:
     show: true
   sidePanelWidth: 0.3
   expandFocusedSidePanel: true
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --pager "less -R"
+  pagers:
+    - colorArg: always
+      pager: delta --dark
   autoFetch: true
   autoRefresh: true
   fetchAll: true
@@ -27,35 +25,30 @@ git:
   overrideGpg: true
   log:
     showGraph: always
-
 os:
   editPreset: nvim
-
+  term: xterm-256color
 customCommands:
   - key: <c-p>
     description: "Prune"
     context: localBranches
     command: git remote prune origin
     loadingText: pruning...
-
   - key: F
     description: "Fetch all remotes"
     context: global
     command: git fetch --all --prune
     loadingText: fetching...
-
   - key: W
     description: "Push force-with-lease"
     context: files
     command: git push --force-with-lease
     loadingText: pushing...
-
   - key: <c-r>
     description: "Rebase onto branch"
     context: localBranches
     command: git rebase {{.SelectedLocalBranch.Name}}
     loadingText: rebasing...
-
   - key: C
     description: "Conventional commit"
     context: files

@@ -12,7 +12,7 @@ return {
 			},
 		},
 		notifier = { enabled = true, style = "minimal" },
-		lazygit = { enabled = true },
+		lazygit = { enabled = true, configure = true, env = { TERM = "xterm-256color", DELTA_PAGER = "cat" } },
 		gitbrowse = { enabled = true },
 		gh = { enabled = true },
 		words = { enabled = true },

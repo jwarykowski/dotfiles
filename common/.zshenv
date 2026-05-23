@@ -7,4 +7,5 @@ export EDITOR="$VISUAL"
 export MYVIMRC="$HOME/.config/nvim/init.lua"
 export TMPDIR="$HOME/.cache/tmp"
 export XDG_CONFIG_HOME="$HOME/.config"
+export DELTA_PAGER=cat
 

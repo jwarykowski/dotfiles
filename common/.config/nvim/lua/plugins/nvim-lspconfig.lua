@@ -47,6 +47,7 @@ return {
 					kmap("n", "<leader>k", vim.lsp.buf.signature_help, "signature help")
 					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
 					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
+					kmap("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
 					-- standard diagnostics
 					kmap("n", "<leader>dn", function()

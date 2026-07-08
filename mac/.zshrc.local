@@ -36,9 +36,15 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 #  llvm
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
+# opencode
+export PATH=/Users/jwarykowski_1/.opencode/bin:$PATH
+
 # ruby
 znap eval rbenv 'rbenv init - zsh'
 
 # rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# sonarqube-cli
+export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
 

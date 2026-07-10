@@ -25,7 +25,13 @@ setopt CORRECT
 source ~/Repos/znap/znap.zsh  # start znap
 
 ## configuration
-znap prompt sindresorhus/pure # theme
+# load pure without znap's instant-prompt (avoids the double-render on launch)
+znap source mafredri/zsh-async
+znap source sindresorhus/pure
+fpath+=( ${ZNAP_REPOS:-~/Repos}/sindresorhus/pure )   # ensure promptinit can find prompt_pure_setup
+autoload -Uz promptinit
+promptinit
+prompt pure
 
 ## plugins
 ZSH_AUTOSUGGEST_STRATEGY=( history completion )
@@ -58,9 +64,7 @@ if [[ -f "$HOME/.zshrc.local" ]]; then
   source "$HOME/.zshrc.local"
 fi
 
-# bun completions
-[ -s "/home/jwarykowski/.bun/_bun" ] && source "/home/jwarykowski/.bun/_bun"
-
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"

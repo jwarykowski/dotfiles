@@ -14,6 +14,7 @@ return {
 				"bashls",
 				"clangd",
 				"cssls",
+				"eslint",
 				"html",
 				"jsonls",
 				"lua_ls",
@@ -121,8 +122,8 @@ return {
 			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
 				if not custom_servers[server_name] then
 					vim.lsp.config(server_name, { capabilities = capabilities })
+					vim.lsp.enable(server_name)
 				end
-				vim.lsp.enable(server_name)
 			end
 		end,
 	},

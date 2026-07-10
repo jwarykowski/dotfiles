@@ -26,11 +26,18 @@
 [delta]
   navigate = true
   dark = true
-  side-by-side = true
   line-numbers = true
   hyperlinks = true
   syntax-theme = ansi
   blame-code-style = syntax
+  features = wide
+
+# side-by-side lives in a feature so lazygit can turn it off via --features
+[delta "wide"]
+  side-by-side = true
+
+[delta "lazygit"]
+  side-by-side = false
 
 [diff]
   algorithm = histogram

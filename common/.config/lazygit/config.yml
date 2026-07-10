@@ -17,7 +17,7 @@ gui:
 git:
   pagers:
     - colorArg: always
-      pager: delta --dark
+      pager: delta --dark --features=lazygit
   autoFetch: true
   autoRefresh: true
   fetchAll: true

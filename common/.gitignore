@@ -74,6 +74,7 @@ tmp/
 .tmp/
 
 # ---- env / secrets ----
+.npmrc
 .env
 .env.local
 .env.development

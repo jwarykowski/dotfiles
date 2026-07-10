@@ -1,5 +1,5 @@
 # shepherd — https://github.com/jwarykowski/shepherd
-# Found via $SHEPHERD_CONFIG (set in .zshrc), else next to todo.md.
+# Found via $SHEPHERD_CONFIG (set in .zshenv), else next to todo.md.
 
 view = "category"     # category (default) | priority | table
 density = "compact"   # compact (default) | comfort

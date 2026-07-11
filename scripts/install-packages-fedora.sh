@@ -22,6 +22,7 @@ sudo dnf install -y \
   git-delta \
   golang \
   jq \
+  luacheck \
   make \
   neovim \
   ninja-build \

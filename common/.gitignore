@@ -86,6 +86,10 @@ tmp/
 .env.production
 .env.production.local
 
+# ---- shepherd (data, not config) ----
+.config/shepherd/todo.md
+.config/shepherd/archive.md
+
 # ---- misc ----
 *.tgz
 *.zip

@@ -30,6 +30,7 @@ brew install \
   jq \
   lazygit \
   llvm \
+  luacheck \
   neovim \
   ninja \
   pv \

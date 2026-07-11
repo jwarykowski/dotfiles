@@ -26,11 +26,14 @@ brew install \
   git \
   git-delta \
   go \
+  herdr \
   jq \
   lazygit \
   llvm \
+  luacheck \
   neovim \
   ninja \
+  pinentry-mac \
   pv \
   rbenv \
   ripgrep \
@@ -39,6 +42,7 @@ brew install \
   stow \
   stylua \
   tmux \
+  tree-sitter-cli \
   yazi
 
 # --- brew casks ---
@@ -71,6 +75,19 @@ if ! installed bun; then
   curl -fsSL https://bun.sh/install | bash
 fi
 
+# --- opencode ---
+if ! installed opencode; then
+  log "installing opencode..."
+  brew install sst/tap/opencode
+fi
+
+# --- herdr plugins ---
+if installed herdr; then
+  log "installing herdr plugins..."
+  herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
+  herdr plugin install cloudmanic/herdr-plus --yes
+fi
+
 # --- tpm (tmux plugin manager) ---
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   log "installing tpm..."
@@ -81,19 +98,6 @@ fi
 if ! installed aerospace; then
   log "installing aerospace..."
   brew install --cask nikitabobko/tap/aerospace
-fi
-
-# --- yabai + skhd ---
-if ! installed yabai; then
-  log "installing yabai..."
-  brew install koekeishiya/formulae/yabai
-  yabai --start-service
-fi
-
-if ! installed skhd; then
-  log "installing skhd..."
-  brew install koekeishiya/formulae/skhd
-  skhd --start-service
 fi
 
 # --- borders ---

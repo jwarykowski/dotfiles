@@ -22,10 +22,12 @@ sudo dnf install -y \
   git-delta \
   golang \
   jq \
+  luacheck \
   make \
   neovim \
   ninja-build \
   p7zip \
+  pinentry-gnome3 \
   pv \
   python3 \
   python3-pip \
@@ -83,12 +85,25 @@ fi
 # --- npm globals ---
 log "installing npm globals..."
 npm config set prefix "$HOME/.local"
-npm install -g @fsouza/prettierd prettier
+npm install -g @fsouza/prettierd prettier tree-sitter-cli
 
 # --- bun ---
 if ! installed bun; then
   log "installing bun..."
   curl -fsSL https://bun.sh/install | bash
+fi
+
+# --- herdr ---
+if ! installed herdr; then
+  log "installing herdr..."
+  curl -fsSL https://herdr.dev/install.sh | sh
+fi
+
+# --- herdr plugins ---
+if installed herdr; then
+  log "installing herdr plugins..."
+  herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
+  herdr plugin install cloudmanic/herdr-plus --yes
 fi
 
 # --- tpm (tmux plugin manager) ---

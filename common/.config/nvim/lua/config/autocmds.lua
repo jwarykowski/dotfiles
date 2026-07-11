@@ -16,10 +16,16 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
--- trim trailing whitespace on save
+-- trim trailing whitespace on save (preserve view; skip markdown hard-breaks)
 vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	command = "%s/\\s\\+$//e",
+	callback = function()
+		if vim.bo.filetype == "markdown" then
+			return
+		end
+		local view = vim.fn.winsaveview()
+		vim.cmd([[keeppatterns %s/\s\+$//e]])
+		vim.fn.winrestview(view)
+	end,
 })
 
 -- disable heavy features for large files

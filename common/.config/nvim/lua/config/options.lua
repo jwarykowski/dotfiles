@@ -31,7 +31,7 @@ opt.cursorline = true -- highlight current line
 opt.signcolumn = "yes" -- fixed sign column, prevents layout shift
 opt.updatetime = 300 -- faster hover/gitsigns/cursorhold
 opt.scrolloff = 8 -- scroll context lines
-opt.conceallevel = 2 -- required for render-markdown
+opt.conceallevel = 0 -- no markdown renderer installed; keep raw markup visible
 
 -- folding (treesitter native)
 opt.foldcolumn = "0"

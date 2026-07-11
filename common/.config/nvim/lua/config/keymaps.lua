@@ -18,11 +18,8 @@ map("n", "<leader>cp", '<cmd>let @+ = expand("%:p")<cr>', { silent = true, desc 
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
--- window navigation
-map("n", "<c-h>", "<c-w>h", { desc = "go to left window", remap = true })
-map("n", "<c-j>", "<c-w>j", { desc = "go to bottom window", remap = true })
-map("n", "<c-k>", "<c-w>k", { desc = "go to top window", remap = true })
-map("n", "<c-l>", "<c-w>l", { desc = "go to right window", remap = true })
+-- window navigation: handled by vim-herdr-navigation (<c-h/j/k/l> move between
+-- vim splits and fall through to herdr panes at an edge). See plugins/herdr-navigation.lua.
 
 -- splits
 map("n", "ss", "<cmd>split<cr>", { desc = "split horizontal" })

@@ -74,6 +74,7 @@ tmp/
 .tmp/
 
 # ---- env / secrets ----
+.npmrc
 .env
 .env.local
 .env.development
@@ -84,6 +85,10 @@ tmp/
 .env.test.local
 .env.production
 .env.production.local
+
+# ---- shepherd (data, not config) ----
+.config/shepherd/todo.md
+.config/shepherd/archive.md
 
 # ---- misc ----
 *.tgz

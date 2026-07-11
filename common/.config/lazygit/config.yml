@@ -17,7 +17,7 @@ gui:
 git:
   pagers:
     - colorArg: always
-      pager: delta --dark
+      pager: delta --dark --features=lazygit
   autoFetch: true
   autoRefresh: true
   fetchAll: true
@@ -27,7 +27,6 @@ git:
     showGraph: always
 os:
   editPreset: nvim
-  term: xterm-256color
 customCommands:
   - key: <c-p>
     description: "Prune"

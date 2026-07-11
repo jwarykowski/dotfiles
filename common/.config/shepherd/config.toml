@@ -1,0 +1,10 @@
+# shepherd — https://github.com/jwarykowski/shepherd
+# Found via $SHEPHERD_CONFIG (set in .zshenv), else next to todo.md.
+
+view = "category"     # category (default) | priority | table
+density = "compact"   # compact (default) | comfort
+placement = "split"   # split (default) | tab | overlay | zoomed
+direction = "right"   # split only: right | left | up | down
+
+# tab-cycled in the category prompt (g)
+categories = ["work", "home", "personal"]

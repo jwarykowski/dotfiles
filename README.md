@@ -12,13 +12,14 @@
 |---|---|---|
 | **Machine** | [Intel NUC Hades Canyon](https://www.scorptec.com.au/product/Branded-Systems/NUC-&-Mini-PC/71990-BOXNUC8I7HVK4) | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
 | **OS** | [Fedora](https://getfedora.org/) | macOS |
-| **WM** | [Hyprland](https://hyprland.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
+| **WM** | [i3](https://i3wm.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
 
 - **Dotfile Manager**: [GNU Stow](https://www.gnu.org/software/stow/)
 - **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
 - **Terminal**: [Ghostty](https://ghostty.org/)
 - **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm)
+- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm); [herdr](https://herdr.dev) for agent sessions
+- **Todos**: [shepherd](https://github.com/jwarykowski/shepherd) todo board — `<leader>T` in nvim via [nvim-shepherd](https://github.com/jwarykowski/nvim-shepherd)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
 
@@ -30,6 +31,7 @@ dotfiles/
 │   ├── .config/
 │   │   ├── nvim/            # neovim
 │   │   ├── zsh/             # aliases, functions, utils
+│   │   ├── herdr/           # herdr agent multiplexer
 │   │   ├── lazygit/         # lazygit
 │   │   ├── yazi/            # yazi file manager
 │   │   ├── btop/            # btop system monitor
@@ -42,13 +44,12 @@ dotfiles/
 │   ├── .gitignore
 │   ├── .tmux.conf
 │   ├── .editorconfig
-│   ├── .npmrc
 │   ├── .zshrc
 │   └── .zshenv
 ├── linux/                   # fedora-specific configs
 │   ├── .config/
 │   │   ├── ghostty/         # ghostty terminal
-│   │   └── hypr/            # hyprland wm
+│   │   └── i3/              # i3 window manager
 │   └── .local/bin/          # linux scripts (auto on PATH)
 │       ├── update           # update all packages + tools
 │       ├── cleanup          # free disk space

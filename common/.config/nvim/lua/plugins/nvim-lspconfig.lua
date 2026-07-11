@@ -14,6 +14,7 @@ return {
 				"bashls",
 				"clangd",
 				"cssls",
+				"eslint",
 				"html",
 				"jsonls",
 				"lua_ls",
@@ -47,6 +48,7 @@ return {
 					kmap("n", "<leader>k", vim.lsp.buf.signature_help, "signature help")
 					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
 					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
+					kmap("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
 					-- standard diagnostics
 					kmap("n", "<leader>dn", function()
@@ -120,8 +122,8 @@ return {
 			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
 				if not custom_servers[server_name] then
 					vim.lsp.config(server_name, { capabilities = capabilities })
+					vim.lsp.enable(server_name)
 				end
-				vim.lsp.enable(server_name)
 			end
 		end,
 	},

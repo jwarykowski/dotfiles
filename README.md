@@ -18,7 +18,8 @@
 - **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
 - **Terminal**: [Ghostty](https://ghostty.org/)
 - **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm)
+- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm); [herdr](https://herdr.dev) for agent sessions
+- **Todos**: [shepherd](https://github.com/jwarykowski/shepherd) todo board — `<leader>T` in nvim via [nvim-shepherd](https://github.com/jwarykowski/nvim-shepherd)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
 

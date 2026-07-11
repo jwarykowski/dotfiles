@@ -33,6 +33,7 @@ brew install \
   luacheck \
   neovim \
   ninja \
+  pinentry-mac \
   pv \
   rbenv \
   ripgrep \

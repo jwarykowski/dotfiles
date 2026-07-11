@@ -27,6 +27,7 @@ sudo dnf install -y \
   neovim \
   ninja-build \
   p7zip \
+  pinentry-gnome3 \
   pv \
   python3 \
   python3-pip \

@@ -68,6 +68,3 @@ fi
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
-
-# Added by sonarqube-cli installer
-export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"

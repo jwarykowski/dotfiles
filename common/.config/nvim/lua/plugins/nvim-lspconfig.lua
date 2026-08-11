@@ -15,6 +15,7 @@ return {
 				"clangd",
 				"cssls",
 				"eslint",
+				"gopls",
 				"html",
 				"jsonls",
 				"lua_ls",
@@ -49,6 +50,7 @@ return {
 					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
 					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
 					kmap("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
+					kmap("n", "<leader>cr", vim.lsp.buf.rename, "rename symbol")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
 					-- standard diagnostics
 					kmap("n", "<leader>dn", function()

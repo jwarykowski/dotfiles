@@ -13,7 +13,6 @@ return {
 				require("neotest-vitest"),
 				require("neotest-jest")({
 					jestCommand = "npm test --",
-					jestConfigFile = "custom.jest.config.ts",
 					env = { CI = true },
 					cwd = vim.fn.getcwd,
 				}),

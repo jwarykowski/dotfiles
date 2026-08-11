@@ -1,7 +1,7 @@
 [user]
   email = jonathan@myzeller.com
   name = Jonathan Warykowski
-	signingKey = F21DC55BCB19C299
+  signingKey = F21DC55BCB19C299
 
 [branch]
   sort = committerdate
@@ -10,14 +10,14 @@
   defaultRemote = origin
 
 [commit]
-	gpgsign = true
+  gpgsign = true
   template = ~/.git-commit-template
   verbose = true
 
 [core]
   editor = nvim
   excludesfile = ~/.gitignore
-	ignorecase = false
+  ignorecase = false
   pager = delta
 
 [interactive]
@@ -75,4 +75,4 @@
 [init]
   defaultBranch = master
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/

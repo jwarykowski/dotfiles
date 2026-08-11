@@ -1,0 +1,4 @@
+# repo-local runtime files (this .gitignore governs the dotfiles repo itself,
+# not common/.gitignore which is stowed out as ~/.gitignore)
+.claude/scheduled_tasks.lock
+.DS_Store

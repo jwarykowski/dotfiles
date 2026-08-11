@@ -27,6 +27,7 @@
 
 ```
 dotfiles/
+├── archived/                 # retired configs (skhd, yabai, kitty)
 ├── common/                  # configs for all platforms
 │   ├── .config/
 │   │   ├── nvim/            # neovim
@@ -37,7 +38,7 @@ dotfiles/
 │   │   ├── btop/            # btop system monitor
 │   │   ├── bat/             # bat
 │   │   ├── ripgrep/         # ripgrep
-│   │   └── ai/              # ai prompts + tokens
+│   │   └── ghostty/themes/  # shared ghostty colour theme
 │   ├── .ssh/
 │   │   └── config.template  # ssh config template
 │   ├── .gitconfig
@@ -53,6 +54,7 @@ dotfiles/
 │   └── .local/bin/          # linux scripts (auto on PATH)
 │       ├── update           # update all packages + tools
 │       ├── cleanup          # free disk space
+│       ├── disk-report
 │       ├── journalctl-report
 │       ├── system-ports
 │       ├── systemctl-browser
@@ -65,7 +67,10 @@ dotfiles/
 │   └── .local/bin/          # mac scripts (auto on PATH)
 │       ├── update           # update all packages + tools
 │       └── cleanup          # free disk space
+├── resources/                # wallpapers, gifs, icons
 ├── scripts/
+│   ├── immich/
+│   │   └── immich_add_unassigned_assets.sh
 │   ├── install-packages-fedora.sh
 │   ├── install-packages-mac.sh
 │   └── macos-defaults.sh

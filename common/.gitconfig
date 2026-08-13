@@ -1,7 +1,12 @@
 [user]
-  email = jonathan@myzeller.com
+  email = jonathan@warykowski.io
   name = Jonathan Warykowski
   signingKey = F21DC55BCB19C299
+
+# work identity, keyed off the remote rather than a directory (repos are mixed
+# together under ~/development)
+[includeIf "hasconfig:remote.*.url:git@github.com:zeller-engineering/**"]
+  path = ~/.gitconfig-work
 
 [branch]
   sort = committerdate
@@ -42,7 +47,6 @@
 [diff]
   algorithm = histogram
   colorMoved = default
-  wordDiff = color
 
 [help]
   autocorrect = prompt
@@ -55,7 +59,6 @@
 
 [push]
   autoSetupRemote = true
-  default = simple
 
 [status]
   showUntrackedFiles = all
@@ -74,5 +77,3 @@
 
 [init]
   defaultBranch = master
-[url "git@github.com:"]
-  insteadOf = https://github.com/

@@ -20,6 +20,7 @@
 - **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
 - **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm); [herdr](https://herdr.dev) for agent sessions
 - **Todos**: [shepherd](https://github.com/jwarykowski/shepherd) todo board — `<leader>T` in nvim via [nvim-shepherd](https://github.com/jwarykowski/nvim-shepherd)
+- **RSS**: [newsboat](https://newsboat.org/)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
 
@@ -27,47 +28,56 @@
 
 ```
 dotfiles/
-├── archived/                 # retired configs (skhd, yabai, kitty)
-├── common/                  # configs for all platforms
+├── common/                     # configs for all platforms
 │   ├── .config/
-│   │   ├── nvim/            # neovim
-│   │   ├── zsh/             # aliases, functions, utils
-│   │   ├── herdr/           # herdr agent multiplexer
-│   │   ├── lazygit/         # lazygit
-│   │   ├── yazi/            # yazi file manager
-│   │   ├── btop/            # btop system monitor
-│   │   ├── bat/             # bat
-│   │   ├── ripgrep/         # ripgrep
-│   │   └── ghostty/themes/  # shared ghostty colour theme
+│   │   ├── bat/                # bat
+│   │   ├── btop/               # btop system monitor
+│   │   ├── gh/                 # github cli
+│   │   ├── ghostty/themes/     # shared ghostty colour theme
+│   │   ├── herdr/              # herdr agent multiplexer
+│   │   ├── lazygit/            # lazygit
+│   │   ├── nvim/               # neovim
+│   │   ├── ripgrep/            # ripgrep
+│   │   ├── shepherd/           # shepherd todo board (config only)
+│   │   ├── yazi/               # yazi file manager
+│   │   └── zsh/                # aliases, functions, utils
+│   ├── .newsboat/              # newsboat rss reader
 │   ├── .ssh/
-│   │   └── config.template  # ssh config template
-│   ├── .gitconfig
-│   ├── .gitignore
-│   ├── .tmux.conf
+│   │   └── config.template     # ssh config template
 │   ├── .editorconfig
-│   ├── .zshrc
-│   └── .zshenv
-├── linux/                   # fedora-specific configs
+│   ├── .git-commit-template
+│   ├── .gitconfig
+│   ├── .gitconfig-work         # work identity, included by remote url
+│   ├── .gitignore              # stowed as the global excludesfile
+│   ├── .tmux.conf
+│   ├── .zshenv
+│   └── .zshrc
+├── linux/                      # fedora-specific configs
 │   ├── .config/
-│   │   ├── ghostty/         # ghostty terminal
-│   │   └── i3/              # i3 window manager
-│   └── .local/bin/          # linux scripts (auto on PATH)
-│       ├── update           # update all packages + tools
-│       ├── cleanup          # free disk space
-│       ├── disk-report
-│       ├── journalctl-report
-│       ├── system-ports
-│       ├── systemctl-browser
-│       ├── systemctl-failed
-│       └── systemctl-logs
-├── mac/                     # macos-specific configs
+│   │   ├── ghostty/            # ghostty terminal
+│   │   ├── i3/                 # i3 window manager
+│   │   └── zsh/                # linux-only functions
+│   ├── .local/bin/             # linux scripts (auto on PATH)
+│   │   ├── update              # update all packages + tools
+│   │   ├── cleanup             # free disk space
+│   │   ├── disk-report
+│   │   ├── journalctl-report
+│   │   ├── system-ports
+│   │   ├── systemctl-browser
+│   │   ├── systemctl-failed
+│   │   └── systemctl-logs
+│   └── .zshrc.local
+├── mac/                        # macos-specific configs
 │   ├── .config/
-│   │   └── ghostty/         # ghostty terminal
-│   ├── .gnupg/              # gpg agent config
-│   └── .local/bin/          # mac scripts (auto on PATH)
-│       ├── update           # update all packages + tools
-│       └── cleanup          # free disk space
-├── resources/                # wallpapers, gifs, icons
+│   │   ├── ghostty/            # ghostty terminal
+│   │   └── zsh/                # mac-only aliases
+│   ├── .gnupg/                 # gpg agent config
+│   ├── .local/bin/             # mac scripts (auto on PATH)
+│   │   ├── update              # update all packages + tools
+│   │   └── cleanup             # free disk space
+│   ├── .aerospace.toml
+│   └── .zshrc.local
+├── resources/                  # wallpapers, gifs, icons
 ├── scripts/
 │   ├── immich/
 │   │   └── immich_add_unassigned_assets.sh
@@ -76,6 +86,10 @@ dotfiles/
 │   └── macos-defaults.sh
 └── install.sh
 ```
+
+Ghostty's `config` is per-platform (fonts differ) but the colour theme lives in
+`common/`. Stow only merges the two into one `~/.config/ghostty` on a restow —
+`--adopt` on a folded directory will silently keep the theme unlinked.
 
 ## getting started
 
@@ -117,3 +131,4 @@ Re-apply dotfiles (safe, idempotent):
 - **zsh plugins**: znap clones and caches plugins automatically on first shell start
 - **zsh default shell**: `chsh -s $(which zsh)`
 - **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts
+- **gh cli**: `gh auth login` — `hosts.yml` is deliberately untracked, it can hold an oauth token

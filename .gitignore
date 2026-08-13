@@ -2,3 +2,14 @@
 # not common/.gitignore which is stowed out as ~/.gitignore)
 .claude/scheduled_tasks.lock
 .DS_Store
+
+# shepherd data (config.toml is tracked, boards and todos are not)
+common/.config/shepherd/todo.md
+common/.config/shepherd/archive.md
+common/.config/shepherd/boards.toml
+common/.config/shepherd/boards/
+*.md.lock
+
+# gh rewrites this in place through the stow symlink and can write an
+# oauth_token into it
+common/.config/gh/hosts.yml

@@ -86,13 +86,6 @@ tmp/
 .env.production
 .env.production.local
 
-# ---- shepherd (data, not config) ----
-.config/shepherd/todo.md
-.config/shepherd/archive.md
-.config/shepherd/boards.toml
-.config/shepherd/boards/
-*.md.lock
-
 # ---- misc ----
 *.tgz
 *.zip

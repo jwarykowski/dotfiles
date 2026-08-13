@@ -32,6 +32,7 @@ brew install \
   llvm \
   luacheck \
   neovim \
+  newsboat \
   ninja \
   pinentry-mac \
   pv \

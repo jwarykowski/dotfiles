@@ -15,9 +15,9 @@ gui:
   sidePanelWidth: 0.3
   expandFocusedSidePanel: true
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --features=lazygit
+      command: delta --dark --features=lazygit
   autoFetch: true
   autoRefresh: true
   fetchAll: true

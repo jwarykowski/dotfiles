@@ -1,3 +1,6 @@
+# browser (used by newsboat and other TUI tools)
+export BROWSER="xdg-open"
+
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 

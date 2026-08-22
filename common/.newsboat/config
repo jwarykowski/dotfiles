@@ -1,5 +1,3 @@
-browser "open"
-
 # lackluster theming — colorN maps directly to ghostty's palette slots
 color background          default default
 color listnormal          default default

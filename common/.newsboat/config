@@ -1,0 +1,15 @@
+browser "open"
+
+# lackluster theming — colorN maps directly to ghostty's palette slots
+color background          default default
+color listnormal          default default
+color listnormal_unread   color2  default   bold
+color listfocus           color7  color8    bold
+color listfocus_unread    color2  color8    bold
+color info                color6  default   bold
+color title               color7  color8    bold
+color hint-key            color3  default   bold
+color hint-keys-delimiter  default default
+color hint-separator      default default bold
+color hint-description    default default
+color article             default default

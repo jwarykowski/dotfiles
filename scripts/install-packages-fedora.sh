@@ -25,6 +25,7 @@ sudo dnf install -y \
   luacheck \
   make \
   neovim \
+  newsboat \
   ninja-build \
   p7zip \
   pinentry-gnome3 \

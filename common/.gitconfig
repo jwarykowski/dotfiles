@@ -77,3 +77,7 @@
 
 [init]
   defaultBranch = master
+
+[alias]
+  # newest last, so the tip is next to the prompt
+  l = log --reverse --oneline -20

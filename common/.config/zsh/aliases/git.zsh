@@ -45,11 +45,11 @@ alias gds='git diff --staged'
 alias gdw='git diff --word-diff'
 
 # log
-alias glg='git log --stat'
-alias glgp='git log --stat -p'
+alias glg='git log --reverse --stat'
+alias glgp='git log --reverse --stat -p'
 alias glgg='git log --graph'
 alias glgga='git log --graph --decorate --all'
-alias glo='git log --oneline --decorate'
+alias glo='git log --reverse --oneline --decorate'
 alias glol="git log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias glola="git log --graph --pretty=format:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all"
 

@@ -48,8 +48,6 @@ if ! command -v stow >/dev/null 2>&1; then
     exit 1
 fi
 
-# ensure directories referenced in .zshenv exist
-mkdir -p "$HOME/.cache/tmp"
 
 stow_flags="-v --restow"
 if [[ "$adopt" == "true" ]]; then

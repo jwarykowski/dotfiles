@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# systemsetup needs sudo — prompt up front
+sudo -v
 
 # System-wide Preferences
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -28,18 +32,10 @@ defaults write com.apple.TextEdit RichText -int 0
 # Energy Saver
 sudo systemsetup -setcomputersleep Off > /dev/null
 
-# Safari
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-
 # Miscellaneous
-defaults write com.apple.dashboard mcx-disabled -bool true
 defaults write com.apple.dock expose-animation-duration -float 0.1
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Restart affected apps
-killall Finder
-killall Dock
+killall Finder || true
+killall Dock || true

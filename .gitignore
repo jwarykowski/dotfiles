@@ -13,3 +13,6 @@ common/.config/shepherd/boards/
 # gh rewrites this in place through the stow symlink and can write an
 # oauth_token into it
 common/.config/gh/hosts.yml
+
+# npm credentials live in ~/.npmrc, never in the repo
+common/.npmrc

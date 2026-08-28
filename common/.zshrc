@@ -11,7 +11,7 @@ setopt HIST_SAVE_NO_DUPS
 setopt SHARE_HISTORY
 
 export HISTFILE=~/.zsh_history
-export HISTSIZE=10000
+export HISTSIZE=100000
 export SAVEHIST=100000
 
 # options

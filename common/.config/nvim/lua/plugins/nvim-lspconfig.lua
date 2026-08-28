@@ -26,7 +26,6 @@ return {
 				"ts_ls",
 				"yamlls",
 			},
-			automatic_enable = false,
 		},
 	},
 
@@ -35,8 +34,9 @@ return {
 		dependencies = { "saghen/blink.cmp" },
 		lazy = false,
 		config = function()
-			local mason_lspconfig = require("mason-lspconfig")
-			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			vim.lsp.config("*", {
+				capabilities = require("blink.cmp").get_lsp_capabilities(),
+			})
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
@@ -47,8 +47,6 @@ return {
 
 					kmap("n", "gD", vim.lsp.buf.declaration, "go to declaration")
 					kmap("n", "<leader>k", vim.lsp.buf.signature_help, "signature help")
-					kmap("i", "<C-s>", vim.lsp.buf.signature_help, "signature help")
-					kmap("n", "gO", vim.lsp.buf.document_symbol, "document symbol")
 					kmap("n", "<leader>ca", vim.lsp.buf.code_action, "code action")
 					kmap("n", "<leader>cr", vim.lsp.buf.rename, "rename symbol")
 					kmap("n", "gl", vim.diagnostic.open_float, "line diagnostics")
@@ -80,7 +78,6 @@ return {
 
 			-- clangd setup
 			vim.lsp.config("clangd", {
-				capabilities = capabilities,
 				cmd = {
 					"clangd",
 					"--background-index",
@@ -89,11 +86,9 @@ return {
 					"--query-driver=/usr/bin/clang++,/usr/bin/g++,/opt/homebrew/bin/*",
 				},
 			})
-			vim.lsp.enable("clangd")
 
-			-- sourcekit setup
+			-- sourcekit setup (ships with Xcode, not mason-managed)
 			vim.lsp.config("sourcekit", {
-				capabilities = capabilities,
 				root_dir = function(bufnr)
 					return vim.fs.root(bufnr, {
 						"Package.swift",
@@ -107,26 +102,20 @@ return {
 
 			-- omnisharp_mono setup
 			vim.lsp.config("omnisharp_mono", {
-				capabilities = capabilities,
 				settings = {
-					enable_editorconfig_support = true,
-					enable_import_completion = true,
-					enable_roslyn_analyzers = true,
-					organize_imports_on_format = true,
+					FormattingOptions = {
+						EnableEditorConfigSupport = true,
+						OrganizeImports = true,
+					},
+					RoslynExtensionsOptions = {
+						EnableAnalyzersSupport = true,
+						EnableImportCompletion = true,
+					},
 				},
 				root_dir = function(bufnr)
 					return vim.fs.root(bufnr, { "*.sln", "*.csproj", ".git" })
 				end,
 			})
-			vim.lsp.enable("omnisharp_mono")
-
-			local custom_servers = { clangd = true, sourcekit = true, omnisharp_mono = true }
-			for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-				if not custom_servers[server_name] then
-					vim.lsp.config(server_name, { capabilities = capabilities })
-					vim.lsp.enable(server_name)
-				end
-			end
 		end,
 	},
 }

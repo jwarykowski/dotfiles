@@ -6,25 +6,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			vim.schedule(function()
 				Snacks.picker.files({
 					hidden = true,
-					layout = {
-						fullscreen = true,
-						hidden = { "preview" },
-					},
+					layout = { fullscreen = true },
 				})
 			end)
 		end
-	end,
-})
-
--- trim trailing whitespace on save (preserve view; skip markdown hard-breaks)
-vim.api.nvim_create_autocmd("BufWritePre", {
-	callback = function()
-		if vim.bo.filetype == "markdown" then
-			return
-		end
-		local view = vim.fn.winsaveview()
-		vim.cmd([[keeppatterns %s/\s\+$//e]])
-		vim.fn.winrestview(view)
 	end,
 })
 

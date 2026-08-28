@@ -33,12 +33,7 @@ return {
 		{
 			"<leader>/",
 			function()
-				Snacks.picker.grep({
-					hidden = true,
-					layout = {
-						hidden = { "preview" },
-					},
-				})
+				Snacks.picker.grep({ hidden = true })
 			end,
 			desc = "grep",
 		},
@@ -67,12 +62,7 @@ return {
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files({
-					hidden = true,
-					layout = {
-						hidden = { "preview" },
-					},
-				})
+				Snacks.picker.git_files({ hidden = true })
 			end,
 			desc = "find git files",
 		},

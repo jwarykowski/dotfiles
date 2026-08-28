@@ -9,6 +9,12 @@ return {
 			-- install() and highlighting starts per-buffer via vim.treesitter.start().
 			local ts = require("nvim-treesitter")
 			local ensure = {
+				"c",
+				"cpp",
+				"c_sharp",
+				"swift",
+				"yaml",
+				"toml",
 				"lua",
 				"vim",
 				"vimdoc",

@@ -297,6 +297,27 @@ return {
 			desc = "quickfix list",
 		},
 		{
+			"<leader>su",
+			function()
+				Snacks.picker.undo()
+			end,
+			desc = "undo history",
+		},
+		{
+			"]]",
+			function()
+				Snacks.words.jump(vim.v.count1)
+			end,
+			desc = "next reference",
+		},
+		{
+			"[[",
+			function()
+				Snacks.words.jump(-vim.v.count1)
+			end,
+			desc = "previous reference",
+		},
+		{
 			"<leader>uC",
 			function()
 				Snacks.picker.colorschemes()

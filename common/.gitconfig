@@ -81,3 +81,4 @@
 [alias]
   # newest last, so the tip is next to the prompt
   l = log --reverse --oneline -20
+  recent = branch --sort=committerdate --format='%(committerdate:relative)%09%(refname:short)'

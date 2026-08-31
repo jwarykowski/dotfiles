@@ -2,8 +2,17 @@ return {
 	{
 		"echasnovski/mini.ai",
 		version = false,
+		-- provides the textobjects.scm queries gen_spec.treesitter reads
+		dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" } },
 		config = function()
-			require("mini.ai").setup()
+			local ai = require("mini.ai")
+			ai.setup({
+				custom_textobjects = {
+					-- f becomes function definition (default was function call)
+					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }),
+					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
+				},
+			})
 		end,
 	},
 	{

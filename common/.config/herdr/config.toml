@@ -30,6 +30,7 @@ peach = "#ffaa88"
 [keys]
 previous_workspace = "ctrl+alt+k"
 next_workspace = "ctrl+alt+j"
+clear_pane = "prefix+ctrl+k"
 switch_workspace = "prefix+shift+1..9"
 
 [keys.indexed]
@@ -136,6 +137,8 @@ pane_gaps = true
 hide_tab_bar_when_single_tab = true
 show_agent_labels_on_pane_borders = false
 agent_panel_sort = "priority"
+# glyphs per state read better than colour dots on the low-contrast palette
+status_indicators = "symbols"
 
 [ui.toast]
 delivery = "herdr"

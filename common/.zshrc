@@ -49,6 +49,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 znap source zsh-users/zsh-completions
 
+# herdr subcommand completion (znap regenerates into site-functions each start)
+command -v herdr >/dev/null && znap fpath _herdr 'herdr completion zsh'
+
 znap source agkozak/zsh-z
 
 if command -v fzf >/dev/null 2>&1; then

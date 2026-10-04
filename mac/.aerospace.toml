@@ -58,6 +58,16 @@ run = 'layout floating'
 if.app-id = "com.mitchellh.ghostty"
 run = "layout tiling"
 
+# JavaFX and Qt repaint badly when tiled; the payments SDK demos also spawn
+# auth popups that arrive as extra windows.
+[[on-window-detected]]
+if.app-name-regex-substring = 'java'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.zeller.zeller_demo'
+run = 'layout floating'
+
 [[on-window-detected]]
 if.app-id = 'org.flameshot.Flameshot'
 run = "layout floating"

@@ -16,3 +16,15 @@ common/.config/gh/hosts.yml
 
 # npm credentials live in ~/.npmrc, never in the repo
 common/.npmrc
+
+# herdr runtime state (~/.config/herdr is a folded stow symlink into the repo);
+# config.toml and herdr-plus project templates are tracked
+common/.config/herdr/*
+!common/.config/herdr/config.toml
+!common/.config/herdr/plugins/
+common/.config/herdr/plugins/*
+!common/.config/herdr/plugins/config/
+common/.config/herdr/plugins/config/*
+!common/.config/herdr/plugins/config/cloudmanic.herdr-plus/
+common/.config/herdr/plugins/config/cloudmanic.herdr-plus/*
+!common/.config/herdr/plugins/config/cloudmanic.herdr-plus/projects/

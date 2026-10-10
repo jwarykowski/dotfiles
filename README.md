@@ -23,6 +23,84 @@
 - **RSS**: [newsboat](https://newsboat.org/)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
+- **Keyboard**: [ZSA Moonlander](https://www.zsa.io/moonlander) — [layout on Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest)
+
+## toolchain
+
+```
+ ┌──────────────────────────────────────────────────────────────────────────────┐
+ │ Moonlander (Oryx BO0Dw) ── home-row mods · symbols/navi/media layers         │
+ └───────────────────────────────────┬──────────────────────────────────────────┘
+        Fedora · GNOME / i3          │  macOS · AeroSpace + borders
+ ┌───────────────────────────────────▼──────────────────────────────────────────┐
+ │ Ghostty ── lackluster theme · Berkeley Mono                                  │
+ └───────────────────────────────────┬──────────────────────────────────────────┘
+ ┌───────────────────────────────────▼──────────────────────────────────────────┐
+ │ herdr ── tabs: claude · nvim · lazygit · shell      (tmux + tpm fallback)    │
+ │   plugins: herdr-plus · vim-herdr-navigation · herdr-lazy · shepherd         │
+ └───────────────────────────────────┬──────────────────────────────────────────┘
+ ┌──────────────────┬────────────────┴─────────┬────────────────────────────────┐
+ │ zsh + znap       │ nvim (lazy.nvim)         │ git                            │
+ │  pure prompt     │  snacks picker/lazygit   │  delta · histogram · zdiff3    │
+ │  autosuggest     │  blink.cmp · mini.*      │  gpg sign · work includeIf     │
+ │  syntax-hl       │  mason + lspconfig       │  lazygit · gh                  │
+ │  substring hist  │  conform · treesitter    │  ~90 aliases + git_main_branch │
+ │  zsh-z · fzf     │  oil · trouble · neotest │                                │
+ │  direnv · fnm    │  shepherd todo board     │                                │
+ └──────────────────┴──────────────────────────┴────────────────────────────────┘
+   CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq
+ ┌──────────────────────────────────────────────────────────────────────────────┐
+ │ ~/dotfiles ── stow --no-folding:  common/ + linux/ | mac/   → $HOME          │
+ │   install.sh [--packages|--adopt] · scripts/install-packages-{fedora,mac}    │
+ │   ~/.local/bin: update · cleanup · systemctl-* · disk-report                 │
+ │   CI: shellcheck · stylua · luacheck                                         │
+ └──────────────────────────────────────────────────────────────────────────────┘
+```
+
+## moonlander
+
+Layout lives on [Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest)
+(not in this repo). Home-row mods (`S D F` / `J K L` hold for Ctrl Alt Gui),
+`A` / `;` hold for symbols, `Space` hold for navigation, and a vim-motion
+bottom row: `<` `0` on the left, `$` `>` on the right.
+
+`/x` = tap / hold `x` · `MO(n)` hold layer · `TG(n)` toggle layer ·
+`▽` transparent · `C- S- A- G-` = Ctrl Shift Alt Gui
+
+```
+── 0: qwerty ─────────────────────────────────────────────────────────────────
+ TG(2)   1      2      3      4      5     Bri-  │  Bri+   6      7      8      9      0     Boot
+ Tab     Q      W      E      R      T     Paste │  Undo   Y      U      I      O      P     Del
+ Esc   A/MO1  S/Ctl  D/Alt  F/Gui    G     Copy  │ S-Undo  H    J/Gui  K/Alt  L/Ctl ;/MO1   Bksp
+  _      Z      X      C      V      B           │         N      M      ,      .      /      :
+  ▽      ▽      ▽      <      0                  │                $      >      ▽      ▽      ▽
+                           [Play]                │               [Lock C-A-G-L]
+                     Spc/MO3   /Sft   C-a        │   C-f    /Sft   Enter
+
+── 1: symbols  (hold A or ;) ──────────────────────────────────────────────────
+  ▽     F1     F2     F3     F4     F5      ▽    │   ▽     F6     F7     F8     F9    F10    F11
+  <      !      @      {      }      |      :    │   "      +      7      8      9      *      >
+  ▽      ·      $      (      )      `      ;    │   '      -      4      5      6      ·      ▽
+  ▽      %      ^      [      ]      ~           │         &      1      2      3      \      =
+  ▽      ▽      ▽      ▽      #                  │                0      ▽      ▽      ▽      ▽
+
+── 2: media  (toggle with TG(2), top-left) ────────────────────────────────────
+  ·   (all other keys ▽)                         │  RGB
+                            [Stop]               │                [Stop]
+                       Vol-   Vol+   Mute        │   Play   Prev   Next
+
+── 3: navi  (hold Space) ──────────────────────────────────────────────────────
+  ▽      ▽    /S-Ctl /S-Alt   ▽      ▽      ▽    │   ▽      ▽      ▽      ▽      ▽      ▽      ▽
+  ▽      ▽     /Ctl   /Alt    ▽      ▽      ▽    │   ▽      ←      ↓      ↑      →      ▽      ▽
+```
+
+On Linux, Oryx live training and Keymapp need hidraw access:
+
+```sh
+echo 'KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"' |
+  sudo tee /etc/udev/rules.d/50-zsa.rules
+sudo udevadm control --reload && sudo udevadm trigger
+```
 
 ## structure
 

@@ -190,13 +190,6 @@ return {
 			desc = "grep open buffers",
 		},
 		{
-			"<leader>sg",
-			function()
-				Snacks.picker.grep({ hidden = true })
-			end,
-			desc = "grep",
-		},
-		{
 			"<leader>sw",
 			function()
 				Snacks.picker.grep_word()
@@ -340,11 +333,10 @@ return {
 			desc = "goto definition",
 		},
 		{
-			"gr",
+			"grr",
 			function()
 				Snacks.picker.lsp_references()
 			end,
-			nowait = true,
 			desc = "references",
 		},
 		{

@@ -1,3 +1,20 @@
+-- run jest through whichever package manager the project's lockfile names
+local function jest_command()
+	local root = vim.fn.getcwd()
+	local runners = {
+		{ "pnpm-lock.yaml", "pnpm test --" },
+		{ "bun.lock", "bun run test --" },
+		{ "bun.lockb", "bun run test --" },
+		{ "yarn.lock", "yarn test" },
+	}
+	for _, runner in ipairs(runners) do
+		if vim.uv.fs_stat(root .. "/" .. runner[1]) then
+			return runner[2]
+		end
+	end
+	return "npm test --"
+end
+
 return {
 	"nvim-neotest/neotest",
 	dependencies = {
@@ -12,7 +29,7 @@ return {
 			adapters = {
 				require("neotest-vitest"),
 				require("neotest-jest")({
-					jestCommand = "npm test --",
+					jestCommand = jest_command,
 					env = { CI = true },
 					cwd = vim.fn.getcwd,
 				}),

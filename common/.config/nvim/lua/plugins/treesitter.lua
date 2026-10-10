@@ -30,6 +30,12 @@ return {
 				"rust",
 				"markdown",
 				"markdown_inline",
+				"diff",
+				"gitcommit",
+				"git_rebase",
+				"jsdoc",
+				"query",
+				"regex",
 			}
 			local have = ts.get_installed and ts.get_installed("parsers") or {}
 			local missing = vim.tbl_filter(function(lang)
@@ -52,6 +58,7 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("treesitter-context").setup({
 				multiline_threshold = 1,

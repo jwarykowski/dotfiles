@@ -2,6 +2,7 @@ return {
 	"saghen/blink.cmp",
 	dependencies = "nvim-mini/mini.snippets",
 	version = "*",
+	event = { "InsertEnter", "CmdlineEnter" },
 	opts = {
 		-- https://cmp.saghen.dev/configuration/keymap.html#presets
 		cmdline = {

@@ -2,6 +2,7 @@ return {
 	{
 		"nvim-mini/mini.ai",
 		version = false,
+		event = "VeryLazy",
 		-- provides the textobjects.scm queries gen_spec.treesitter reads
 		dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" } },
 		config = function()
@@ -18,6 +19,16 @@ return {
 	{
 		"nvim-mini/mini.diff",
 		version = false,
+		event = "VeryLazy",
+		keys = {
+			{
+				"<leader>go",
+				function()
+					require("mini.diff").toggle_overlay(0)
+				end,
+				desc = "git diff overlay",
+			},
+		},
 		config = function()
 			require("mini.diff").setup()
 		end,
@@ -25,6 +36,7 @@ return {
 	{
 		"nvim-mini/mini.indentscope",
 		version = false,
+		event = "VeryLazy",
 		config = function()
 			require("mini.indentscope").setup()
 		end,
@@ -32,6 +44,7 @@ return {
 	{
 		"nvim-mini/mini.operators",
 		version = false,
+		event = "VeryLazy",
 		config = function()
 			require("mini.operators").setup({ replace = { prefix = "gR" } })
 		end,
@@ -39,6 +52,7 @@ return {
 	{
 		"nvim-mini/mini.pairs",
 		version = false,
+		event = "InsertEnter",
 		config = function()
 			require("mini.pairs").setup()
 		end,
@@ -88,6 +102,7 @@ return {
 	{
 		"nvim-mini/mini.surround",
 		version = false,
+		event = "VeryLazy",
 		config = function()
 			require("mini.surround").setup()
 		end,

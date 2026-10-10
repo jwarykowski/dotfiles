@@ -25,6 +25,13 @@ require("config.options")
 
 require("lazy").setup("plugins", {
 	ui = { border = "rounded" },
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			-- netrw: oil replaces it
+			disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+		},
+	},
 })
 
 require("config.keymaps")

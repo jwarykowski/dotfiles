@@ -1,14 +1,45 @@
+-- nearest dir holding a file whose name matches one of the lua patterns,
+-- tried in order (vim.fs.root only matches exact names, not globs)
+local function root_by_pattern(bufnr, patterns)
+	for _, pattern in ipairs(patterns) do
+		local root = vim.fs.root(bufnr, function(name)
+			return name:match(pattern) ~= nil
+		end)
+		if root then
+			return root
+		end
+	end
+	return vim.fs.root(bufnr, ".git")
+end
+
+local lsp_events = { "BufReadPre", "BufNewFile" }
+
 return {
 	{
 		"mason-org/mason.nvim",
-		lazy = false,
+		cmd = "Mason",
+		event = lsp_events,
 		config = function()
 			require("mason").setup()
 		end,
 	},
 	{
+		-- formatters/linters, so every machine gets the same toolchain
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		dependencies = { "mason-org/mason.nvim" },
+		event = "VeryLazy",
+		config = function()
+			require("mason-tool-installer").setup({
+				ensure_installed = { "goimports", "prettierd", "shfmt", "stylua", "taplo" },
+				run_on_start = false,
+			})
+			require("mason-tool-installer").check_install(false)
+		end,
+	},
+	{
 		"mason-org/mason-lspconfig.nvim",
-		lazy = false,
+		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
+		event = lsp_events,
 		opts = {
 			-- omnisharp_mono needs mono, only installed on mac
 			automatic_enable = { exclude = vim.fn.has("mac") == 1 and {} or { "omnisharp_mono" } },
@@ -33,7 +64,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = { "saghen/blink.cmp" },
-		lazy = false,
+		event = lsp_events,
 		config = function()
 			vim.lsp.config("*", {
 				capabilities = require("blink.cmp").get_lsp_capabilities(),
@@ -42,6 +73,13 @@ return {
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
 					local bufnr = args.buf
+					-- large files (see config/autocmds.lua) get no LSP
+					if vim.b[bufnr].slow_file then
+						vim.schedule(function()
+							vim.lsp.buf_detach_client(bufnr, args.data.client_id)
+						end)
+						return
+					end
 					local kmap = function(mode, keys, func, desc)
 						vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = "LSP: " .. (desc or "") })
 					end
@@ -90,13 +128,8 @@ return {
 
 			-- sourcekit setup (ships with Xcode, not mason-managed)
 			vim.lsp.config("sourcekit", {
-				root_dir = function(bufnr)
-					return vim.fs.root(bufnr, {
-						"Package.swift",
-						".git",
-						"*.xcodeproj",
-						"*.xcworkspace",
-					})
+				root_dir = function(bufnr, on_dir)
+					on_dir(root_by_pattern(bufnr, { "^Package%.swift$", "%.xcworkspace$", "%.xcodeproj$" }))
 				end,
 			})
 			if vim.fn.has("mac") == 1 then
@@ -115,8 +148,8 @@ return {
 						EnableImportCompletion = true,
 					},
 				},
-				root_dir = function(bufnr)
-					return vim.fs.root(bufnr, { "*.sln", "*.csproj", ".git" })
+				root_dir = function(bufnr, on_dir)
+					on_dir(root_by_pattern(bufnr, { "%.sln$", "%.csproj$" }))
 				end,
 			})
 		end,

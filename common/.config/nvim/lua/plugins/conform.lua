@@ -1,25 +1,30 @@
+local prettier = { "prettierd", "prettier", stop_after_first = true }
+
 return {
 	"stevearc/conform.nvim",
+	event = "BufWritePre",
+	cmd = { "ConformInfo", "FormatDisable", "FormatEnable" },
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
 				go = { "goimports", "gofmt", stop_after_first = true },
 				rust = { "rustfmt" },
-				css = { "prettierd", "prettier", stop_after_first = true },
+				css = prettier,
 				cpp = { "clang_format" },
 				c = { "clang_format" },
-				html = { "prettierd", "prettier", stop_after_first = true },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				json = { "prettierd", "prettier", stop_after_first = true },
-				jsonc = { "prettierd", "prettier", stop_after_first = true },
+				html = prettier,
+				javascript = prettier,
+				json = prettier,
+				jsonc = prettier,
 				lua = { "stylua" },
-				markdown = { "prettierd", "prettier", stop_after_first = true },
+				markdown = prettier,
 				python = { "ruff_format" },
 				sh = { "shfmt" },
+				toml = { "taplo" },
 				bash = { "shfmt" },
-				typescript = { "prettierd", "prettier", stop_after_first = true },
-				typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-				yaml = { "prettierd", "prettier", stop_after_first = true },
+				typescript = prettier,
+				typescriptreact = prettier,
+				yaml = prettier,
 			},
 			format_on_save = function(bufnr)
 				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then

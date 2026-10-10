@@ -113,6 +113,15 @@ if installed herdr; then
   log "installing herdr plugins..."
   herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
   herdr plugin install cloudmanic/herdr-plus --yes
+  # shepherd needs a newer go than fedora ships; let go fetch the toolchain
+  GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
+fi
+
+# --- shepherd cli (used by nvim-shepherd); reuse the plugin's build ---
+shepherd_bin=$(compgen -G "$HOME/.config/herdr/plugins/github/jwarykowski.herdr-shepherd-*/bin/shepherd" | head -1 || true)
+if [[ -n "$shepherd_bin" ]]; then
+  log "linking shepherd..."
+  ln -sf "$shepherd_bin" "$HOME/.local/bin/shepherd"
 fi
 
 # --- tpm (tmux plugin manager) ---

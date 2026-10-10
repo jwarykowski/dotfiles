@@ -43,11 +43,12 @@ fi
 # folded links: symlinks in $HOME pointing at a directory inside a stow package
 folded=()
 while IFS= read -r -d '' link; do
+  [[ -d "$link" ]] || continue # link to a dir (bsd find has no -xtype)
   target="$(readlink -f "$link")"
   case "$target" in
     "$dotfiles_dir/common/"* | "$dotfiles_dir/$platform/"*) folded+=("$link") ;;
   esac
-done < <(find "$HOME" -maxdepth 3 -type l -xtype d -print0 2>/dev/null)
+done < <(find "$HOME" -maxdepth 3 -type l -print0 2>/dev/null)
 
 if ((${#folded[@]} == 0)); then
   log "no folded links found"

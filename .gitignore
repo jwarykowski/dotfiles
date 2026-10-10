@@ -3,28 +3,8 @@
 .claude/scheduled_tasks.lock
 .DS_Store
 
-# shepherd data (config.toml is tracked, boards and todos are not)
-common/.config/shepherd/todo.md
-common/.config/shepherd/archive.md
-common/.config/shepherd/boards.toml
-common/.config/shepherd/boards/
-*.md.lock
-
-# gh rewrites this in place through the stow symlink and can write an
-# oauth_token into it
+# credential guards: with --no-folding apps write these to $HOME, not the
+# repo, but a machine still on folded stow links (pre unfold-stow.sh) can
+# leak gh's oauth_token or npm auth into a commit
 common/.config/gh/hosts.yml
-
-# npm credentials live in ~/.npmrc, never in the repo
 common/.npmrc
-
-# herdr runtime state (~/.config/herdr is a folded stow symlink into the repo);
-# config.toml and herdr-plus project templates are tracked
-common/.config/herdr/*
-!common/.config/herdr/config.toml
-!common/.config/herdr/plugins/
-common/.config/herdr/plugins/*
-!common/.config/herdr/plugins/config/
-common/.config/herdr/plugins/config/*
-!common/.config/herdr/plugins/config/cloudmanic.herdr-plus/
-common/.config/herdr/plugins/config/cloudmanic.herdr-plus/*
-!common/.config/herdr/plugins/config/cloudmanic.herdr-plus/projects/

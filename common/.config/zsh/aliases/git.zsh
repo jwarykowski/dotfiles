@@ -110,9 +110,9 @@ alias grhk='git reset --keep'
 # clean
 alias gclean='git clean -fd'
 alias gcleann='git clean -nfd'
-# -e guards: -x bypasses .gitignore, which would wipe live data stowed into
-# the dotfiles repo (shepherd todos/boards, gh oauth token, herdr state/plugins)
-alias gpristine='git reset --hard && git clean -dfx -e common/.config/shepherd -e common/.config/gh/hosts.yml -e common/.config/herdr'
+# -e guard: -x bypasses .gitignore; keeps gh's token on a machine still on
+# folded stow links
+alias gpristine='git reset --hard && git clean -dfx -e common/.config/gh/hosts.yml'
 
 # cherry-pick
 alias gcp='git cherry-pick'

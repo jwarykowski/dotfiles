@@ -34,19 +34,6 @@ map({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ lsp_format = "fallback" })
 end, { desc = "format" })
 
--- agents: ask the agent in this herdr workspace about the code
-map("n", "<leader>ai", function()
-	require("config.agent").send()
-end, { desc = "agent: ask about this line" })
-map("x", "<leader>ai", function()
-	local first, last = vim.fn.line("v"), vim.fn.line(".")
-	if first > last then
-		first, last = last, first
-	end
-	vim.api.nvim_feedkeys(vim.keycode("<esc>"), "n", false)
-	require("config.agent").send({ first, last })
-end, { desc = "agent: ask about selection" })
-
 -- saving
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "save file" })
 

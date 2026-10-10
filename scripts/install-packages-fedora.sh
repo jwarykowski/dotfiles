@@ -106,6 +106,33 @@ Categories=Utility;
 DESKTOP
 fi
 
+# start keymapp at login: kbd-signal / kbd-layer need its api running
+mkdir -p "$HOME/.config/autostart"
+cat >"$HOME/.config/autostart/keymapp.desktop" <<DESKTOP
+[Desktop Entry]
+Type=Application
+Name=Keymapp
+Comment=ZSA keyboard API for kontroll (kbd-signal, kbd-layer)
+Exec=$HOME/.local/bin/keymapp
+Icon=keymapp
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+DESKTOP
+
+# api on, autoconnect, start minimised; the db only exists after keymapp's
+# first launch, and keymapp must be closed or it rewrites the values
+keymapp_db="$HOME/.config/.keymapp/keymapp.sqlite3"
+if [[ -f "$keymapp_db" ]] && ! pgrep -x keymapp >/dev/null; then
+  log "configuring keymapp..."
+  python3 - "$keymapp_db" <<'PY'
+import sqlite3, sys
+db = sqlite3.connect(sys.argv[1])
+for key in ("api_enabled", "startup_autoconnect", "startup_minimized"):
+    db.execute("update config set value='1' where key=?", (key,))
+db.commit()
+PY
+fi
+
 # kontroll ships macos binaries only; build it (needs protoc)
 if ! installed kontroll; then
   log "installing kontroll..."

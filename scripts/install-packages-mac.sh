@@ -35,6 +35,7 @@ brew install \
   newsboat \
   ninja \
   pinentry-mac \
+  protobuf \
   pv \
   rbenv \
   ripgrep \
@@ -51,7 +52,8 @@ brew install \
 log "installing brew casks..."
 brew install --cask \
   ghostty \
-  font-berkeley-mono
+  font-berkeley-mono \
+  keymapp
 
 # --- node + npm globals ---
 eval "$(fnm env)"
@@ -71,6 +73,12 @@ if ! installed rustup; then
 fi
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# --- kontroll (moonlander backlight api via keymapp) ---
+if ! installed kontroll; then
+  log "installing kontroll..."
+  cargo install --locked --git https://github.com/zsa/kontroll --tag 1.0.4
+fi
 
 # --- bun ---
 if ! installed bun; then

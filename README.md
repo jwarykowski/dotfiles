@@ -95,13 +95,22 @@ thumb keys are grep and git-file pickers in both nvim (snacks) and zsh (fzf).
   ▽      ▽     /Ctl   /Alt    ▽      ▽      ▽    │   ▽      ←      ↓      ↑      →      ▽      ▽
 ```
 
-On Linux, Oryx live training and Keymapp need hidraw access:
+On Linux, Oryx live training, Keymapp and flashing need udev access
+(`install-packages-fedora.sh` writes this):
 
-```sh
-echo 'KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"' |
-  sudo tee /etc/udev/rules.d/50-zsa.rules
-sudo udevadm control --reload && sudo udevadm trigger
 ```
+# /etc/udev/rules.d/50-zsa.rules
+KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
+```
+
+### agent light
+
+[Kontroll](https://github.com/zsa/kontroll) drives the backlight through
+Keymapp's API (enable it in Keymapp's config page; Keymapp must be running).
+`kbd-signal attention|done|reset` is wired to Claude Code hooks in
+`~/.claude/settings.json`: amber when an agent needs input, green when it
+finishes, back to the Oryx colours on the next prompt.
 
 ## structure
 

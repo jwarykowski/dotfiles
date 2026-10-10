@@ -30,6 +30,7 @@ sudo dnf install -y \
   ninja-build \
   p7zip \
   pinentry-gnome3 \
+  protobuf-compiler \
   pv \
   python3 \
   python3-pip \
@@ -71,6 +72,45 @@ fi
 # --no-modify-path: cargo is only on PATH once .zshrc runs, so load it here
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# --- zsa moonlander: udev access, keymapp, kontroll ---
+# hidraw for oryx live training / keymapp api, stm32 dfu for flashing
+zsa_rules=/etc/udev/rules.d/50-zsa.rules
+if ! grep -q df11 "$zsa_rules" 2>/dev/null; then
+  log "installing zsa udev rules..."
+  sudo tee "$zsa_rules" >/dev/null <<'RULES'
+KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
+RULES
+  sudo udevadm control --reload
+  sudo udevadm trigger
+fi
+
+if ! installed keymapp; then
+  log "installing keymapp..."
+  keymapp_tmp=$(mktemp -d)
+  curl -fsSL https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz |
+    tar -xz -C "$keymapp_tmp"
+  install -m755 "$keymapp_tmp/keymapp" "$HOME/.local/bin/keymapp"
+  install -Dm644 "$keymapp_tmp/icon.png" "$HOME/.local/share/icons/hicolor/256x256/apps/keymapp.png"
+  rm -rf "$keymapp_tmp"
+  mkdir -p "$HOME/.local/share/applications"
+  cat >"$HOME/.local/share/applications/keymapp.desktop" <<DESKTOP
+[Desktop Entry]
+Type=Application
+Name=Keymapp
+Comment=ZSA keyboard flashing and live layout
+Exec=$HOME/.local/bin/keymapp
+Icon=keymapp
+Categories=Utility;
+DESKTOP
+fi
+
+# kontroll ships macos binaries only; build it (needs protoc)
+if ! installed kontroll; then
+  log "installing kontroll..."
+  cargo install --locked --git https://github.com/zsa/kontroll --tag 1.0.4
+fi
 
 # --- stylua ---
 if ! installed stylua; then

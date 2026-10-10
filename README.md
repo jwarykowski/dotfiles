@@ -121,6 +121,14 @@ amber while anything is blocked.
 [herdr-gh](https://github.com/jwarykowski/herdr-gh) (herdr plugin) puts each
 workspace's pull request on its sidebar branch line as `$gh`, e.g. `#412│×│!`.
 
+[herdr-pomodoro](https://github.com/jwarykowski/herdr-pomodoro) (herdr plugin,
+`prefix+alt+p`) runs a pomodoro timer; the nvim statusline shows it
+(`🍅 12:34`) and the keyboard's Q–P row drains as a bar (red work, blue break).
+
+Hooks in `.config/herdr/plugins/config/<plugin>/hooks/` throw a few seconds of
+party lights on the keyboard when a PR merges (`pr.merged`) and when a
+pomodoro round ends (`pomodoro.work_done`).
+
 Agents from the editor and the todo board:
 
 - `<leader>ai` in nvim asks the agent in the same herdr workspace about the

@@ -77,6 +77,11 @@ return {
 						local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 						local shepherd = require("shepherd").status()
 						local kbd = require("config.kbd").status()
+						-- herdr-pomodoro timer; guarded until herdr.nvim ships pomodoro()
+						local ok, pomodoro = pcall(function()
+							return require("herdr").pomodoro()
+						end)
+						pomodoro = ok and pomodoro or ""
 
 						return MiniStatusline.combine_groups({
 							{ hl = mode_hl, strings = { mode } },
@@ -84,7 +89,7 @@ return {
 							"%<",
 							{ hl = "MiniStatuslineFilename", strings = { filename } },
 							"%=",
-							{ hl = "MiniStatuslineDevinfo", strings = { kbd, shepherd } },
+							{ hl = "MiniStatuslineDevinfo", strings = { pomodoro, kbd, shepherd } },
 							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 							{ hl = mode_hl, strings = { search, location } },
 						})

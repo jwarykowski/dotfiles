@@ -1,0 +1,3 @@
+#!/bin/sh
+# party lights on the keyboard when a pomodoro round ends
+exec "${HERDR_BIN_PATH:-herdr}" plugin action invoke party --plugin jwarykowski.herdr-zsa-lights

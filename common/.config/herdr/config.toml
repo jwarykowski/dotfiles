@@ -125,6 +125,12 @@ command = "spotify-now-playing.open"
 description = "spotify now playing"
 
 [[keys.command]]
+key = "prefix+alt+p"
+type = "plugin_action"
+command = "jwarykowski.herdr-pomodoro.toggle"
+description = "start / stop the pomodoro"
+
+[[keys.command]]
 key = "prefix+alt+g"
 type = "pane"
 command = "lazygit"

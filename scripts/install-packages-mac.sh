@@ -74,6 +74,13 @@ fi
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
+# --- keymapp at login (hidden): kbd-watch / kbd-layer need its api running ---
+if [[ -d /Applications/Keymapp.app ]] &&
+  ! osascript -e 'tell application "System Events" to get the name of every login item' | grep -q Keymapp; then
+  log "adding keymapp login item..."
+  osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Keymapp.app", hidden:true}' >/dev/null
+fi
+
 # --- kontroll (moonlander backlight api via keymapp) ---
 if ! installed kontroll; then
   log "installing kontroll..."

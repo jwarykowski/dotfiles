@@ -108,7 +108,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uacc
 
 [Kontroll](https://github.com/zsa/kontroll) drives the backlight through
 Keymapp's API (Keymapp autostarts minimised with the API on).
-`kbd-watch` (a systemd user service) polls herdr and lights the number key of
+`kbd-watch` (a systemd user service on Linux, a launchd agent on macOS) polls herdr and lights the number key of
 each workspace, matching `ctrl+alt+N`: amber while its agent is blocked, green
 when it's done. The top-right key glows amber while anything is blocked.
 

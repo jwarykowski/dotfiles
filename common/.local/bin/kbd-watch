@@ -7,8 +7,9 @@
 #        kbd-watch toggle   switch the lights off/on (ctrl+alt+shift+a)
 set -uo pipefail
 
-# linux builds kontroll with cargo; services start with a minimal PATH
-PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+# services start with a minimal PATH: kontroll comes from cargo, and on macos
+# herdr and jq from homebrew
+PATH="$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/bin:$PATH"
 
 amber="#ff8800"
 green="#00cc44"

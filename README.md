@@ -113,6 +113,10 @@ Keymapp's API (enable it in Keymapp's config page; Keymapp must be running).
 the board shows the most urgent: amber while any needs input, else green while
 any has finished, else the Oryx colours.
 
+`kbd-layer` prints the active layer when it isn't the base one; the zsh right
+prompt and the nvim statusline show it (`⌨ media`), so a toggled layer is
+never forgotten.
+
 ## structure
 
 ```

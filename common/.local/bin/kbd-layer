@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# print the moonlander's active layer name (oryx BO0Dw) via kontroll + keymapp.
+# prints nothing on the base layer or when keymapp/kontroll aren't available,
+# so prompts and statuslines can show it unconditionally.
+set -uo pipefail
+
+names=(qwerty symbols media navi)
+
+# linux builds kontroll with cargo; callers may have a PATH that predates it
+PATH="$HOME/.cargo/bin:$PATH"
+command -v kontroll >/dev/null 2>&1 || exit 0
+command -v jq >/dev/null 2>&1 || exit 0
+
+# skip the kontroll connect timeout when keymapp isn't listening
+sockets=(
+  "${XDG_CONFIG_HOME:-$HOME/.config}/.keymapp/keymapp.sock"
+  "$HOME/Library/Application Support/.keymapp/keymapp.sock"
+  "$HOME/Library/Containers/io.zsa.keymapp/Data/Library/Application Support/.keymapp/keymapp.sock"
+)
+found=false
+for sock in "${sockets[@]}"; do
+  [[ -S "$sock" ]] && found=true && break
+done
+[[ "$found" == "true" ]] || exit 0
+
+layer=$(kontroll status --json 2>/dev/null | jq -r '.keyboard.current_layer // empty')
+[[ -z "$layer" || "$layer" == "0" ]] && exit 0
+echo "${names[$layer]:-layer $layer}"

@@ -76,6 +76,7 @@ return {
 						local location = MiniStatusline.section_location({ trunc_width = 75 })
 						local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 						local shepherd = require("shepherd").status()
+						local kbd = require("config.kbd").status()
 
 						return MiniStatusline.combine_groups({
 							{ hl = mode_hl, strings = { mode } },
@@ -83,13 +84,14 @@ return {
 							"%<",
 							{ hl = "MiniStatuslineFilename", strings = { filename } },
 							"%=",
-							{ hl = "MiniStatuslineDevinfo", strings = { shepherd } },
+							{ hl = "MiniStatuslineDevinfo", strings = { kbd, shepherd } },
 							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 							{ hl = mode_hl, strings = { search, location } },
 						})
 					end,
 				},
 			})
+			require("config.kbd").start()
 			-- counts load async; redraw when they arrive
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "ShepherdStatusUpdate",

@@ -82,11 +82,20 @@ if ! installed opencode; then
   brew install sst/tap/opencode
 fi
 
+# --- shepherd (cli used by nvim-shepherd) ---
+if ! installed shepherd; then
+  log "installing shepherd..."
+  brew install jwarykowski/tap/shepherd
+fi
+
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."
   herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
   herdr plugin install cloudmanic/herdr-plus --yes
+  herdr plugin install natori-hrj/herdr-lazy --yes
+  # shepherd builds from source and may need a newer go than installed
+  GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
 fi
 
 # --- tpm (tmux plugin manager) ---

@@ -113,6 +113,7 @@ if installed herdr; then
   log "installing herdr plugins..."
   herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
   herdr plugin install cloudmanic/herdr-plus --yes
+  herdr plugin install natori-hrj/herdr-lazy --yes
   # shepherd needs a newer go than fedora ships; let go fetch the toolchain
   GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
 fi

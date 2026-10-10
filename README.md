@@ -108,14 +108,15 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uacc
 
 [Kontroll](https://github.com/zsa/kontroll) drives the backlight through
 Keymapp's API (Keymapp autostarts minimised with the API on).
-`kbd-watch` (a systemd user service on Linux, a launchd agent on macOS) polls herdr and lights the number key of
-each workspace, matching `ctrl+alt+N`: amber while its agent is blocked, green
-when it's done. The top-right key glows amber while anything is blocked.
+[herdr-zsa-lights](https://github.com/jwarykowski/herdr-zsa-lights) (herdr
+plugin) lights the number key of each workspace, matching `ctrl+alt+N`: amber
+while its agent is blocked, green when it's done. The top-right key glows
+amber while anything is blocked.
 
 | key | Oryx sends | herdr runs |
 |---|---|---|
-| top-right | `ctrl+alt+a` | `herdr-next-agent`: focus the next blocked (then done) agent |
-| hold Space + top-right | `ctrl+alt+shift+a` | `kbd-watch toggle`: lights on/off |
+| top-right | `ctrl+alt+a` | `next-agent`: focus the next blocked (then done) agent |
+| hold Space + top-right | `ctrl+alt+shift+a` | `toggle`: lights on/off |
 
 [herdr-gh](https://github.com/jwarykowski/herdr-gh) (herdr plugin) puts each
 workspace's pull request on its sidebar branch line as `$gh`, e.g. `#412│×│!`.

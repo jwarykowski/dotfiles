@@ -106,13 +106,13 @@ Categories=Utility;
 DESKTOP
 fi
 
-# start keymapp at login: kbd-watch / kbd-layer need its api running
+# start keymapp at login: herdr-zsa-lights / kbd-layer need its api running
 mkdir -p "$HOME/.config/autostart"
 cat >"$HOME/.config/autostart/keymapp.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
 Name=Keymapp
-Comment=ZSA keyboard API for kontroll (kbd-watch, kbd-layer)
+Comment=ZSA keyboard API for kontroll (herdr-zsa-lights, kbd-layer)
 Exec=$HOME/.local/bin/keymapp
 Icon=keymapp
 X-GNOME-Autostart-enabled=true
@@ -192,6 +192,7 @@ if installed herdr; then
   herdr plugin install cloudmanic/herdr-plus --yes
   herdr plugin install natori-hrj/herdr-lazy --yes
   herdr plugin install jwarykowski/herdr-gh --yes
+  herdr plugin install jwarykowski/herdr-zsa-lights --yes
   # shepherd needs a newer go than fedora ships; let go fetch the toolchain
   GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
 fi

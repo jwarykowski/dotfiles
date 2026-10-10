@@ -137,11 +137,11 @@ command = "spotify_player"
 description = "run spotify_player"
 
 # moonlander: top-right key sends ctrl+alt+a, space-hold + top-right toggles
-# the per-workspace key lights (kbd-watch)
+# the per-workspace key lights (herdr-zsa-lights plugin)
 [[keys.command]]
 key = "ctrl+alt+a"
-type = "shell"
-command = "herdr-next-agent"
+type = "plugin_action"
+command = "jwarykowski.herdr-zsa-lights.next-agent"
 description = "focus the agent that needs you"
 
 [[keys.command]]
@@ -152,8 +152,8 @@ description = "hand a shepherd todo to a claude agent (new worktree)"
 
 [[keys.command]]
 key = "ctrl+alt+shift+a"
-type = "shell"
-command = "kbd-watch toggle"
+type = "plugin_action"
+command = "jwarykowski.herdr-zsa-lights.toggle"
 description = "toggle keyboard agent lights"
 
 [ui]

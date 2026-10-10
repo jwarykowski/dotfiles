@@ -74,7 +74,7 @@ fi
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-# --- keymapp at login (hidden): kbd-watch / kbd-layer need its api running ---
+# --- keymapp at login (hidden): herdr-zsa-lights / kbd-layer need its api running ---
 if [[ -d /Applications/Keymapp.app ]] &&
   ! osascript -e 'tell application "System Events" to get the name of every login item' | grep -q Keymapp; then
   log "adding keymapp login item..."
@@ -112,6 +112,7 @@ if installed herdr; then
   herdr plugin install cloudmanic/herdr-plus --yes
   herdr plugin install natori-hrj/herdr-lazy --yes
   herdr plugin install jwarykowski/herdr-gh --yes
+  herdr plugin install jwarykowski/herdr-zsa-lights --yes
   # shepherd builds from source and may need a newer go than installed
   GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
 fi

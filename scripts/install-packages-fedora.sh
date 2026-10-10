@@ -106,13 +106,13 @@ Categories=Utility;
 DESKTOP
 fi
 
-# start keymapp at login: kbd-signal / kbd-layer need its api running
+# start keymapp at login: kbd-watch / kbd-layer need its api running
 mkdir -p "$HOME/.config/autostart"
 cat >"$HOME/.config/autostart/keymapp.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
 Name=Keymapp
-Comment=ZSA keyboard API for kontroll (kbd-signal, kbd-layer)
+Comment=ZSA keyboard API for kontroll (kbd-watch, kbd-layer)
 Exec=$HOME/.local/bin/keymapp
 Icon=keymapp
 X-GNOME-Autostart-enabled=true

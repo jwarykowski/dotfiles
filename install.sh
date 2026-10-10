@@ -68,6 +68,12 @@ if [ -d "$platform" ]; then
     stow "${stow_flags[@]}" "$platform"
 fi
 
+# user services shipped in the platform package (e.g. kbd-watch)
+if [[ "$platform" == "linux" ]] && command -v systemctl >/dev/null 2>&1; then
+  systemctl --user daemon-reload
+  systemctl --user enable --now kbd-watch.service
+fi
+
 if [[ "$adopt" == "true" ]]; then
   echo "adopted files were moved into the repo; review with: git -C $dotfiles_dir diff"
 fi

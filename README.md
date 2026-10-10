@@ -104,14 +104,18 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
 ```
 
-### agent light
+### agent lights
 
 [Kontroll](https://github.com/zsa/kontroll) drives the backlight through
-Keymapp's API (enable it in Keymapp's config page; Keymapp must be running).
-`kbd-signal attention|done|reset` is wired to Claude Code hooks in
-`~/.claude/settings.json`. State is kept per session, so with several agents
-the board shows the most urgent: amber while any needs input, else green while
-any has finished, else the Oryx colours.
+Keymapp's API (Keymapp autostarts minimised with the API on).
+`kbd-watch` (a systemd user service) polls herdr and lights the number key of
+each workspace, matching `ctrl+alt+N`: amber while its agent is blocked, green
+when it's done. The top-right key glows amber while anything is blocked.
+
+| key | Oryx sends | herdr runs |
+|---|---|---|
+| top-right | `ctrl+alt+a` | `herdr-next-agent`: focus the next blocked (then done) agent |
+| hold Space + top-right | `ctrl+alt+shift+a` | `kbd-watch toggle`: lights on/off |
 
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
 prompt and the nvim statusline show it (`⌨ media`), so a toggled layer is

@@ -136,6 +136,20 @@ type = "pane"
 command = "spotify_player"
 description = "run spotify_player"
 
+# moonlander: top-right key sends ctrl+alt+a, space-hold + top-right toggles
+# the per-workspace key lights (kbd-watch)
+[[keys.command]]
+key = "ctrl+alt+a"
+type = "shell"
+command = "herdr-next-agent"
+description = "focus the agent that needs you"
+
+[[keys.command]]
+key = "ctrl+alt+shift+a"
+type = "shell"
+command = "kbd-watch toggle"
+description = "toggle keyboard agent lights"
+
 [ui]
 sidebar_width = 104
 sidebar_max_width = 128

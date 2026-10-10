@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+# light the moonlander from herdr agent status, via kontroll + keymapp:
+#   number key N  workspace N (as ctrl+alt+N): amber blocked, green done
+#   top-right     amber while any agent is blocked (ctrl+alt+a jumps to it)
+#
+# usage: kbd-watch run      poll herdr and keep the lights in sync
+#        kbd-watch toggle   switch the lights off/on (ctrl+alt+shift+a)
+set -uo pipefail
+
+# linux builds kontroll with cargo; services start with a minimal PATH
+PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+amber="#ff8800"
+green="#00cc44"
+# led index per workspace number 1-9, and the top-right key (zsa moonlander
+# revb rgb_matrix layout: left half numbered by column, right half mirrored)
+number_leds=(_ 5 10 15 20 25 61 56 51 46)
+jump_led=36
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/kbd-watch"
+disabled="$state_dir/disabled"
+mkdir -p "$state_dir"
+
+notify() {
+  herdr notification show "$1" >/dev/null 2>&1 || true
+}
+
+# "led:color" pairs for the current herdr state, one per line
+frame() {
+  herdr workspace list 2>/dev/null | jq -r \
+    --arg amber "$amber" --arg green "$green" \
+    --argjson leds "$(printf '%s\n' "${number_leds[@]:1}" | jq -s .)" \
+    --argjson jump "$jump_led" '
+    .result.workspaces
+    | (map(select(.number >= 1 and .number <= 9
+                  and (.agent_status == "blocked" or .agent_status == "done"))
+           | "\($leds[.number - 1]):\(if .agent_status == "blocked" then $amber else $green end)")
+       + (if any(.agent_status == "blocked") then ["\($jump):\($amber)"] else [] end))
+    | .[]'
+}
+
+paint() {
+  kontroll restore-rgb-leds >/dev/null 2>&1 || return 1
+  local pair
+  for pair in $1; do
+    kontroll set-rgb --led "${pair%%:*}" --color "${pair#*:}" >/dev/null 2>&1
+  done
+}
+
+run() {
+  local last="" current
+  trap 'kontroll restore-rgb-leds >/dev/null 2>&1; exit 0' INT TERM
+  while true; do
+    if [[ -f "$disabled" ]]; then
+      current=""
+    else
+      current=$(frame)
+    fi
+    # repaint only on change; a failed paint (keymapp down) retries next tick
+    if [[ "$current" != "$last" ]]; then
+      paint "$current" && last="$current"
+    fi
+    sleep 2
+  done
+}
+
+toggle() {
+  if [[ -f "$disabled" ]]; then
+    rm -f "$disabled"
+    notify "keyboard lights on"
+  else
+    touch "$disabled"
+    kontroll restore-rgb-leds >/dev/null 2>&1
+    notify "keyboard lights off"
+  fi
+}
+
+case "${1:-}" in
+  run) run ;;
+  toggle) toggle ;;
+  *) echo "usage: kbd-watch run|toggle" >&2; exit 1 ;;
+esac

@@ -249,3 +249,7 @@ Re-apply dotfiles (safe, idempotent):
 - **zsh default shell**: `chsh -s $(which zsh)`
 - **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts
 - **gh cli**: `gh auth login` — `hosts.yml` is deliberately untracked, it can hold an oauth token
+
+## license
+
+[MIT](LICENSE)

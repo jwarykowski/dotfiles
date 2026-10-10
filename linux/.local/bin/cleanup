@@ -17,6 +17,16 @@ if command -v cargo-cache >/dev/null 2>&1; then
   cargo cache --autoclean
 fi
 
+if command -v flatpak >/dev/null 2>&1; then
+  log "flatpak unused runtimes..."
+  flatpak uninstall --unused -y
+fi
+
+if command -v go >/dev/null 2>&1; then
+  log "go build cache..."
+  go clean -cache
+fi
+
 log "npm cache..."
 npm cache clean --force 2>/dev/null || true
 

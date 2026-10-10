@@ -35,6 +35,7 @@ sudo dnf install -y \
   python3-pip \
   python3-ruff \
   ripgrep \
+  ShellCheck \
   shfmt \
   stow \
   tmux \
@@ -48,6 +49,13 @@ if ! installed lazygit; then
   sudo dnf install -y lazygit
 fi
 
+# --- ghostty (copr) ---
+if ! installed ghostty; then
+  log "installing ghostty..."
+  sudo dnf copr enable -y scottames/ghostty
+  sudo dnf install -y ghostty
+fi
+
 # --- yazi (copr) ---
 if ! installed yazi; then
   log "installing yazi..."
@@ -59,8 +67,10 @@ fi
 if ! installed rustup; then
   log "installing rust..."
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-  source "$HOME/.cargo/env"
 fi
+# --no-modify-path: cargo is only on PATH once .zshrc runs, so load it here
+# shellcheck source=/dev/null
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # --- stylua ---
 if ! installed stylua; then

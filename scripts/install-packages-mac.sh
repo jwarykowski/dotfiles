@@ -39,6 +39,7 @@ brew install \
   rbenv \
   ripgrep \
   ruff \
+  shellcheck \
   shfmt \
   stow \
   stylua \
@@ -67,8 +68,9 @@ npm install -g @fsouza/prettierd prettier
 if ! installed rustup; then
   log "installing rust..."
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
-  source "$HOME/.cargo/env"
 fi
+# shellcheck source=/dev/null
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 # --- bun ---
 if ! installed bun; then

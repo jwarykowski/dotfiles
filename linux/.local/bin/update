@@ -2,25 +2,32 @@
 set -euo pipefail
 
 log() { echo "==> $*"; }
+failed=()
+# run a step, keep going on failure, report at the end
+step() {
+  local name="$1"
+  shift
+  log "$name..."
+  "$@" || failed+=("$name")
+}
+has() { command -v "$1" >/dev/null 2>&1; }
 
-log "dnf upgrade..."
-sudo dnf upgrade -y
+step "dnf upgrade" sudo dnf upgrade -y
 
-log "flatpak update..."
-flatpak update -y 2>/dev/null || true
+has flatpak && step "flatpak update" flatpak update -y
+has rustup && step "rustup" rustup update
+has bun && step "bun" bun upgrade
+has herdr && step "herdr" herdr update
 
-log "nvim plugins..."
-nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
+step "zsh plugins" zsh -ic 'znap pull'
+step "nvim plugins" nvim --headless "+Lazy! sync" "+MasonUpdate" +qa
+step "tmux plugins" "$HOME/.tmux/plugins/tpm/bin/update_plugins" all
 
-log "tmux plugins..."
-~/.tmux/plugins/tpm/bin/update_plugins all 2>/dev/null || true
+has cargo-install-update && step "cargo packages" cargo install-update -a
+step "npm globals" npm update -g
 
-if command -v cargo-install-update >/dev/null 2>&1; then
-  log "cargo packages..."
-  cargo install-update -a
+if ((${#failed[@]})); then
+  log "failed: ${failed[*]}"
+  exit 1
 fi
-
-log "npm globals..."
-npm update -g 2>/dev/null || true
-
 log "done"

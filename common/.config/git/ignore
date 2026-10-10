@@ -39,7 +39,6 @@
 *.iml
 
 # ---- logs ----
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -51,19 +50,17 @@ node_modules/
 bower_components/
 
 # ---- build outputs ----
+# generic names (build/, out/, tmp/, logs) are left to each project's own
+# .gitignore; globally ignoring them hides real source dirs
 dist/
-build/
 coverage/
 .next/
-out/
 .nuxt/
 .svelte-kit/
-.storybook/
 .stylelintcache
 .eslintcache
 
 # nx
-tmp/
 .nx/cache/
 .nx/workspace-data/
 
@@ -74,6 +71,7 @@ tmp/
 .tmp/
 
 # ---- env / secrets ----
+# can hold auth tokens; force-add (git add -f) a project .npmrc that is safe
 .npmrc
 .env
 .env.local
@@ -86,10 +84,5 @@ tmp/
 .env.production
 .env.production.local
 
-# ---- misc ----
-*.tgz
-*.zip
-*.tar
-*.tar.gz
-*.gz
-*.out
+# ---- agents ----
+**/.claude/settings.local.json

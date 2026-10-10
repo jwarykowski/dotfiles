@@ -15,9 +15,6 @@ export CMAKE_GENERATOR="Ninja"
 # deno
 export PATH="$HOME/.deno/bin:$PATH"
 
-# direnv
-znap eval direnv 'direnv hook zsh'
-
 # dotnet
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$HOME/.dotnet:$PATH"
@@ -26,9 +23,6 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-
-# fnm
-znap eval fnm 'fnm env --use-on-cd --shell zsh'
 
 # java - react native
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
@@ -41,9 +35,6 @@ export PATH="$HOME/.opencode/bin:$PATH"
 
 # ruby
 znap eval rbenv 'rbenv init - zsh'
-
-# rust
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # sonarqube-cli
 export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"

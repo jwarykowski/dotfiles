@@ -67,6 +67,11 @@ if [[ -f "$HOME/.zshrc.local" ]]; then
   source "$HOME/.zshrc.local"
 fi
 
+# tool hooks (after .zshrc.local so brew's PATH is in place on mac)
+[[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
+command -v direnv >/dev/null && znap eval direnv 'direnv hook zsh'
+command -v fnm >/dev/null && znap eval fnm 'fnm env --use-on-cd --shell zsh'
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"

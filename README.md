@@ -118,9 +118,9 @@ when it's done. The top-right key glows amber while anything is blocked.
 | hold Space + top-right | `ctrl+alt+shift+a` | `kbd-watch toggle`: lights on/off |
 
 `herdr-gh-status` (also a service) puts each workspace's pull request on its
-sidebar branch line as `$gh`: `#412│✗│!` = PR number (`d` = draft), CI
-`✓ ✗ ●` (passed, failed, running), review `+ !` (approved, changes
-requested). Needs `gh auth login`.
+sidebar branch line as `$gh`: `#412│×│!` = PR number (`d` = draft), CI
+`√ × •` (passed, failed, running), review `+ !` (approved, changes
+requested); merged `↗`, closed `†`. Needs `gh auth login`.
 
 Agents from the editor and the todo board:
 

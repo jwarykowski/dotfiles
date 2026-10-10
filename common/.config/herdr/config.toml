@@ -166,7 +166,7 @@ agent_panel_sort = "priority"
 # glyphs per state read better than colour dots on the low-contrast palette
 status_indicators = "symbols"
 
-# $gh is reported by herdr-gh-status: #pr│ci│review, e.g. #412│✗│!
+# $gh is reported by herdr-gh-status: #pr│ci│review, e.g. #412│×│!
 [ui.sidebar.spaces]
 rows = [["state_icon", "workspace"], ["branch", "git_status", "$gh"]]
 

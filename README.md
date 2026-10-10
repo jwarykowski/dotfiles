@@ -109,8 +109,9 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uacc
 [Kontroll](https://github.com/zsa/kontroll) drives the backlight through
 Keymapp's API (enable it in Keymapp's config page; Keymapp must be running).
 `kbd-signal attention|done|reset` is wired to Claude Code hooks in
-`~/.claude/settings.json`: amber when an agent needs input, green when it
-finishes, back to the Oryx colours on the next prompt.
+`~/.claude/settings.json`. State is kept per session, so with several agents
+the board shows the most urgent: amber while any needs input, else green while
+any has finished, else the Oryx colours.
 
 ## structure
 

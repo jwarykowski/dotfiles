@@ -3,13 +3,15 @@
 # keymapp's config page). silent no-op when either is missing, and returns
 # immediately so callers (claude code hooks) never wait on the keyboard.
 #
-# usage: kbd-signal attention|done|reset
+# each claude session keeps its own state (keyed by the hook payload's
+# session_id); the board shows the most urgent across all of them:
+# any waiting -> amber, else any finished -> green, else oryx colours.
+#
+# usage: kbd-signal attention|done|reset   (hook json on stdin, optional)
 set -uo pipefail
 
 case "${1:-}" in
-  attention) color="#ff8800" ;; # waiting on you: permission prompt / idle
-  done) color="#00cc44" ;;      # finished its turn
-  reset) color="" ;;            # back to the oryx layer colours
+  attention | done | reset) state="$1" ;;
   *) echo "usage: kbd-signal attention|done|reset" >&2; exit 1 ;;
 esac
 
@@ -29,15 +31,50 @@ for sock in "${sockets[@]}"; do
 done
 [[ "$found" == "true" ]] || exit 0
 
-signal() {
-  if [[ -n "$color" ]]; then
-    kontroll set-rgb-all --color "$color"
+session="manual"
+if [[ ! -t 0 ]] && command -v jq >/dev/null 2>&1; then
+  session=$(jq -r '.session_id // empty' 2>/dev/null)
+  session="${session:-manual}"
+fi
+
+state_dir="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/kbd-signal"
+mkdir -p "$state_dir"
+
+update() {
+  if [[ "$state" == "reset" ]]; then
+    rm -f "$state_dir/$session"
   else
-    kontroll restore-rgb-leds
+    echo "$state" >"$state_dir/$session"
   fi
+
+  # sessions that died without SessionEnd shouldn't pin the light forever
+  find "$state_dir" -type f -mmin +720 -delete 2>/dev/null
+
+  local color=""
+  if grep -qsx 'attention' "$state_dir"/*; then
+    color="#ff8800"
+  elif grep -qsx 'done' "$state_dir"/*; then
+    color="#00cc44"
+  fi
+
+  send() {
+    if [[ -n "$color" ]]; then
+      kontroll set-rgb-all --color "$color"
+    else
+      kontroll restore-rgb-leds
+    fi
+  }
+  # keymapp may not have picked a keyboard yet; connect once and retry
+  send || { kontroll connect-any && send; }
 }
 
-# keymapp may not have picked a keyboard yet; connect once and retry
-(signal || { kontroll connect-any && signal; }) >/dev/null 2>&1 &
+# serialise so overlapping hooks from several sessions can't reorder colours
+# (flock is linux-only; without it the last writer still wins)
+(
+  if command -v flock >/dev/null 2>&1; then
+    flock -w 5 9 || exit 0
+  fi
+  update
+) 9>"$state_dir/.lock" >/dev/null 2>&1 &
 disown
 exit 0

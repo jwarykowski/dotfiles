@@ -23,6 +23,33 @@ return {
 		toggle = { enabled = true },
 	},
 	keys = {
+		-- moonlander thumb keys (C-a / C-f); replaces increment and page-forward
+		{
+			"<C-a>",
+			function()
+				Snacks.picker.grep({ hidden = true })
+			end,
+			desc = "grep",
+		},
+		{
+			"<C-a>",
+			function()
+				Snacks.picker.grep_word()
+			end,
+			mode = "x",
+			desc = "grep selection",
+		},
+		{
+			"<C-f>",
+			function()
+				if Snacks.git.get_root() then
+					Snacks.picker.git_files({ untracked = true })
+				else
+					Snacks.picker.files({ hidden = true })
+				end
+			end,
+			desc = "git files (files outside a repo)",
+		},
 		{
 			"<leader>,",
 			function()

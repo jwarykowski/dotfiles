@@ -63,7 +63,7 @@ Layout lives on [Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest)
 (not in this repo). Home-row mods (`S D F` / `J K L` hold for Ctrl Alt Gui),
 `A` / `;` hold for symbols, `Space` hold for navigation, and a vim-motion
 bottom row: `<` `0` on the left, `$` `>` on the right. The `C-a` / `C-f`
-thumb keys are nvim's grep and git-file pickers.
+thumb keys are grep and git-file pickers in both nvim (snacks) and zsh (fzf).
 
 `/x` = tap / hold `x` · `MO(n)` hold layer · `TG(n)` toggle layer ·
 `▽` transparent · `C- S- A- G-` = Ctrl Shift Alt Gui

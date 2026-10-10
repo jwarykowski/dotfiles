@@ -30,7 +30,7 @@ imported at the end.
 ## toolchain
 
 - Go: build and test with `GOTOOLCHAIN=auto` (repos may need a newer Go than the system one).
-- Lua tests: run busted as `luajit ~/.luarocks/bin/busted` (the launcher's `lua` is 5.4; the rocks are 5.1).
+- Lua tests: run busted as `luajit ~/.luarocks/bin/busted </dev/null` (the launcher's `lua` is 5.4; the rocks are 5.1; nlua's nvim hangs on an open stdin).
 
 ## writing
 

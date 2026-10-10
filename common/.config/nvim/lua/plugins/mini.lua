@@ -77,9 +77,9 @@ return {
 						local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 						local shepherd = require("shepherd").status()
 						local kbd = require("config.kbd").status()
-						-- herdr-pomodoro timer; guarded until herdr.nvim ships pomodoro()
+						-- herdr-pomodoro timer; guarded until its Neovim module ships
 						local ok, pomodoro = pcall(function()
-							return require("herdr").pomodoro()
+							return require("herdr-pomodoro").status()
 						end)
 						pomodoro = ok and pomodoro or ""
 

@@ -51,7 +51,7 @@
    CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq
  ┌──────────────────────────────────────────────────────────────────────────────┐
  │ ~/dotfiles ── stow --no-folding:  common/ + linux/ | mac/   → $HOME          │
- │   install.sh [--packages|--adopt] · scripts/install-packages-{fedora,mac}    │
+ │   install.sh [--packages|--adopt|--profile] · scripts/install-packages-*     │
  │   ~/.local/bin: update · cleanup · systemctl-* · disk-report                 │
  │   CI: shellcheck · stylua · luacheck                                         │
  └──────────────────────────────────────────────────────────────────────────────┘
@@ -217,8 +217,13 @@ cd ~/dotfiles
 Install packages then stow dotfiles:
 
 ```sh
-./install.sh --packages
+./install.sh --packages --profile personal   # or --profile work
 ```
+
+`--profile` seeds the untracked `~/.claude/CLAUDE.local.md` (only if it doesn't
+exist yet), which the shared `~/.claude/CLAUDE.md` imports: `personal` points it
+at `CLAUDE.personal.md` from this repo, `work` leaves a stub for work-only rules
+that must stay out of this public repo.
 
 ### existing machine
 

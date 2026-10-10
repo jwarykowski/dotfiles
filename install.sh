@@ -3,10 +3,12 @@ set -euo pipefail
 
 adopt=false
 packages=false
+profile=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --adopt)    adopt=true; shift ;;
     --packages) packages=true; shift ;;
+    --profile)  profile="${2:?--profile needs personal or work}"; shift 2 ;;
     *) echo "unknown option: $1" >&2; exit 1 ;;
   esac
 done
@@ -52,6 +54,19 @@ fi
 # --no-folding: link files, never whole directories, so anything an app writes
 # into its config dir (sockets, logs, plugins, tokens) stays out of the repo
 stow_flags=(-v --no-folding --restow)
+# claude code: the shared ~/.claude/CLAUDE.md imports this machine's
+# untracked CLAUDE.local.md, so work rules never land in this public repo.
+# created once, never overwritten
+claude_local="$HOME/.claude/CLAUDE.local.md"
+if [[ ! -e "$claude_local" ]]; then
+  case "$profile" in
+    personal) echo "@~/.claude/CLAUDE.personal.md" > "$claude_local" ;;
+    work)     printf '# Work machine\n\n<!-- work-only rules: repos, tickets, signing, attribution -->\n' > "$claude_local" ;;
+    *)        printf '<!-- machine-specific rules; see install.sh --profile -->\n' > "$claude_local" ;;
+  esac
+  echo "created $claude_local${profile:+ ($profile)}"
+fi
+
 if [[ "$adopt" == "true" ]]; then
   stow_flags=(-v --no-folding --adopt)
 fi

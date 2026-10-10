@@ -1,9 +1,9 @@
 [Unit]
-Description=Report each herdr workspace's pull request to the sidebar
+Description=Complete shepherd todos whose agent branch merged
 After=graphical-session.target
 
 [Service]
-ExecStart=%h/.local/bin/herdr-gh-status run
+ExecStart=%h/.local/bin/herdr-todo-sync run
 Restart=on-failure
 RestartSec=30
 

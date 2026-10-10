@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # hand a shepherd todo to a claude agent in its own herdr worktree: pick an
 # open todo, create worktree todo/<slug> off the repo, start claude there with
-# the todo as its prompt and mark it in-progress. herdr-gh-status marks the
+# the todo as its prompt and mark it in-progress. herdr-todo-sync marks the
 # todo done once the branch's pull request merges.
 #
 # usage: herdr-todo-agent [board]   (default board: the repo directory name,
@@ -38,7 +38,7 @@ herdr agent start "$slug" --kind claude --pane "$pane" -- "$prompt" >/dev/null
 
 shepherd edit "$id" "status:in-progress #agent" --board "$board" -q
 
-# branch -> todo, for herdr-gh-status to complete on merge
+# branch -> todo, for herdr-todo-sync to complete on merge
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/herdr-todo-agent"
 mkdir -p "$state_dir"
 printf '%s\t%s\t%s\n' "$board" "$id" "$repo" >"$state_dir/${branch//\//__}"

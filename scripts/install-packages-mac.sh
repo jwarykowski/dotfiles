@@ -111,6 +111,7 @@ if installed herdr; then
   herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
   herdr plugin install cloudmanic/herdr-plus --yes
   herdr plugin install natori-hrj/herdr-lazy --yes
+  herdr plugin install jwarykowski/herdr-gh --yes
   # shepherd builds from source and may need a newer go than installed
   GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
 fi

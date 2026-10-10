@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# mark shepherd todos handed out by herdr-todo-agent done once their branch's
+# pull request merges. (the sidebar PR status this used to report now lives
+# in the herdr-gh plugin: github.com/jwarykowski/herdr-gh)
+#
+# usage: herdr-todo-sync run    poll every minute
+#        herdr-todo-sync once   check once and exit
+set -uo pipefail
+
+# services start with a minimal PATH: gh/jq/shepherd may live in ~/.local/bin
+# or homebrew
+PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+
+interval=60
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/herdr-todo-agent"
+
+once() {
+  gh auth status >/dev/null 2>&1 || return 0
+  local file board id repo branch
+  for file in "$state_dir"/*; do
+    [[ -f "$file" ]] || continue
+    IFS=$'\t' read -r board id repo <"$file"
+    branch=$(basename "$file")
+    branch="${branch//__//}"
+    if [[ "$(cd "$repo" 2>/dev/null && gh pr view "$branch" --json state -q .state 2>/dev/null)" == "MERGED" ]]; then
+      shepherd 'done' "$id" --board "$board" -q && rm -f "$file"
+    fi
+  done
+}
+
+case "${1:-}" in
+  once) once ;;
+  run)
+    while true; do
+      once
+      sleep "$interval"
+    done
+    ;;
+  *) echo "usage: herdr-todo-sync run|once" >&2; exit 1 ;;
+esac

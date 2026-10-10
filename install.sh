@@ -69,7 +69,7 @@ if [ -d "$platform" ]; then
 fi
 
 # user services shipped in the platform package
-services=(kbd-watch herdr-gh-status)
+services=(kbd-watch herdr-todo-sync)
 if [[ "$platform" == "linux" ]] && command -v systemctl >/dev/null 2>&1; then
   systemctl --user daemon-reload
   for service in "${services[@]}"; do

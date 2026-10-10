@@ -117,10 +117,8 @@ when it's done. The top-right key glows amber while anything is blocked.
 | top-right | `ctrl+alt+a` | `herdr-next-agent`: focus the next blocked (then done) agent |
 | hold Space + top-right | `ctrl+alt+shift+a` | `kbd-watch toggle`: lights on/off |
 
-`herdr-gh-status` (also a service) puts each workspace's pull request on its
-sidebar branch line as `$gh`: `#412│×│!` = PR number (`d` = draft), CI
-`√ × •` (passed, failed, running), review `+ !` (approved, changes
-requested); merged `↗`, closed `†`. Needs `gh auth login`.
+[herdr-gh](https://github.com/jwarykowski/herdr-gh) (herdr plugin) puts each
+workspace's pull request on its sidebar branch line as `$gh`, e.g. `#412│×│!`.
 
 Agents from the editor and the todo board:
 
@@ -128,7 +126,7 @@ Agents from the editor and the todo board:
   cursor line (normal) or the selection (visual), with `file:line` context.
 - `prefix+shift+d` in herdr (`herdr-todo-agent`) picks an open shepherd todo,
   creates a `todo/<slug>` worktree, starts Claude there with the todo as its
-  prompt and marks it in-progress; `herdr-gh-status` marks it done once the
+  prompt and marks it in-progress; `herdr-todo-sync` marks it done once the
   branch's PR merges.
 
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right

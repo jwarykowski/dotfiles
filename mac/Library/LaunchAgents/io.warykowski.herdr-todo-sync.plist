@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- report each herdr workspace's pull request to the sidebar (see
-     ~/.local/bin/herdr-gh-status); launchd doesn't expand $HOME, so use sh -->
+<!-- complete shepherd todos whose agent branch merged (see
+     ~/.local/bin/herdr-todo-sync); launchd doesn't expand $HOME, so use sh -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>io.warykowski.herdr-gh-status</string>
+  <string>io.warykowski.herdr-todo-sync</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/sh</string>
     <string>-c</string>
-    <string>exec "$HOME/.local/bin/herdr-gh-status" run</string>
+    <string>exec "$HOME/.local/bin/herdr-todo-sync" run</string>
   </array>
   <key>RunAtLoad</key>
   <true/>

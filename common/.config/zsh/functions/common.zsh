@@ -45,7 +45,7 @@ fkill() {
   local pid
   pid=$(ps aux | fzf -m | awk '{print $2}')
   if [ -n "$pid" ]; then
-    echo "$pid" | xargs kill -"${1:-9}"
+    echo "$pid" | xargs kill -"${1:-TERM}"
   fi
 }
 

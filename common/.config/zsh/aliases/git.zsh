@@ -19,7 +19,7 @@ alias gbm='git branch -m'
 # checkout
 alias gco='git checkout'
 alias gcb='git checkout -b'
-alias gcom='git checkout main'
+alias gcom='git checkout $(git_main_branch)'
 alias gcs='git checkout staging'
 alias gct='git checkout trunk'
 
@@ -32,8 +32,8 @@ alias gres='git restore'
 alias gress='git restore --staged'
 
 # commit
-alias gc='git commit -v'
-alias gca='git commit -v -a'
+alias gc='git commit'
+alias gca='git commit -a'
 alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gcsm='git commit -s -m'
@@ -66,7 +66,7 @@ alias gstu='git stash --include-untracked'
 # pull
 alias gl='git pull'
 alias glr='git pull --rebase'
-alias glum='git pull upstream master'
+alias glum='git pull upstream $(git_main_branch)'
 
 # push
 alias gp='git push'
@@ -88,7 +88,7 @@ alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbi='git rebase -i'
-alias grbm='git rebase master'
+alias grbm='git rebase $(git_main_branch)'
 alias grbs='git rebase --skip'
 
 # remote
@@ -111,8 +111,8 @@ alias grhk='git reset --keep'
 alias gclean='git clean -fd'
 alias gcleann='git clean -nfd'
 # -e guards: -x bypasses .gitignore, which would wipe live data stowed into
-# the dotfiles repo (shepherd todos/boards, gh oauth token)
-alias gpristine='git reset --hard && git clean -dfx -e common/.config/shepherd -e common/.config/gh/hosts.yml'
+# the dotfiles repo (shepherd todos/boards, gh oauth token, herdr state/plugins)
+alias gpristine='git reset --hard && git clean -dfx -e common/.config/shepherd -e common/.config/gh/hosts.yml -e common/.config/herdr'
 
 # cherry-pick
 alias gcp='git cherry-pick'
@@ -137,6 +137,13 @@ alias gnotesh='git notes show'
 
 # helpers
 
+# default branch from origin/HEAD, falling back to master
+git_main_branch() {
+  local ref
+  ref=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null) &&
+    echo "${ref#origin/}" || echo master
+}
+
 # show commit count per author
 gcount() {
   git shortlog -sn
@@ -144,7 +151,7 @@ gcount() {
 
 # Undo last wip commit
 gunwip() {
-  git log -n 1 | grep -q -c "--wip--" && git reset HEAD~1
+  git log -n 1 | grep -q -- "--wip--" && git reset HEAD~1
 }
 
 # create a wip commit

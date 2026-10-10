@@ -22,7 +22,8 @@ sudo dnf install -y \
   git-delta \
   golang \
   jq \
-  luacheck \
+  lua-devel \
+  luarocks \
   make \
   neovim \
   newsboat \
@@ -66,6 +67,13 @@ if ! installed stylua; then
   log "installing stylua..."
   sudo dnf install -y stylua 2>/dev/null || \
     cargo install stylua
+fi
+
+# --- luacheck (not packaged for recent fedora) ---
+if ! installed luacheck; then
+  log "installing luacheck..."
+  sudo dnf install -y luacheck 2>/dev/null || \
+    luarocks install --tree "$HOME/.local" luacheck
 fi
 
 # --- fnm + node ---

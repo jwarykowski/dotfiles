@@ -27,10 +27,16 @@ mauve = "#789978"
 teal = "#708090"
 peach = "#ffaa88"
 
+[worktrees]
+# visible path beats hidden ~/.herdr; tooling and backups see it
+directory = "~/development/worktrees"
+
 [keys]
 previous_workspace = "ctrl+alt+k"
 next_workspace = "ctrl+alt+j"
 clear_pane = "prefix+ctrl+k"
+open_worktree = "prefix+shift+f"
+remove_worktree = "prefix+shift+k"
 switch_workspace = "prefix+shift+1..9"
 
 [keys.indexed]

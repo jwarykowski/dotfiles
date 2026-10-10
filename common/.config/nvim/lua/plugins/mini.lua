@@ -1,6 +1,6 @@
 return {
 	{
-		"echasnovski/mini.ai",
+		"nvim-mini/mini.ai",
 		version = false,
 		-- provides the textobjects.scm queries gen_spec.treesitter reads
 		dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" } },
@@ -16,35 +16,35 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.diff",
+		"nvim-mini/mini.diff",
 		version = false,
 		config = function()
 			require("mini.diff").setup()
 		end,
 	},
 	{
-		"echasnovski/mini.indentscope",
+		"nvim-mini/mini.indentscope",
 		version = false,
 		config = function()
 			require("mini.indentscope").setup()
 		end,
 	},
 	{
-		"echasnovski/mini.operators",
+		"nvim-mini/mini.operators",
 		version = false,
 		config = function()
 			require("mini.operators").setup({ replace = { prefix = "gR" } })
 		end,
 	},
 	{
-		"echasnovski/mini.pairs",
+		"nvim-mini/mini.pairs",
 		version = false,
 		config = function()
 			require("mini.pairs").setup()
 		end,
 	},
 	{
-		"echasnovski/mini.statusline",
+		"nvim-mini/mini.statusline",
 		version = false,
 		config = function()
 			local MiniStatusline = require("mini.statusline")
@@ -86,7 +86,7 @@ return {
 		end,
 	},
 	{
-		"echasnovski/mini.surround",
+		"nvim-mini/mini.surround",
 		version = false,
 		config = function()
 			require("mini.surround").setup()

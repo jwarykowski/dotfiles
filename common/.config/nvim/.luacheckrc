@@ -1,3 +1,4 @@
 -- luacheck config for the neovim lua configuration
 std = "luajit"
-read_globals = { "vim" }
+globals = { "vim" }
+read_globals = { "Snacks" }

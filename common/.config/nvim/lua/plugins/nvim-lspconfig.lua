@@ -10,6 +10,8 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		lazy = false,
 		opts = {
+			-- omnisharp_mono needs mono, only installed on mac
+			automatic_enable = { exclude = vim.fn.has("mac") == 1 and {} or { "omnisharp_mono" } },
 			ensure_installed = {
 				"bashls",
 				"clangd",
@@ -19,7 +21,6 @@ return {
 				"html",
 				"jsonls",
 				"lua_ls",
-				"omnisharp_mono",
 				"pyright",
 				"rust_analyzer",
 				"tailwindcss",
@@ -98,7 +99,9 @@ return {
 					})
 				end,
 			})
-			vim.lsp.enable("sourcekit")
+			if vim.fn.has("mac") == 1 then
+				vim.lsp.enable("sourcekit")
+			end
 
 			-- omnisharp_mono setup
 			vim.lsp.config("omnisharp_mono", {

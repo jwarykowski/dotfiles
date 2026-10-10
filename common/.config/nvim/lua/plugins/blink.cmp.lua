@@ -1,11 +1,8 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = "echasnovski/mini.snippets",
+	dependencies = "nvim-mini/mini.snippets",
 	version = "*",
 	opts = {
-		appearance = {
-			use_nvim_cmp_as_default = true,
-		},
 		-- https://cmp.saghen.dev/configuration/keymap.html#presets
 		cmdline = {
 			keymap = {

@@ -3,6 +3,8 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
+				go = { "goimports", "gofmt", stop_after_first = true },
+				rust = { "rustfmt" },
 				css = { "prettierd", "prettier", stop_after_first = true },
 				cpp = { "clang_format" },
 				c = { "clang_format" },

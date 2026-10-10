@@ -29,7 +29,7 @@ opt.winborder = "rounded" -- set borders for windows
 opt.shortmess:append("I") -- suppress intro message
 opt.cursorline = true -- highlight current line
 opt.signcolumn = "yes" -- fixed sign column, prevents layout shift
-opt.updatetime = 300 -- faster hover/gitsigns/cursorhold
+opt.updatetime = 300 -- faster hover/cursorhold
 opt.scrolloff = 8 -- scroll context lines
 opt.conceallevel = 0 -- no markdown renderer installed; keep raw markup visible
 

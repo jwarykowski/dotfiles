@@ -33,6 +33,7 @@ dotfiles/
 │   │   ├── bat/                # bat
 │   │   ├── btop/               # btop system monitor
 │   │   ├── gh/                 # github cli
+│   │   ├── git/ignore          # global excludes (stow skips a top-level .gitignore)
 │   │   ├── ghostty/themes/     # shared ghostty colour theme
 │   │   ├── herdr/              # herdr agent multiplexer
 │   │   ├── lazygit/            # lazygit
@@ -48,7 +49,6 @@ dotfiles/
 │   ├── .git-commit-template
 │   ├── .gitconfig
 │   ├── .gitconfig-work         # work identity, included by remote url
-│   ├── .gitignore              # stowed as the global excludesfile
 │   ├── .tmux.conf
 │   ├── .zshenv
 │   └── .zshrc
@@ -87,9 +87,11 @@ dotfiles/
 └── install.sh
 ```
 
-Ghostty's `config` is per-platform (fonts differ) but the colour theme lives in
-`common/`. Stow only merges the two into one `~/.config/ghostty` on a restow —
-`--adopt` on a folded directory will silently keep the theme unlinked.
+`install.sh` stows with `--no-folding`: every file is linked individually and
+directories are always real, so files an app writes into its config dir
+(herdr sockets and plugins, gh tokens, shepherd boards) never land in the repo.
+It also lets packages share a directory — ghostty's `config` is per-platform
+(fonts differ) while its colour theme lives in `common/`.
 
 ## getting started
 

@@ -49,21 +49,27 @@ if ! command -v stow >/dev/null 2>&1; then
 fi
 
 
-stow_flags="-v --restow"
+# --no-folding: link files, never whole directories, so anything an app writes
+# into its config dir (sockets, logs, plugins, tokens) stays out of the repo
+stow_flags=(-v --no-folding --restow)
 if [[ "$adopt" == "true" ]]; then
-  stow_flags="-v --adopt"
+  stow_flags=(-v --no-folding --adopt)
 fi
 
 # always stow "common" if it exists
 if [ -d "common" ]; then
     echo "stowing common configs..."
-    stow $stow_flags common
+    stow "${stow_flags[@]}" common
 fi
 
 # stow platform-specific configs
 if [ -d "$platform" ]; then
     echo "stowing $platform configs..."
-    stow $stow_flags "$platform"
+    stow "${stow_flags[@]}" "$platform"
+fi
+
+if [[ "$adopt" == "true" ]]; then
+  echo "adopted files were moved into the repo; review with: git -C $dotfiles_dir diff"
 fi
 
 echo "thy dotfiles be stowed for $platform"

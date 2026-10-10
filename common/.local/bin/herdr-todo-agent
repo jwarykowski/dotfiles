@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# hand a shepherd todo to a claude agent in its own herdr worktree: pick an
+# open todo, create worktree todo/<slug> off the repo, start claude there with
+# the todo as its prompt and mark it in-progress. herdr-gh-status marks the
+# todo done once the branch's pull request merges.
+#
+# usage: herdr-todo-agent [board]   (default board: the repo directory name,
+#                                    the same board nvim-shepherd uses)
+set -euo pipefail
+
+# run from a herdr popup the cwd may not be the repo; fall back to the
+# focused pane's directory
+repo=$(git rev-parse --show-toplevel 2>/dev/null ||
+  git -C "$(herdr api snapshot | jq -r '.result.snapshot.panes[] | select(.focused) | .cwd' | head -1)" \
+    rev-parse --show-toplevel 2>/dev/null) || {
+  echo "not inside a git repo" >&2
+  exit 1
+}
+board="${1:-$(basename "$repo")}"
+
+item=$(shepherd list --json --board "$board" |
+  jq -r '.[] | select((.done // false) | not) | select(.status != "in-progress")
+         | [.id, .text, (.note // "")] | @tsv' |
+  fzf --delimiter '\t' --with-nth 2 --prompt "$board todo> " \
+    --preview 'echo {2}; echo; echo {3}' --preview-window down:4:wrap) || exit 0
+IFS=$'\t' read -r id text note <<<"$item"
+
+slug=$(tr '[:upper:]' '[:lower:]' <<<"$text" | tr -cs 'a-z0-9' '-' |
+  sed 's/^-//' | cut -c1-40 | sed 's/-*$//')
+branch="todo/$slug"
+
+created=$(herdr worktree create --cwd "$repo" --branch "$branch" --label "$slug" --focus)
+pane=$(jq -r '.result.root_pane.pane_id' <<<"$created")
+
+prompt="$text"
+[[ -n "$note" ]] && prompt+=$'\n\n'"$note"
+herdr agent start "$slug" --kind claude --pane "$pane" -- "$prompt" >/dev/null
+
+shepherd edit "$id" "status:in-progress #agent" --board "$board" -q
+
+# branch -> todo, for herdr-gh-status to complete on merge
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/herdr-todo-agent"
+mkdir -p "$state_dir"
+printf '%s\t%s\t%s\n' "$board" "$id" "$repo" >"$state_dir/${branch//\//__}"

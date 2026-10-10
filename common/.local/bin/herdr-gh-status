@@ -3,7 +3,8 @@
 #   #412│✗│!    #412 (d412 = draft)  ci ✓ passed ✗ failed ● running
 #               review + approved ! changes requested (blank while waiting)
 # values expire after a few missed polls, so a stopped reporter leaves no
-# stale state behind.
+# stale state behind. also marks shepherd todos handed out by
+# herdr-todo-agent done once their branch's pull request merges.
 #
 # usage: herdr-gh-status run    poll every minute
 #        herdr-gh-status once   report once and exit
@@ -33,8 +34,24 @@ pr_status() {
       | map(select(. != "")) | join("│")'
 }
 
+# todos herdr-todo-agent handed to an agent: done once the branch merges
+complete_merged_todos() {
+  local state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/herdr-todo-agent"
+  local file board id repo branch
+  for file in "$state_dir"/*; do
+    [[ -f "$file" ]] || continue
+    IFS=$'\t' read -r board id repo <"$file"
+    branch=$(basename "$file")
+    branch="${branch//__//}"
+    if [[ "$(cd "$repo" 2>/dev/null && gh pr view "$branch" --json state -q .state 2>/dev/null)" == "MERGED" ]]; then
+      shepherd 'done' "$id" --board "$board" -q && rm -f "$file"
+    fi
+  done
+}
+
 once() {
   gh auth status >/dev/null 2>&1 || return 0
+  complete_merged_todos
   local id cwd value
   # one line per workspace: id and the cwd of its first pane
   herdr api snapshot 2>/dev/null | jq -r '

@@ -122,6 +122,15 @@ sidebar branch line as `$gh`: `#412│✗│!` = PR number (`d` = draft), CI
 `✓ ✗ ●` (passed, failed, running), review `+ !` (approved, changes
 requested). Needs `gh auth login`.
 
+Agents from the editor and the todo board:
+
+- `<leader>ai` in nvim asks the agent in the same herdr workspace about the
+  cursor line (normal) or the selection (visual), with `file:line` context.
+- `prefix+shift+d` in herdr (`herdr-todo-agent`) picks an open shepherd todo,
+  creates a `todo/<slug>` worktree, starts Claude there with the todo as its
+  prompt and marks it in-progress; `herdr-gh-status` marks it done once the
+  branch's PR merges.
+
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
 prompt and the nvim statusline show it (`⌨ media`), so a toggled layer is
 never forgotten.

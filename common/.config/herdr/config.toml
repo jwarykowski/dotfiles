@@ -145,6 +145,12 @@ command = "herdr-next-agent"
 description = "focus the agent that needs you"
 
 [[keys.command]]
+key = "prefix+shift+d"
+type = "popup"
+command = "herdr-todo-agent"
+description = "hand a shepherd todo to a claude agent (new worktree)"
+
+[[keys.command]]
 key = "ctrl+alt+shift+a"
 type = "shell"
 command = "kbd-watch toggle"

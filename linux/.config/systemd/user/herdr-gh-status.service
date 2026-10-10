@@ -1,0 +1,11 @@
+[Unit]
+Description=Report each herdr workspace's pull request to the sidebar
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/herdr-gh-status run
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target

@@ -117,6 +117,11 @@ when it's done. The top-right key glows amber while anything is blocked.
 | top-right | `ctrl+alt+a` | `herdr-next-agent`: focus the next blocked (then done) agent |
 | hold Space + top-right | `ctrl+alt+shift+a` | `kbd-watch toggle`: lights on/off |
 
+`herdr-gh-status` (also a service) puts each workspace's pull request on its
+sidebar branch line as `$gh`: `#412│✗│!` = PR number (`d` = draft), CI
+`✓ ✗ ●` (passed, failed, running), review `+ !` (approved, changes
+requested). Needs `gh auth login`.
+
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
 prompt and the nvim statusline show it (`⌨ media`), so a toggled layer is
 never forgotten.

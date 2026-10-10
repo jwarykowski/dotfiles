@@ -68,15 +68,20 @@ if [ -d "$platform" ]; then
     stow "${stow_flags[@]}" "$platform"
 fi
 
-# user services shipped in the platform package (kbd-watch)
+# user services shipped in the platform package
+services=(kbd-watch herdr-gh-status)
 if [[ "$platform" == "linux" ]] && command -v systemctl >/dev/null 2>&1; then
   systemctl --user daemon-reload
-  systemctl --user enable --now kbd-watch.service
+  for service in "${services[@]}"; do
+    systemctl --user enable --now "$service.service"
+  done
 elif [[ "$platform" == "mac" ]]; then
-  agent="$HOME/Library/LaunchAgents/io.warykowski.kbd-watch.plist"
-  # bootstrap fails when already loaded; restart it then so changes apply
-  launchctl bootstrap "gui/$(id -u)" "$agent" 2>/dev/null ||
-    launchctl kickstart -k "gui/$(id -u)/io.warykowski.kbd-watch"
+  for service in "${services[@]}"; do
+    label="io.warykowski.$service"
+    # bootstrap fails when already loaded; restart it then so changes apply
+    launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/$label.plist" 2>/dev/null ||
+      launchctl kickstart -k "gui/$(id -u)/$label"
+  done
 fi
 
 if [[ "$adopt" == "true" ]]; then

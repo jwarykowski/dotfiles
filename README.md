@@ -10,7 +10,7 @@
 
 | | Linux | Mac |
 |---|---|---|
-| **Machine** | [Intel NUC Hades Canyon](https://www.scorptec.com.au/product/Branded-Systems/NUC-&-Mini-PC/71990-BOXNUC8I7HVK4) | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
+| **Machine** | Mini-ITX desktop: [Jonsbo N3](https://www.jonsbo.com/en/products/N3.html), Intel Core i5-12400 | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
 | **OS** | [Fedora](https://getfedora.org/) | macOS |
 | **WM** | [i3](https://i3wm.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
 

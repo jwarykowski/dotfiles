@@ -131,6 +131,12 @@ command = "jwarykowski.herdr-pomodoro.toggle"
 description = "start / stop the pomodoro"
 
 [[keys.command]]
+key = "prefix+alt+r"
+type = "pane"
+command = "nvim ~/.cache/pr-reviews/latest.md"
+description = "view latest pr review"
+
+[[keys.command]]
 key = "prefix+alt+g"
 type = "pane"
 command = "lazygit"

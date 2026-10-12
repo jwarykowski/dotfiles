@@ -13,6 +13,14 @@ imported at the end.
   - pull requests: no `Co-Authored-By`, no "Generated with Claude Code" line, no session link in the description
 - Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`); branches `feat/…`, `fix/…`, etc. off the default branch.
 - Use `gh` for GitHub work. Projects live in `~/development`.
+- Never commit secrets or `.env` files.
+- Before pushing, check README.md, CLAUDE.md and other project doc markdown files stay correct for the change.
+
+## safety
+
+- Ask before destructive or hard-to-reverse ops: `rm -rf`, force push, DB drops, deploys, migrations.
+- Stay in scope; don't touch files unrelated to the request.
+- Read a file before editing or overwriting it.
 
 ## shell
 
@@ -20,6 +28,15 @@ imported at the end.
 - zsh expands a leading `=`: quote such arguments (`echo '======'`).
 - Never run `sudo` yourself; give me the command to run in my own terminal.
 - Shell scripts must pass shellcheck and run on both Linux (Fedora) and macOS: no GNU-only flags such as `find -xtype`, or `sed -i` without a suffix argument.
+- Use non-interactive flags so commands don't hang on prompts (e.g. `rm -f`).
+- Prefer `rg` (ripgrep) over `grep`.
+
+## code
+
+- Match the surrounding code's style; don't reformat lines unrelated to the change.
+- No comments unless asked or the logic is non-obvious. Never comment what the code already says.
+- Comments: one line, terse, no filler. Never reference other projects/repos by name.
+- Run lint + typecheck after changes when the project supports it.
 
 ## dotfiles (`~/dotfiles`, GNU stow)
 
@@ -44,5 +61,12 @@ imported at the end.
   - also: program (software), defence, catalogue, grey, aluminium
 - Identifiers, APIs, CLI flags, config keys and quoted output keep their own spelling (`color`, `initialize`, `--color`).
 - Keep READMEs and PR descriptions short; match the surrounding code's comment density.
+- No AI vocabulary: delve, leverage, robust, streamline, seamless, harness, unlock.
+- Em dashes sparingly (2-3 per doc max); prefer commas or parentheses.
+- No "It's not X. It's Y." framing. No "Here's the thing" false suspense.
+- Don't start every bullet bold.
+- Plain "is/are", not "serves as" / "represents" / "stands as".
+- No "In conclusion" / "In summary" signposting.
+- Plain -> not unicode arrows.
 
 @~/.claude/CLAUDE.local.md

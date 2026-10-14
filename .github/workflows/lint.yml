@@ -4,6 +4,7 @@ on:
   push:
     branches: [master]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   shell:
@@ -17,11 +18,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: JohnnyMorganz/stylua-action@v4
+      - name: stylua
+        # a plain download: the action looks releases up on the forge's API
+        run: |
+          curl -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip
+          unzip -q /tmp/stylua.zip -d /tmp
+          /tmp/stylua --check common/.config/nvim/lua
+      - uses: leafo/gh-actions-lua@v10
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          version: latest
-          args: --check common/.config/nvim/lua
-      - uses: lunarmodules/luacheck@v1
-        with:
-          args: --config common/.config/nvim/.luacheckrc common/.config/nvim/lua
+          luaVersion: "5.1"
+      - uses: leafo/gh-actions-luarocks@v4
+      - name: luacheck
+        # the luacheck action's container mangles its args under act
+        run: |
+          luarocks install luacheck
+          luacheck --config common/.config/nvim/.luacheckrc common/.config/nvim/lua

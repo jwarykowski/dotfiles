@@ -14,3 +14,4 @@ window-padding-x = 8
 window-padding-y = 8
 
 keybind = global:unconsumed:ctrl+shift+r=reload_config
+keybind = shift+enter=text:\x1b\r

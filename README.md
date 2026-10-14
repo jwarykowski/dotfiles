@@ -133,7 +133,7 @@ Agents from the editor and the todo board:
 
 - `<leader>ai` in nvim asks the agent in the same herdr workspace about the
   cursor line (normal) or the selection (visual), with `file:line` context.
-- `prefix+shift+d` in herdr (`herdr-todo-agent`) picks an open shepherd todo,
+- `prefix+alt+t` in herdr (`herdr-todo-agent`) picks an open shepherd todo,
   creates a `todo/<slug>` worktree, starts Claude there with the todo as its
   prompt and marks it in-progress; `herdr-todo-sync` marks it done once the
   branch's PR merges.

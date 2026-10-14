@@ -15,6 +15,7 @@ imported at the end.
 - Use `gh` for GitHub work. Projects live in `~/development`.
 - Never commit secrets or `.env` files.
 - Before pushing, check README.md, CLAUDE.md and other project doc markdown files stay correct for the change.
+- After pushing to a branch with an open PR, update the PR title and description (`gh pr edit`) so they still match every change on the branch.
 
 ## safety
 

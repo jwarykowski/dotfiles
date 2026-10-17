@@ -35,6 +35,7 @@ sudo dnf install -y \
   python3 \
   python3-pip \
   python3-ruff \
+  remmina \
   ripgrep \
   ShellCheck \
   shfmt \
@@ -62,6 +63,13 @@ if ! installed yazi; then
   log "installing yazi..."
   sudo dnf copr enable -y lihaohong/yazi
   sudo dnf install -y yazi
+fi
+
+# --- cloudflared (cloudflare repo): ssh to forgejo goes through its tunnel ---
+if ! installed cloudflared; then
+  log "installing cloudflared..."
+  sudo dnf config-manager addrepo --from-repofile=https://pkg.cloudflare.com/cloudflared.repo
+  sudo dnf install -y cloudflared
 fi
 
 # --- rust ---

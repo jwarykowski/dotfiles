@@ -10,7 +10,7 @@
 
 | | Linux | Mac |
 |---|---|---|
-| **Machine** | Mini-ITX desktop: [Jonsbo N3](https://www.jonsbo.com/en/products/N3.html), Intel Core i5-12400 | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
+| **Machine** | Mini-ITX desktop: [Jonsbo N3](https://www.jonsbo.com/en/products/N3.html), Intel Core i5-12400; 2016 13-inch MacBook Pro | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
 | **OS** | [Fedora](https://getfedora.org/) | macOS |
 | **WM** | [i3](https://i3wm.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
 
@@ -162,6 +162,7 @@ dotfiles/
 │   │   └── zsh/                # aliases, functions, utils
 │   ├── .newsboat/              # newsboat rss reader
 │   ├── .ssh/
+│   │   ├── config.d/           # per-host snippets (forgejo, homelab)
 │   │   └── config.template     # ssh config template
 │   ├── .editorconfig
 │   ├── .git-commit-template
@@ -255,7 +256,7 @@ Re-apply dotfiles (safe, idempotent):
 - **neovim plugins**: open nvim — lazy.nvim installs automatically on first launch, mason installs LSPs
 - **zsh plugins**: znap clones and caches plugins automatically on first shell start
 - **zsh default shell**: `chsh -s $(which zsh)`
-- **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts
+- **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts; git over SSH to Forgejo (`config.d/forgejo`) needs `cloudflared` and your public key added in Forgejo
 - **gh cli**: `gh auth login` — `hosts.yml` is deliberately untracked, it can hold an oauth token
 
 ## license

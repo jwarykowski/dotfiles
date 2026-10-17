@@ -16,6 +16,7 @@ log "installing brew packages..."
 brew install \
   bat \
   btop \
+  cloudflared \
   cmake \
   direnv \
   eza \

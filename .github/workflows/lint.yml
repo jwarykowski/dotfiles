@@ -24,6 +24,7 @@ jobs:
           curl -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip
           unzip -q /tmp/stylua.zip -d /tmp
           /tmp/stylua --check common/.config/nvim/lua
+          /tmp/stylua --config-path common/.config/nvim/stylua.toml --check linux/.config/hypr
       - uses: leafo/gh-actions-lua@v10
         with:
           luaVersion: "5.1"
@@ -33,3 +34,4 @@ jobs:
         run: |
           luarocks install luacheck
           luacheck --config common/.config/nvim/.luacheckrc common/.config/nvim/lua
+          luacheck --globals hl -- linux/.config/hypr

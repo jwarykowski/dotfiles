@@ -12,7 +12,7 @@
 |---|---|---|
 | **Machine** | Mini-ITX desktop: [Jonsbo N3](https://www.jonsbo.com/en/products/N3.html), Intel Core i5-12400; 2016 13-inch MacBook Pro | [MacBook Pro](https://www.apple.com/au/macbook-pro/) |
 | **OS** | [Fedora](https://getfedora.org/) | macOS |
-| **WM** | [i3](https://i3wm.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
+| **WM** | [Hyprland](https://hypr.land/) + [Quickshell](https://quickshell.org/) | [AeroSpace](https://github.com/nikitabobko/AeroSpace) |
 
 - **Dotfile Manager**: [GNU Stow](https://www.gnu.org/software/stow/)
 - **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
@@ -31,7 +31,7 @@
  ┌──────────────────────────────────────────────────────────────────────────────┐
  │ Moonlander (Oryx BO0Dw) ── home-row mods · symbols/navi/media layers         │
  └───────────────────────────────────┬──────────────────────────────────────────┘
-        Fedora · GNOME / i3          │  macOS · AeroSpace + borders
+      Fedora · Hyprland + Quickshell │  macOS · AeroSpace + borders
  ┌───────────────────────────────────▼──────────────────────────────────────────┐
  │ Ghostty ── lackluster theme · Berkeley Mono                                  │
  └───────────────────────────────────┬──────────────────────────────────────────┘
@@ -139,8 +139,59 @@ Agents from the editor and the todo board:
   branch's PR merges.
 
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
-prompt and the nvim statusline show it (`⌨ media`), so a toggled layer is
-never forgotten.
+prompt, the nvim statusline and the Quickshell bar show it (`⌨ media`), so a
+toggled layer is never forgotten.
+
+## hyprland
+
+[Hyprland](https://hypr.land/) runs as its own session next to GNOME (pick it
+at the GDM login screen; GNOME stays as a fallback). It comes from the
+`sdegler/hyprland` copr and is configured in Lua (`hyprland.lua` requires
+`look`, `input`, `binds`, `rules` and `autostart`). Monitors default to
+`preferred, auto`; per-machine overrides go in an untracked
+`~/.config/hypr/local.lua`:
+
+```lua
+hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 1 })
+```
+
+`SUPER` (hold `F` or `J`) is the modifier, so the `ctrl+alt` combos stay with
+herdr.
+
+| key | action |
+|---|---|
+| `SUPER+Return` | ghostty |
+| `SUPER+d` | launcher |
+| `SUPER+Escape` / `SUPER+Shift+e` | power menu |
+| `SUPER+h/j/k/l`, `+Shift` | focus, move window |
+| `SUPER+1..0`, `+Shift` | go to, move window to workspace |
+| `SUPER+f` / `SUPER+Shift+space` / `SUPER+e` | fullscreen / float / toggle split |
+| `SUPER+r` | resize mode (`h/j/k/l`, `Esc` leaves) |
+| `SUPER+Shift+q` / `SUPER+Shift+c` | close window / reload config |
+| Lock key (`ctrl+alt+gui+l`) | lock (hypridle runs hyprlock) |
+| `Print` / `Shift+Print` | screenshot region / screen to the clipboard |
+
+hypridle locks after 10 minutes and turns the screens off after 15.
+
+### quickshell
+
+[Quickshell](https://quickshell.org/) is the desktop shell, written in QML in
+`linux/.config/quickshell` and started by Hyprland (`qs`). Edits reload live.
+
+- **bar** (one per monitor): workspaces on that monitor (click to switch),
+  herdr agents (`◑` working, `◆` blocked, `✓` done; click focuses the next
+  waiting one), `kbd-layer`, volume (click mutes, scroll adjusts), tray, clock.
+- **notifications**: Quickshell is the notification daemon; popups sit top
+  right, expire after 5 seconds (critical ones stay), click to dismiss.
+- **volume OSD**: a bar at the bottom of the screen whenever volume or mute
+  changes.
+- **launcher** (`SUPER+d`): filters installed apps by name or keyword;
+  `Up/Down` or `C-j/C-k` to pick, `Enter` runs, `Esc` closes.
+- **power menu** (`SUPER+Escape`): `l` lock, `e` log out, `s` suspend,
+  `r` reboot, `p` shut down (or `j/k` and `Enter`).
+
+Hyprland binds open the overlays with `qs ipc call launcher toggle` (or
+`power`).
 
 ## structure
 
@@ -174,7 +225,8 @@ dotfiles/
 ├── linux/                      # fedora-specific configs
 │   ├── .config/
 │   │   ├── ghostty/            # ghostty terminal
-│   │   ├── i3/                 # i3 window manager
+│   │   ├── hypr/               # hyprland (lua), hypridle, hyprlock, hyprpaper
+│   │   ├── quickshell/         # bar, notifications, launcher, power menu
 │   │   └── zsh/                # linux-only functions
 │   ├── .local/bin/             # linux scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools

@@ -66,6 +66,22 @@ if ! installed yazi; then
   sudo dnf install -y yazi
 fi
 
+# --- hyprland (copr) + quickshell (fedora) ---
+# a gdm session next to gnome; configs in linux/.config/hypr and quickshell
+if ! installed Hyprland; then
+  log "installing hyprland..."
+  sudo dnf copr enable -y sdegler/hyprland
+  sudo dnf install -y \
+    hyprland \
+    hypridle \
+    hyprlock \
+    hyprpaper \
+    hyprpolkitagent \
+    hyprshutdown \
+    xdg-desktop-portal-hyprland
+fi
+sudo dnf install -y brightnessctl grim playerctl quickshell slurp wl-clipboard
+
 # --- cloudflared (cloudflare repo): ssh to forgejo goes through its tunnel ---
 if ! installed cloudflared; then
   log "installing cloudflared..."

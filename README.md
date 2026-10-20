@@ -23,13 +23,13 @@
 - **RSS**: [newsboat](https://newsboat.org/)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
-- **Keyboard**: [ZSA Moonlander](https://www.zsa.io/moonlander) — [layout on Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest)
+- **Keyboards**: [ZSA Moonlander](https://www.zsa.io/moonlander) and [ZSA Voyager](https://www.zsa.io/voyager) (see [keyboards](#keyboards))
 
 ## toolchain
 
 ```
  ┌──────────────────────────────────────────────────────────────────────────────┐
- │ Moonlander (Oryx BO0Dw) ── home-row mods · symbols/navi/media layers         │
+ │ Moonlander · Voyager (Oryx) ── home-row mods · symbols/nav/media layers      │
  └───────────────────────────────────┬──────────────────────────────────────────┘
       Fedora · Hyprland + Quickshell │  macOS · AeroSpace + borders
  ┌───────────────────────────────────▼──────────────────────────────────────────┐
@@ -57,16 +57,21 @@
  └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## moonlander
+## keyboards
 
-Layout lives on [Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest)
-(not in this repo). Home-row mods (`S D F` / `J K L` hold for Ctrl Alt Gui),
-`A` / `;` hold for symbols, `Space` hold for navigation, and a vim-motion
-bottom row: `<` `0` on the left, `$` `>` on the right. The `C-a` / `C-f`
-thumb keys are grep and git-file pickers in both nvim (snacks) and zsh (fzf).
+Both layouts live on Oryx (not in this repo) and share the same idea:
+home-row mods (`S D F` / `J K L` hold for Ctrl Alt Gui), `A` / `;` hold for
+symbols, `Space` hold for navigation and a toggled media layer.
 
 `/x` = tap / hold `x` · `MO(n)` hold layer · `TG(n)` toggle layer ·
-`▽` transparent · `C- S- A- G-` = Ctrl Shift Alt Gui
+`▽` transparent · `·` nothing · `C- S- A- G-` = Ctrl Shift Alt Gui
+
+### moonlander
+
+[Layout on Oryx](https://configure.zsa.io/moonlander/layouts/BO0Dw/latest).
+A vim-motion bottom row: `<` `0` on the left, `$` `>` on the right. The
+`C-a` / `C-f` thumb keys are grep and git-file pickers in both nvim (snacks)
+and zsh (fzf).
 
 ```
 ── 0: qwerty ─────────────────────────────────────────────────────────────────
@@ -95,7 +100,44 @@ thumb keys are grep and git-file pickers in both nvim (snacks) and zsh (fzf).
   ▽      ▽     /Ctl   /Alt    ▽      ▽      ▽    │   ▽      ←      ↓      ↑      →      ▽      ▽
 ```
 
-On Linux, Oryx live training, Keymapp and flashing need udev access
+### voyager
+
+[Layout on Oryx](https://configure.zsa.io/voyager/layouts/nJLJb/latest).
+Fewer keys, so the thumbs are plain Shift and line start / end in nvim is
+`Space`+`Y` / `Space`+`O` (Home / End work as `0` / `$`, also after an
+operator: `d<End>`). The top-right key sends `C-A-G-Space`.
+
+```
+── 0: qwerty ──────────────────────────────────────────────────────
+ TG(3)   1      2      3      4      5    │   6      7      8      9      0   C-A-G-Spc
+ Tab     Q      W      E      R      T    │   Y      U      I      O      P     Del
+ Esc   A/MO1  S/Ctl  D/Alt  F/Gui    G    │   H    J/Gui  K/Alt  L/Ctl ;/MO1   Bksp
+  _      Z      X      C      V      B    │   N      M      ,      .      /      :
+                        Spc/MO2   Sft     │  Sft   Enter
+
+── 1: symbols  (hold A or ;) ──────────────────────────────────────
+  &     F1     F2     F3     F4     F5    │  F6     F7     F8     F9    F10    F11
+  <      !      @      {      }      |    │   +      7      8      9      *      >
+  ·      ·      $      (      )      `    │   -      4      5      6      ·      ·
+  _      %      ^      [      ]      ~    │   '      1      2      3      \      =
+                          ▽       ▽       │   ▽      0
+
+── 2: nav  (hold Space) ───────────────────────────────────────────
+  ·      ·      ·      ·      ·      ·    │   ▽      ▽      ▽      ▽      ▽      ·
+  ▽      ▽    /S-Ctl /S-Alt   ·      ▽    │ Home   PgDn   PgUp   End     ▽      ▽
+  ▽      ·     /Ctl   /Alt    ·      ▽    │   ←      ↓      ↑      →      ▽      ▽
+  ▽      ▽      ▽      ·      ·      ·    │   ▽      ·      ·      ▽      ▽      ▽
+                           ·      ▽       │   ▽      ▽
+
+── 3: media  (toggle with TG(3), top-left) ────────────────────────
+  (all other keys ·)                      │        RGB   Layer  Mode
+                                          │        Vol-   Vol+  Mute
+                         Stop    Play     │  Prev   Next
+```
+
+### linux setup
+
+Oryx live training, Keymapp and flashing need udev access
 (`install-packages-fedora.sh` writes this):
 
 ```
@@ -103,36 +145,6 @@ On Linux, Oryx live training, Keymapp and flashing need udev access
 KERNEL=="hidraw*", ATTRS{idVendor}=="3297", TAG+="uaccess"
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uaccess"
 ```
-
-### agent lights
-
-[herdr-keybars](https://github.com/jwarykowski/herdr-keybars) (herdr plugin)
-drives the backlight through [keybars Pro](https://keybars.app/pro/)'s
-`keybars-pro` command. It lights the number key of each workspace, matching
-`ctrl+alt+N`: amber while its agent is blocked, green when it's done. The
-top-right key glows amber while anything is blocked. It also puts each
-workspace's pull request in the sidebar as `$gh` (e.g. `#412│×│!`), and keybars
-Pro's Focus timer as `$focus` (`prefix+alt+p` starts and stops it). Run its
-`setup` action once to install the GitHub rule packs.
-
-| key | Oryx sends | herdr runs |
-|---|---|---|
-| top-right | `ctrl+alt+a` | `next-agent`: focus the next blocked (then done) agent |
-| hold Space + top-right | `ctrl+alt+shift+a` | `toggle`: lights on/off |
-
-[keybars.nvim](https://github.com/jwarykowski/keybars.nvim) is the editor's
-half: `<leader>br` runs a build on the keyboard (`:KeybarsRun`), `<leader>bm`
-browses the marketplace, `<leader>bf` starts Focus, and the statusline shows
-Focus and typing speed.
-
-Agents from the editor and the todo board:
-
-- `<leader>ai` in nvim asks the agent in the same herdr workspace about the
-  cursor line (normal) or the selection (visual), with `file:line` context.
-- `prefix+shift+d` in herdr (`herdr-todo-agent`) picks an open shepherd todo,
-  creates a `todo/<slug>` worktree, starts Claude there with the todo as its
-  prompt and marks it in-progress; `herdr-todo-sync` marks it done once the
-  branch's PR merges.
 
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
 prompt, the nvim statusline and the Quickshell bar show it (`⌨ media`), so a

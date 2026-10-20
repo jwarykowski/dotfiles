@@ -21,6 +21,7 @@ sudo dnf install -y \
   gh \
   git \
   git-delta \
+  gnome-shell-extension-appindicator \
   golang \
   jq \
   lua-devel \
@@ -44,6 +45,23 @@ sudo dnf install -y \
   tmux \
   unzip \
   zsh
+
+# --- gnome: appindicator (tray icons) ---
+# gsettings, not gnome-extensions enable: the shell only sees a new extension
+# after the next login
+appindicator=appindicatorsupport@rgcjonas.gmail.com
+if installed gsettings; then
+  enabled=$(gsettings get org.gnome.shell enabled-extensions)
+  if [[ "$enabled" != *"'$appindicator'"* ]]; then
+    log "enabling appindicator extension..."
+    if [[ "$enabled" == "@as []" || "$enabled" == "[]" ]]; then
+      enabled="['$appindicator']"
+    else
+      enabled="${enabled%]}, '$appindicator']"
+    fi
+    gsettings set org.gnome.shell enabled-extensions "$enabled"
+  fi
+fi
 
 # --- lazygit (copr) ---
 if ! installed lazygit; then

@@ -15,6 +15,7 @@ sudo dnf install -y \
   direnv \
   eza \
   fd-find \
+  flameshot \
   fzf \
   gcc \
   gh \

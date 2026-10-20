@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # mark shepherd todos handed out by herdr-todo-agent done once their branch's
 # pull request merges. (the sidebar PR status this used to report now lives
-# in the herdr-gh plugin: github.com/jwarykowski/herdr-gh)
+# in the herdr-keybars plugin: github.com/jwarykowski/herdr-keybars)
 #
 # usage: herdr-todo-sync run    poll every minute
 #        herdr-todo-sync once   check once and exit

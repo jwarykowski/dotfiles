@@ -127,8 +127,8 @@ description = "spotify now playing"
 [[keys.command]]
 key = "prefix+alt+p"
 type = "plugin_action"
-command = "jwarykowski.herdr-pomodoro.toggle"
-description = "start / stop the pomodoro"
+command = "jwarykowski.herdr-keybars.focus"
+description = "start / stop keybars Pro's Focus timer"
 
 [[keys.command]]
 key = "prefix+alt+r"
@@ -149,11 +149,11 @@ command = "spotify_player"
 description = "run spotify_player"
 
 # moonlander: top-right key sends ctrl+alt+a, space-hold + top-right toggles
-# the per-workspace key lights (herdr-zsa-lights plugin)
+# the per-workspace key lights (herdr-keybars plugin)
 [[keys.command]]
 key = "ctrl+alt+a"
 type = "plugin_action"
-command = "jwarykowski.herdr-zsa-lights.next-agent"
+command = "jwarykowski.herdr-keybars.next-agent"
 description = "focus the agent that needs you"
 
 [[keys.command]]
@@ -165,7 +165,7 @@ description = "hand a shepherd todo to a claude agent (new worktree)"
 [[keys.command]]
 key = "ctrl+alt+shift+a"
 type = "plugin_action"
-command = "jwarykowski.herdr-zsa-lights.toggle"
+command = "jwarykowski.herdr-keybars.toggle"
 description = "toggle keyboard agent lights"
 
 [ui]
@@ -178,9 +178,9 @@ agent_panel_sort = "priority"
 # glyphs per state read better than colour dots on the low-contrast palette
 status_indicators = "symbols"
 
-# $gh is reported by the herdr-gh plugin: #pr│ci│review, e.g. #412│×│!
+# $gh (#pr│ci│review, e.g. #412│×│!) and $focus (🎯12m) come from herdr-keybars
 [ui.sidebar.spaces]
-rows = [["state_icon", "workspace"], ["branch", "git_status", "$gh"]]
+rows = [["state_icon", "workspace", "$focus"], ["branch", "git_status", "$gh"]]
 
 [ui.toast]
 delivery = "herdr"

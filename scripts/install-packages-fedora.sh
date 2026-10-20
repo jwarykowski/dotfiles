@@ -149,13 +149,13 @@ Categories=Utility;
 DESKTOP
 fi
 
-# start keymapp at login: herdr-zsa-lights / kbd-layer need its api running
+# start keymapp at login: kbd-layer needs its api running
 mkdir -p "$HOME/.config/autostart"
 cat >"$HOME/.config/autostart/keymapp.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
 Name=Keymapp
-Comment=ZSA keyboard API for kontroll (herdr-zsa-lights, kbd-layer)
+Comment=ZSA keyboard API for kontroll (kbd-layer)
 Exec=$HOME/.local/bin/keymapp
 Icon=keymapp
 X-GNOME-Autostart-enabled=true
@@ -231,13 +231,21 @@ fi
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."
-  herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
-  herdr plugin install cloudmanic/herdr-plus --yes
-  herdr plugin install natori-hrj/herdr-lazy --yes
-  herdr plugin install jwarykowski/herdr-gh --yes
-  herdr plugin install jwarykowski/herdr-zsa-lights --yes
+  herdr_plugins=$(herdr plugin list)
+  # leave local dev checkouts (herdr plugin link) alone; install refuses them
+  plugin_install() {
+    if grep -q "local:.*/${1#*/}]" <<<"$herdr_plugins"; then
+      log "skipping $1 (linked locally)"
+      return
+    fi
+    herdr plugin install "$1" --yes
+  }
+  plugin_install paulbkim-dev/vim-herdr-navigation
+  plugin_install cloudmanic/herdr-plus
+  plugin_install natori-hrj/herdr-lazy
+  plugin_install jwarykowski/herdr-keybars
   # shepherd needs a newer go than fedora ships; let go fetch the toolchain
-  GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
+  GOTOOLCHAIN=auto plugin_install jwarykowski/shepherd
 fi
 
 # --- shepherd cli (used by nvim-shepherd); reuse the plugin's build ---

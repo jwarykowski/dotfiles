@@ -77,11 +77,11 @@ return {
 						local search = MiniStatusline.section_searchcount({ trunc_width = 75 })
 						local shepherd = require("shepherd").status()
 						local kbd = require("config.kbd").status()
-						-- herdr-pomodoro timer; guarded until its Neovim module ships
-						local ok, pomodoro = pcall(function()
-							return require("herdr-pomodoro").status()
+						-- jobstart throws while keybars-pro isn't installed
+						local ok, keybars = pcall(function()
+							return require("keybars").status()
 						end)
-						pomodoro = ok and pomodoro or ""
+						keybars = ok and keybars or ""
 
 						return MiniStatusline.combine_groups({
 							{ hl = mode_hl, strings = { mode } },
@@ -89,7 +89,7 @@ return {
 							"%<",
 							{ hl = "MiniStatuslineFilename", strings = { filename } },
 							"%=",
-							{ hl = "MiniStatuslineDevinfo", strings = { pomodoro, kbd, shepherd } },
+							{ hl = "MiniStatuslineDevinfo", strings = { keybars, kbd, shepherd } },
 							{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
 							{ hl = mode_hl, strings = { search, location } },
 						})

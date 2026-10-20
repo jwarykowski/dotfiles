@@ -4,6 +4,7 @@ return {
 	opts = {
 		spec = {
 			{ "<leader>a", group = "agent" },
+			{ "<leader>b", group = "keybars" },
 			{ "<leader>c", group = "code" },
 			{ "<leader>d", group = "diagnostics" },
 			{ "<leader>e", group = "errors" },

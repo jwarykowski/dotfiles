@@ -106,28 +106,24 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", TAG+="uacc
 
 ### agent lights
 
-[Kontroll](https://github.com/zsa/kontroll) drives the backlight through
-Keymapp's API (Keymapp autostarts minimised with the API on).
-[herdr-zsa-lights](https://github.com/jwarykowski/herdr-zsa-lights) (herdr
-plugin) lights the number key of each workspace, matching `ctrl+alt+N`: amber
-while its agent is blocked, green when it's done. The top-right key glows
-amber while anything is blocked.
+[herdr-keybars](https://github.com/jwarykowski/herdr-keybars) (herdr plugin)
+drives the backlight through [keybars Pro](https://keybars.app/pro/)'s
+`keybars-pro` command. It lights the number key of each workspace, matching
+`ctrl+alt+N`: amber while its agent is blocked, green when it's done. The
+top-right key glows amber while anything is blocked. It also puts each
+workspace's pull request in the sidebar as `$gh` (e.g. `#412│×│!`), and keybars
+Pro's Focus timer as `$focus` (`prefix+alt+p` starts and stops it). Run its
+`setup` action once to install the GitHub rule packs.
 
 | key | Oryx sends | herdr runs |
 |---|---|---|
 | top-right | `ctrl+alt+a` | `next-agent`: focus the next blocked (then done) agent |
 | hold Space + top-right | `ctrl+alt+shift+a` | `toggle`: lights on/off |
 
-[herdr-gh](https://github.com/jwarykowski/herdr-gh) (herdr plugin) puts each
-workspace's pull request on its sidebar branch line as `$gh`, e.g. `#412│×│!`.
-
-[herdr-pomodoro](https://github.com/jwarykowski/herdr-pomodoro) (herdr plugin,
-`prefix+alt+p`) runs a pomodoro timer; the nvim statusline shows it
-(`🍅 12:34`) and the keyboard's Q–P row drains as a bar (red work, blue break).
-
-Hooks in `.config/herdr/plugins/config/<plugin>/hooks/` throw a few seconds of
-party lights on the keyboard when a PR merges (`pr.merged`) and when a
-pomodoro round ends (`pomodoro.work_done`).
+[keybars.nvim](https://github.com/jwarykowski/keybars.nvim) is the editor's
+half: `<leader>br` runs a build on the keyboard (`:KeybarsRun`), `<leader>bm`
+browses the marketplace, `<leader>bf` starts Focus, and the statusline shows
+Focus and typing speed.
 
 Agents from the editor and the todo board:
 
@@ -140,7 +136,9 @@ Agents from the editor and the todo board:
 
 `kbd-layer` prints the active layer when it isn't the base one; the zsh right
 prompt, the nvim statusline and the Quickshell bar show it (`⌨ media`), so a
-toggled layer is never forgotten.
+toggled layer is never forgotten. It reads the layer with
+[Kontroll](https://github.com/zsa/kontroll) through Keymapp's API (Keymapp
+autostarts minimised with the API on).
 
 ## hyprland
 

@@ -78,47 +78,6 @@ def keybars(g):
                 g.fill(x, y - 2, x + 3, y, dim=False)
 
 
-def herdr_gh(g):
-    # a pull request: branch from the base, merge arrow into it
-    g.ring(8, 4, 2.5)
-    g.ring(8, 21, 2.5)
-    g.ring(23, 21, 2.5)
-    g.vline(8, 7, 18)
-    g.vline(23, 10, 18)
-    g.line(23, 10, 19, 6)
-    g.hline(13, 19, 6)
-    g.line(13, 6, 16, 3)
-    g.line(13, 6, 16, 9)
-
-
-def herdr_zsa_lights(g):
-    # a block of keycaps, one lit, with light rays
-    for row in range(3):
-        for col in range(5):
-            x, y = 2 + col * 6, 10 + row * 5
-            if (col, row) == (2, 0):
-                g.rect(x, y, x + 4, y + 3)
-                g.fill(x + 1, y + 1, x + 3, y + 2, dim=False)
-            else:
-                g.rect(x, y, x + 4, y + 3)
-    g.vline(16, 2, 6)
-    g.line(10, 4, 12, 7)
-    g.line(22, 4, 20, 7)
-    g.line(6, 7, 9, 8)
-    g.line(26, 7, 23, 8)
-
-
-def herdr_pomodoro(g):
-    # a tomato with a stalk, its face a clock
-    g.ring(16, 15, 9.5, fill=True)
-    g.vline(16, 2, 5)
-    g.line(16, 5, 12, 3)
-    g.line(16, 5, 20, 3)
-    g.vline(16, 9, 15)
-    g.line(16, 15, 20, 18)
-    g.px(16, 15)
-
-
 def herdr_nvim(g):
     # an editor window whose selection is sent out to an agent
     g.rect(1, 3, 21, 22)
@@ -138,9 +97,6 @@ def herdr_nvim(g):
 LOGOS = [
     # name, colour, icon, corner tag, statusline mode, statusline readout
     ("keybars", "#3dff7a", keybars, "~/cava", "LIVE", "30fps"),
-    ("herdr-gh", "#c18cff", herdr_gh, "herdr", "PR", "#412 ok"),
-    ("herdr-zsa-lights", "#3de0ff", herdr_zsa_lights, "herdr", "AGENT", "blocked"),
-    ("herdr-pomodoro", "#ff5a4a", herdr_pomodoro, "herdr", "WORK", "24:59"),
     ("herdr.nvim", "#ffa23d", herdr_nvim, ":w", "NORMAL", ":HerdrSend"),
 ]
 

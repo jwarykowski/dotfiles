@@ -75,7 +75,7 @@ fi
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
-# --- keymapp at login (hidden): herdr-zsa-lights / kbd-layer need its api running ---
+# --- keymapp at login (hidden): kbd-layer needs its api running ---
 if [[ -d /Applications/Keymapp.app ]] &&
   ! osascript -e 'tell application "System Events" to get the name of every login item' | grep -q Keymapp; then
   log "adding keymapp login item..."
@@ -109,13 +109,21 @@ fi
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."
-  herdr plugin install paulbkim-dev/vim-herdr-navigation --yes
-  herdr plugin install cloudmanic/herdr-plus --yes
-  herdr plugin install natori-hrj/herdr-lazy --yes
-  herdr plugin install jwarykowski/herdr-gh --yes
-  herdr plugin install jwarykowski/herdr-zsa-lights --yes
+  herdr_plugins=$(herdr plugin list)
+  # leave local dev checkouts (herdr plugin link) alone; install refuses them
+  plugin_install() {
+    if grep -q "local:.*/${1#*/}]" <<<"$herdr_plugins"; then
+      log "skipping $1 (linked locally)"
+      return
+    fi
+    herdr plugin install "$1" --yes
+  }
+  plugin_install paulbkim-dev/vim-herdr-navigation
+  plugin_install cloudmanic/herdr-plus
+  plugin_install natori-hrj/herdr-lazy
+  plugin_install jwarykowski/herdr-keybars
   # shepherd builds from source and may need a newer go than installed
-  GOTOOLCHAIN=auto herdr plugin install jwarykowski/shepherd --yes
+  GOTOOLCHAIN=auto plugin_install jwarykowski/shepherd
 fi
 
 # --- tpm (tmux plugin manager) ---

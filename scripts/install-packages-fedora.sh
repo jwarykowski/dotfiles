@@ -15,14 +15,12 @@ sudo dnf install -y \
   direnv \
   eza \
   fd-find \
-  flameshot \
   fzf \
   gcc \
   gh \
   git \
   git-delta \
   gnome-shell-extension-appindicator \
-  golang \
   jq \
   lua-devel \
   luarocks \
@@ -42,9 +40,16 @@ sudo dnf install -y \
   ShellCheck \
   shfmt \
   stow \
-  tmux \
+  tldr \
   unzip \
+  yt-dlp \
+  zoxide \
   zsh
+
+# --- berkeley mono: licensed, so it can't be downloaded here ---
+if ! fc-list | grep -q "Berkeley Mono"; then
+  log "berkeley mono missing: copy its .otf/.ttf files to ~/.local/share/fonts and run fc-cache -f"
+fi
 
 # --- gnome: appindicator (tray icons) ---
 # gsettings, not gnome-extensions enable: the shell only sees a new extension
@@ -68,6 +73,13 @@ if ! installed lazygit; then
   log "installing lazygit..."
   sudo dnf copr enable -y atim/lazygit
   sudo dnf install -y lazygit
+fi
+
+# --- lazydocker (copr) ---
+if ! installed lazydocker; then
+  log "installing lazydocker..."
+  sudo dnf copr enable -y atim/lazydocker
+  sudo dnf install -y lazydocker
 fi
 
 # --- ghostty (copr) ---
@@ -98,7 +110,7 @@ if ! installed Hyprland; then
     hyprshutdown \
     xdg-desktop-portal-hyprland
 fi
-sudo dnf install -y brightnessctl grim playerctl quickshell slurp wl-clipboard
+sudo dnf install -y brightnessctl grim hyprpicker hyprsunset playerctl quickshell slurp tesseract wf-recorder wl-clipboard
 
 # --- cloudflared (cloudflare repo): ssh to forgejo goes through its tunnel ---
 if ! installed cloudflared; then
@@ -115,6 +127,36 @@ fi
 # --no-modify-path: cargo is only on PATH once .zshrc runs, so load it here
 # shellcheck source=/dev/null
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# --- runtimes + npm globals (mise, see common/.config/mise/config.toml) ---
+if ! installed mise; then
+  log "installing mise..."
+  sudo dnf copr enable -y jdxcode/mise
+  sudo dnf install -y mise
+fi
+# ruby builds from source
+sudo dnf install -y libffi-devel libyaml-devel openssl-devel readline-devel zlib-ng-compat-devel
+# packages run before stow, so point mise at the repo's config
+log "installing mise tools..."
+MISE_GLOBAL_CONFIG_FILE="$(cd "$(dirname "$0")/.." && pwd)/common/.config/mise/config.toml"
+export MISE_GLOBAL_CONFIG_FILE
+# npm: tools need node first
+mise install node
+mise install
+
+# --- hyprland extras built from source ---
+# clipboard history; not packaged for fedora 43
+if ! installed cliphist; then
+  log "installing cliphist..."
+  GOBIN="$HOME/.local/bin" mise exec go -- go install go.senan.xyz/cliphist@latest
+fi
+
+# screenshot annotation
+if ! installed satty; then
+  log "installing satty..."
+  sudo dnf install -y gtk4-devel libadwaita-devel libepoxy-devel
+  cargo install --locked satty
+fi
 
 # --- zsa moonlander: udev access, keymapp, kontroll ---
 # hidraw for oryx live training / keymapp api, stm32 dfu for flashing
@@ -196,32 +238,6 @@ if ! installed luacheck; then
     luarocks install --tree "$HOME/.local" luacheck
 fi
 
-# --- fnm + node ---
-if ! installed fnm; then
-  log "installing fnm..."
-  curl -fsSL https://fnm.vercel.app/install | bash -s -- \
-    --install-dir "$HOME/.local/bin" \
-    --skip-shell
-fi
-
-eval "$("$HOME/.local/bin/fnm" env)"
-if ! installed node; then
-  log "installing node lts..."
-  fnm install --lts
-  fnm use lts-latest
-fi
-
-# --- npm globals ---
-log "installing npm globals..."
-npm config set prefix "$HOME/.local"
-npm install -g @fsouza/prettierd prettier tree-sitter-cli
-
-# --- bun ---
-if ! installed bun; then
-  log "installing bun..."
-  curl -fsSL https://bun.sh/install | bash
-fi
-
 # --- herdr ---
 if ! installed herdr; then
   log "installing herdr..."
@@ -253,12 +269,6 @@ shepherd_bin=$(compgen -G "$HOME/.config/herdr/plugins/github/jwarykowski.herdr-
 if [[ -n "$shepherd_bin" ]]; then
   log "linking shepherd..."
   ln -sf "$shepherd_bin" "$HOME/.local/bin/shepherd"
-fi
-
-# --- tpm (tmux plugin manager) ---
-if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
-  log "installing tpm..."
-  git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
 log "fedora packages installed"

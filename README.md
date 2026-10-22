@@ -18,10 +18,10 @@
 - **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
 - **Terminal**: [Ghostty](https://ghostty.org/)
 - **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **Multiplexer**: [tmux](https://github.com/tmux/tmux) + [tpm](https://github.com/tmux-plugins/tpm); [herdr](https://herdr.dev) for agent sessions
+- **Multiplexer**: [herdr](https://herdr.dev) (old tmux config in `archive/tmux`)
 - **Todos**: [shepherd](https://github.com/jwarykowski/shepherd) todo board — `<leader>T` in nvim via [nvim-shepherd](https://github.com/jwarykowski/nvim-shepherd)
 - **RSS**: [newsboat](https://newsboat.org/)
-- **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, tmux, btop, delta)
+- **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, btop, delta)
 - **Font**: [Berkeley Mono](https://berkeleygraphics.com/typefaces/berkeley-mono/)
 - **Keyboards**: [ZSA Moonlander](https://www.zsa.io/moonlander) and [ZSA Voyager](https://www.zsa.io/voyager) (see [keyboards](#keyboards))
 
@@ -36,7 +36,7 @@
  │ Ghostty ── lackluster theme · Berkeley Mono                                  │
  └───────────────────────────────────┬──────────────────────────────────────────┘
  ┌───────────────────────────────────▼──────────────────────────────────────────┐
- │ herdr ── tabs: claude · nvim · lazygit · shell      (tmux + tpm fallback)    │
+ │ herdr ── tabs: claude · nvim · lazygit · shell                               │
  │   plugins: herdr-plus · vim-herdr-navigation · herdr-lazy · shepherd         │
  └───────────────────────────────────┬──────────────────────────────────────────┘
  ┌──────────────────┬────────────────┴─────────┬────────────────────────────────┐
@@ -45,15 +45,15 @@
  │  autosuggest     │  blink.cmp · mini.*      │  gpg sign · work includeIf     │
  │  syntax-hl       │  mason + lspconfig       │  lazygit · gh                  │
  │  substring hist  │  conform · treesitter    │  ~90 aliases + git_main_branch │
- │  zsh-z · fzf     │  oil · trouble · neotest │                                │
- │  direnv · fnm    │  shepherd todo board     │                                │
+ │  zoxide · fzf-tab│  oil · trouble · neotest │                                │
+ │  direnv · mise   │  shepherd todo board     │                                │
  └──────────────────┴──────────────────────────┴────────────────────────────────┘
-   CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq
+   CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq · uv · tldr
  ┌──────────────────────────────────────────────────────────────────────────────┐
  │ ~/dotfiles ── stow --no-folding:  common/ + linux/ | mac/   → $HOME          │
  │   install.sh [--packages|--adopt|--profile] · scripts/install-packages-*     │
- │   ~/.local/bin: update · cleanup · systemctl-* · disk-report                 │
- │   CI: shellcheck · stylua · luacheck                                         │
+ │   ~/.local/bin: update · cleanup · systemctl-* · disk-report · screenrecord  │
+ │   CI: shellcheck · stylua · luacheck · zsh -n                                │
  └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -179,7 +179,13 @@ herdr.
 | `SUPER+r` | resize mode (`h/j/k/l`, `Esc` leaves) |
 | `SUPER+Shift+q` / `SUPER+Shift+c` | close window / reload config |
 | Lock key (`ctrl+alt+gui+l`) | lock (hypridle runs hyprlock) |
+| `SUPER+v` | clipboard history |
+| `SUPER+s` / `SUPER+Shift+s` | toggle scratchpad / move window to it |
+| `SUPER+n` | night light (hyprsunset) |
 | `Print` / `Shift+Print` | screenshot region / screen to the clipboard |
+| `Ctrl+Print` | annotate a region in satty |
+| `Alt+Print` | start / stop recording a region (`~/Videos`) |
+| `SUPER+Print` / `SUPER+Ctrl+Print` | colour picker / OCR a region to the clipboard |
 
 hypridle locks after 10 minutes and turns the screens off after 15.
 
@@ -197,16 +203,19 @@ hypridle locks after 10 minutes and turns the screens off after 15.
   changes.
 - **launcher** (`SUPER+d`): filters installed apps by name or keyword;
   `Up/Down` or `C-j/C-k` to pick, `Enter` runs, `Esc` closes.
+- **clipboard** (`SUPER+v`): `cliphist` history (text and images); filter,
+  `Enter` copies the entry back.
 - **power menu** (`SUPER+Escape`): `l` lock, `e` log out, `s` suspend,
   `r` reboot, `p` shut down (or `j/k` and `Enter`).
 
 Hyprland binds open the overlays with `qs ipc call launcher toggle` (or
-`power`).
+`power`, `clipboard`).
 
 ## structure
 
 ```
 dotfiles/
+├── archive/                    # retired configs, not stowed (tmux)
 ├── common/                     # configs for all platforms
 │   ├── .config/
 │   │   ├── bat/                # bat
@@ -216,6 +225,7 @@ dotfiles/
 │   │   ├── ghostty/themes/     # shared ghostty colour theme
 │   │   ├── herdr/              # herdr agent multiplexer
 │   │   ├── lazygit/            # lazygit
+│   │   ├── mise/               # node, ruby, go, bun, uv, java, dotnet, npm globals
 │   │   ├── nvim/               # neovim
 │   │   ├── ripgrep/            # ripgrep
 │   │   ├── shepherd/           # shepherd todo board (config only)
@@ -229,14 +239,14 @@ dotfiles/
 │   ├── .git-commit-template
 │   ├── .gitconfig
 │   ├── .gitconfig-work         # work identity, included by remote url
-│   ├── .tmux.conf
 │   ├── .zshenv
 │   └── .zshrc
 ├── linux/                      # fedora-specific configs
 │   ├── .config/
+│   │   ├── fontconfig/         # monospace -> berkeley mono
 │   │   ├── ghostty/            # ghostty terminal
 │   │   ├── hypr/               # hyprland (lua), hypridle, hyprlock, hyprpaper
-│   │   ├── quickshell/         # bar, notifications, launcher, power menu
+│   │   ├── quickshell/         # bar, notifications, launcher, clipboard, power menu
 │   │   └── zsh/                # linux-only functions
 │   ├── .local/bin/             # linux scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools
@@ -314,7 +324,6 @@ Re-apply dotfiles (safe, idempotent):
 
 ## post-install
 
-- **tmux plugins**: open tmux and press `prefix + I` to install plugins via tpm
 - **neovim plugins**: open nvim — lazy.nvim installs automatically on first launch, mason installs LSPs
 - **zsh plugins**: znap clones and caches plugins automatically on first shell start
 - **zsh default shell**: `chsh -s $(which zsh)`

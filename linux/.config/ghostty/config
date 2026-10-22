@@ -3,7 +3,7 @@ theme = lackluster
 
 cursor-style = bar
 cursor-style-blink = false
-font-family = Berkeley Mono Regular
+font-family = Berkeley Mono
 font-size = 14
 shell-integration-features = "no-cursor"
 

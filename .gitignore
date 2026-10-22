@@ -3,8 +3,7 @@
 .claude/scheduled_tasks.lock
 .DS_Store
 
-# credential guards: with --no-folding apps write these to $HOME, not the
-# repo, but a machine still on folded stow links (pre unfold-stow.sh) can
-# leak gh's oauth_token or npm auth into a commit
+# credential guards: a folded stow link would let apps write gh's
+# oauth_token or npm auth into the repo
 common/.config/gh/hosts.yml
 common/.npmrc

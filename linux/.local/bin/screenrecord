@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# toggle a screen recording of a selected region into ~/Videos
+set -euo pipefail
+
+if pkill -INT -x wf-recorder; then
+  notify-send "screen recording saved" "$HOME/Videos"
+  exit 0
+fi
+
+geometry=$(slurp) || exit 0
+mkdir -p "$HOME/Videos"
+wf-recorder -g "$geometry" -f "$HOME/Videos/$(date +%Y-%m-%d_%H-%M-%S).mp4" >/dev/null 2>&1 &

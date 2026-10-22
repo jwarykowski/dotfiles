@@ -16,15 +16,13 @@ step "dnf upgrade" sudo dnf upgrade -y
 
 has flatpak && step "flatpak update" flatpak update -y
 has rustup && step "rustup" rustup update
-has bun && step "bun" bun upgrade
+has mise && step "mise" mise upgrade
 has herdr && step "herdr" herdr update
 
 step "zsh plugins" zsh -ic 'znap pull'
 step "nvim plugins" nvim --headless "+Lazy! sync" "+MasonUpdate" +qa
-step "tmux plugins" "$HOME/.tmux/plugins/tpm/bin/update_plugins" all
 
 has cargo-install-update && step "cargo packages" cargo install-update -a
-step "npm globals" npm update -g
 
 if ((${#failed[@]})); then
   log "failed: ${failed[*]}"

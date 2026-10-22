@@ -29,8 +29,8 @@ hl.config({
 })
 
 hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
-hl.animation({ leaf = "global", enabled = true, speed = 3, bezier = "quick" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 2, bezier = "quick", style = "fade" })
+hl.animation({ leaf = "global", enabled = true, speed = 3, curve = "quick" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 2, curve = "quick", style = "fade" })
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")

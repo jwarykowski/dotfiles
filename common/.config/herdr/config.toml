@@ -157,7 +157,7 @@ command = "jwarykowski.herdr-keybars.next-agent"
 description = "focus the agent that needs you"
 
 [[keys.command]]
-key = "prefix+shift+d"
+key = "prefix+alt+t"
 type = "popup"
 command = "herdr-todo-agent"
 description = "hand a shepherd todo to a claude agent (new worktree)"

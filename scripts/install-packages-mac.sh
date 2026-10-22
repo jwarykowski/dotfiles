@@ -21,33 +21,34 @@ brew install \
   direnv \
   eza \
   fd \
-  fnm \
+  forgejo-cli \
   fzf \
   gh \
   git \
   git-delta \
-  go \
   herdr \
   jq \
+  lazydocker \
   lazygit \
   llvm \
   luacheck \
+  mise \
   neovim \
   newsboat \
   ninja \
   pinentry-mac \
   protobuf \
   pv \
-  rbenv \
   ripgrep \
   ruff \
   shellcheck \
   shfmt \
   stow \
   stylua \
-  tmux \
-  tree-sitter-cli \
-  yazi
+  tlrc \
+  yazi \
+  yt-dlp \
+  zoxide
 
 # --- brew casks ---
 log "installing brew casks..."
@@ -56,16 +57,14 @@ brew install --cask \
   font-berkeley-mono \
   keymapp
 
-# --- node + npm globals ---
-eval "$(fnm env)"
-if ! installed node; then
-  log "installing node lts..."
-  fnm install --lts
-  fnm use lts-latest
-fi
-
-log "installing npm globals..."
-npm install -g @fsouza/prettierd prettier
+# --- runtimes + npm globals (mise, see common/.config/mise/config.toml) ---
+# packages run before stow, so point mise at the repo's config
+log "installing mise tools..."
+MISE_GLOBAL_CONFIG_FILE="$(cd "$(dirname "$0")/.." && pwd)/common/.config/mise/config.toml"
+export MISE_GLOBAL_CONFIG_FILE
+# npm: tools need node first
+mise install node
+mise install
 
 # --- rust ---
 if ! installed rustup; then
@@ -86,12 +85,6 @@ fi
 if ! installed kontroll; then
   log "installing kontroll..."
   cargo install --locked --git https://github.com/zsa/kontroll --tag 1.0.4
-fi
-
-# --- bun ---
-if ! installed bun; then
-  log "installing bun..."
-  curl -fsSL https://bun.sh/install | bash
 fi
 
 # --- opencode ---
@@ -124,12 +117,6 @@ if installed herdr; then
   plugin_install jwarykowski/herdr-keybars
   # shepherd builds from source and may need a newer go than installed
   GOTOOLCHAIN=auto plugin_install jwarykowski/shepherd
-fi
-
-# --- tpm (tmux plugin manager) ---
-if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
-  log "installing tpm..."
-  git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 fi
 
 # --- aerospace ---

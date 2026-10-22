@@ -1,0 +1,29 @@
+[tools]
+node = "lts"
+ruby = "3.3"
+go = "latest"
+bun = "latest"
+uv = "latest"
+java = "zulu-17"
+dotnet = ["8", "9"]
+"npm:prettier" = "latest"
+"npm:@fsouza/prettierd" = "latest"
+"npm:tree-sitter-cli" = "latest"
+"npm:yarn" = "latest"
+"npm:vercel" = "latest"
+"npm:quicktype" = "latest"
+"npm:localtunnel" = "latest"
+"npm:@redocly/cli" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@earendil-works/pi-coding-agent" = "latest"
+"gem:cocoapods" = { version = "latest", os = ["macos"] }
+
+[settings]
+# follow .nvmrc / .node-version / .ruby-version, as fnm and rbenv did
+idiomatic_version_file_enable_tools = ["node", "ruby"]
+# running a missing tool's command installs it
+not_found_auto_install = true
+
+[settings.status]
+# warn on cd into a project whose pinned versions aren't installed
+missing_tools = "always"

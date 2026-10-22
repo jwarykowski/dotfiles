@@ -34,6 +34,11 @@ promptinit
 prompt pure
 
 ## plugins
+# fzf picker for tab completion; must load before plugins that wrap widgets
+znap source Aloxaf/fzf-tab
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+
 ZSH_AUTOSUGGEST_STRATEGY=( history completion )
 znap source zsh-users/zsh-autosuggestions
 
@@ -52,8 +57,6 @@ znap source zsh-users/zsh-completions
 # herdr subcommand completion (znap regenerates into site-functions each start)
 command -v herdr >/dev/null && znap fpath _herdr 'herdr completion zsh'
 
-znap source agkozak/zsh-z
-
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
@@ -70,7 +73,8 @@ fi
 # tool hooks (after .zshrc.local so brew's PATH is in place on mac)
 [[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
 command -v direnv >/dev/null && znap eval direnv 'direnv hook zsh'
-command -v fnm >/dev/null && znap eval fnm 'fnm env --use-on-cd --shell zsh'
+command -v mise >/dev/null && znap eval mise 'mise activate zsh'
+command -v zoxide >/dev/null && znap eval zoxide 'zoxide init zsh'
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

@@ -19,5 +19,8 @@ alias la='eza -a --group-directories-first'
 alias lt='eza --tree --level=2 --group-directories-first'
 alias llt='eza -la --tree --level=2 --git --group-directories-first'
 
+# fzf file picker with a bat preview
+alias ff="fzf --preview 'bat --color=always --style=numbers {}'"
+
 # projects
 alias dev="cd ~/development"

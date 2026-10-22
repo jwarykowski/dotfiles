@@ -45,15 +45,15 @@
  │  autosuggest     │  blink.cmp · mini.*      │  gpg sign · work includeIf     │
  │  syntax-hl       │  mason + lspconfig       │  lazygit · gh                  │
  │  substring hist  │  conform · treesitter    │  ~90 aliases + git_main_branch │
- │  zsh-z · fzf     │  oil · trouble · neotest │                                │
+ │  zoxide · fzf-tab│  oil · trouble · neotest │                                │
  │  direnv · fnm    │  shepherd todo board     │                                │
  └──────────────────┴──────────────────────────┴────────────────────────────────┘
-   CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq
+   CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq · uv · tldr
  ┌──────────────────────────────────────────────────────────────────────────────┐
  │ ~/dotfiles ── stow --no-folding:  common/ + linux/ | mac/   → $HOME          │
  │   install.sh [--packages|--adopt|--profile] · scripts/install-packages-*     │
- │   ~/.local/bin: update · cleanup · systemctl-* · disk-report                 │
- │   CI: shellcheck · stylua · luacheck                                         │
+ │   ~/.local/bin: update · cleanup · systemctl-* · disk-report · screenrecord  │
+ │   CI: shellcheck · stylua · luacheck · zsh -n · qmllint                      │
  └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -179,7 +179,13 @@ herdr.
 | `SUPER+r` | resize mode (`h/j/k/l`, `Esc` leaves) |
 | `SUPER+Shift+q` / `SUPER+Shift+c` | close window / reload config |
 | Lock key (`ctrl+alt+gui+l`) | lock (hypridle runs hyprlock) |
+| `SUPER+v` | clipboard history |
+| `SUPER+s` / `SUPER+Shift+s` | toggle scratchpad / move window to it |
+| `SUPER+n` | night light (hyprsunset) |
 | `Print` / `Shift+Print` | screenshot region / screen to the clipboard |
+| `Ctrl+Print` | annotate a region in satty |
+| `Alt+Print` | start / stop recording a region (`~/Videos`) |
+| `SUPER+Print` / `SUPER+Ctrl+Print` | colour picker / OCR a region to the clipboard |
 
 hypridle locks after 10 minutes and turns the screens off after 15.
 
@@ -197,11 +203,13 @@ hypridle locks after 10 minutes and turns the screens off after 15.
   changes.
 - **launcher** (`SUPER+d`): filters installed apps by name or keyword;
   `Up/Down` or `C-j/C-k` to pick, `Enter` runs, `Esc` closes.
+- **clipboard** (`SUPER+v`): `cliphist` history (text and images); filter,
+  `Enter` copies the entry back.
 - **power menu** (`SUPER+Escape`): `l` lock, `e` log out, `s` suspend,
   `r` reboot, `p` shut down (or `j/k` and `Enter`).
 
 Hyprland binds open the overlays with `qs ipc call launcher toggle` (or
-`power`).
+`power`, `clipboard`).
 
 ## structure
 
@@ -236,7 +244,7 @@ dotfiles/
 │   ├── .config/
 │   │   ├── ghostty/            # ghostty terminal
 │   │   ├── hypr/               # hyprland (lua), hypridle, hyprlock, hyprpaper
-│   │   ├── quickshell/         # bar, notifications, launcher, power menu
+│   │   ├── quickshell/         # bar, notifications, launcher, clipboard, power menu
 │   │   └── zsh/                # linux-only functions
 │   ├── .local/bin/             # linux scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools

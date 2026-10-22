@@ -15,7 +15,6 @@ sudo dnf install -y \
   direnv \
   eza \
   fd-find \
-  flameshot \
   fzf \
   gcc \
   gh \
@@ -42,8 +41,12 @@ sudo dnf install -y \
   ShellCheck \
   shfmt \
   stow \
+  tldr \
   tmux \
   unzip \
+  uv \
+  yt-dlp \
+  zoxide \
   zsh
 
 # --- gnome: appindicator (tray icons) ---
@@ -68,6 +71,13 @@ if ! installed lazygit; then
   log "installing lazygit..."
   sudo dnf copr enable -y atim/lazygit
   sudo dnf install -y lazygit
+fi
+
+# --- lazydocker (copr) ---
+if ! installed lazydocker; then
+  log "installing lazydocker..."
+  sudo dnf copr enable -y atim/lazydocker
+  sudo dnf install -y lazydocker
 fi
 
 # --- ghostty (copr) ---
@@ -98,7 +108,20 @@ if ! installed Hyprland; then
     hyprshutdown \
     xdg-desktop-portal-hyprland
 fi
-sudo dnf install -y brightnessctl grim playerctl quickshell slurp wl-clipboard
+sudo dnf install -y brightnessctl grim hyprpicker hyprsunset playerctl quickshell slurp tesseract wf-recorder wl-clipboard
+
+# clipboard history; not packaged for fedora 43
+if ! installed cliphist; then
+  log "installing cliphist..."
+  GOBIN="$HOME/.local/bin" go install go.senan.xyz/cliphist@latest
+fi
+
+# screenshot annotation
+if ! installed satty; then
+  log "installing satty..."
+  sudo dnf install -y gtk4-devel libadwaita-devel libepoxy-devel
+  cargo install --locked satty
+fi
 
 # --- cloudflared (cloudflare repo): ssh to forgejo goes through its tunnel ---
 if ! installed cloudflared; then

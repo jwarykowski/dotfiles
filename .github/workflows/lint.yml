@@ -14,6 +14,27 @@ jobs:
       # shellcheck ships on ubuntu runners
       - run: shellcheck install.sh scripts/*.sh scripts/immich/*.sh linux/.local/bin/* mac/.local/bin/*
 
+  zsh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y zsh
+      - name: zsh -n
+        run: |
+          status=0
+          for f in common/.zshrc common/.zshenv mac/.zshrc.local linux/.zshrc.local common/.config/zsh/*.zsh common/.config/zsh/*/*.zsh linux/.config/zsh/*/*.zsh; do
+            zsh -n "$f" || status=1
+          done
+          exit "$status"
+
+  qml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y qt6-declarative-dev-tools
+      # quickshell's types aren't installed, so this only catches syntax errors
+      - run: /usr/lib/qt6/bin/qmllint linux/.config/quickshell/*.qml
+
   lua:
     runs-on: ubuntu-latest
     steps:

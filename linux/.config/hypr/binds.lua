@@ -12,6 +12,7 @@ end
 
 bind("Return", hl.dsp.exec_cmd("ghostty"))
 bind("D", qs("launcher"))
+bind("V", qs("clipboard"))
 bind("Escape", qs("power"))
 bind("SHIFT + E", qs("power"))
 bind("SHIFT + Q", hl.dsp.window.close())
@@ -29,6 +30,13 @@ end
 bind("F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 bind("SHIFT + space", hl.dsp.window.float({ action = "toggle" }))
 bind("E", hl.dsp.layout("togglesplit"))
+
+-- drop-down scratchpad
+bind("S", hl.dsp.workspace.toggle_special("scratch"))
+bind("SHIFT + S", hl.dsp.window.move({ workspace = "special:scratch" }))
+
+-- night light
+bind("N", hl.dsp.exec_cmd("pkill -x hyprsunset || hyprsunset -t 4000"))
 
 for i = 1, 10 do
 	local key = i % 10
@@ -55,9 +63,13 @@ hl.define_submap("resize", function()
 	hl.bind("Escape", hl.dsp.submap("reset"))
 end)
 
--- screenshots: region or whole screen to the clipboard
+-- capture: region / screen to clipboard, annotate, record, colour pick, ocr
 hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | wl-copy'))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim - | wl-copy"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | satty --filename - --copy-command wl-copy'))
+hl.bind("ALT + Print", hl.dsp.exec_cmd("$HOME/.local/bin/screenrecord"))
+bind("Print", hl.dsp.exec_cmd("hyprpicker -a"))
+bind("CTRL + Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | tesseract - - | wl-copy'))
 
 local locked = { locked = true }
 local repeating = { locked = true, repeating = true }

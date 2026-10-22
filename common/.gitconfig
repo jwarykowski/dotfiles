@@ -25,6 +25,7 @@
   editor = nvim
   ignorecase = false
   pager = delta
+  untrackedCache = true
 
 [interactive]
   diffFilter = delta --color-only
@@ -71,7 +72,12 @@
   gpgSign = true
 
 [rebase]
+  autoSquash = true
+  autoStash = true
   updateRefs = true
+
+[rerere]
+  enabled = true
 
 [fetch]
   prune = true

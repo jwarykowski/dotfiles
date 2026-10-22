@@ -29,6 +29,7 @@ brew install \
   go \
   herdr \
   jq \
+  lazydocker \
   lazygit \
   llvm \
   luacheck \
@@ -45,9 +46,13 @@ brew install \
   shfmt \
   stow \
   stylua \
+  tlrc \
   tmux \
   tree-sitter-cli \
-  yazi
+  uv \
+  yazi \
+  yt-dlp \
+  zoxide
 
 # --- brew casks ---
 log "installing brew casks..."

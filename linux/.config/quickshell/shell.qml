@@ -21,6 +21,10 @@ ShellRoot {
 		id: power
 	}
 
+	Clipboard {
+		id: clipboard
+	}
+
 	// hyprland binds: qs ipc call <target> toggle
 	IpcHandler {
 		target: "launcher"
@@ -35,6 +39,14 @@ ShellRoot {
 
 		function toggle(): void {
 			power.toggle();
+		}
+	}
+
+	IpcHandler {
+		target: "clipboard"
+
+		function toggle(): void {
+			clipboard.toggle();
 		}
 	}
 }

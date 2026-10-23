@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# sort herdr workspaces by label, personal ones first, then zeller-engineering
+# repos (matched on the origin remote of the workspace's repo or first pane)
+#
+# usage: herdr-sort-workspaces [--dry-run]   (--dry-run prints the order only)
+set -euo pipefail
+
+sock=$(herdr status server | sed -n 's/^socket: //p')
+
+rows=$(herdr api snapshot | jq -r '.result.snapshot as $s | $s.workspaces[]
+  | .workspace_id as $id
+  | [$id, .label, (.worktree.repo_root // ([$s.panes[] | select(.workspace_id == $id) | .cwd] | first) // "")]
+  | @tsv')
+
+ordered=$(while IFS=$'\t' read -r id label dir; do
+  remote=$(git -C "${dir:-/}" remote get-url origin 2>/dev/null || true)
+  work=0
+  [[ $remote == *zeller-engineering/* ]] && work=1
+  printf '%s\t%s\t%s\n' "$work" "$label" "$id"
+done <<<"$rows" | sort -t $'\t' -k1,1n -k2,2f)
+
+cut -f2 <<<"$ordered" | nl -w2 -s' '
+[[ ${1:-} == --dry-run ]] && exit 0
+
+cut -f3 <<<"$ordered" |
+  jq -Rsc '{id: "sort", method: "workspace.move_block", params: {workspace_ids: (split("\n") | map(select(. != ""))), before_workspace_id: null}}' |
+  nc -U -w 2 "$sock" | jq -e '.result' >/dev/null

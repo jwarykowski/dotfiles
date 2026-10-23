@@ -28,6 +28,7 @@ sudo dnf install -y \
   neovim \
   newsboat \
   ninja-build \
+  nmap-ncat \
   p7zip \
   pinentry-gnome3 \
   protobuf-compiler \

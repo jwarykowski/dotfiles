@@ -69,8 +69,9 @@ while true; do
 
   RESPONSE=$(curl -s -X POST \
     -H "Content-Type: application/json" \
+    -H "x-api-key: $API_KEY" \
     -d "{\"isNotInAlbum\": true, \"withExif\": true, \"isVisible\": true, \"takenAfter\": \"$TAKEN_AFTER\", \"page\": $PAGE}" \
-    "$IMMICH_URL/api/search/metadata?apiKey=$API_KEY")
+    "$IMMICH_URL/api/search/metadata")
 
   RESPONSE_ERROR=$(echo "$RESPONSE" | jq -r '.error')
 
@@ -124,8 +125,9 @@ for ((i=0; i<TOTAL; i+=BATCH_SIZE)); do
 
   RESPONSE=$(curl -s -X PUT \
     -H "Content-Type: application/json" \
+    -H "x-api-key: $API_KEY" \
     -d "{\"ids\": $IDS_JSON}" \
-    "$IMMICH_URL/api/albums/$ALBUM_ID/assets?apiKey=$API_KEY")
+    "$IMMICH_URL/api/albums/$ALBUM_ID/assets")
 
   SUCCESS_COUNT=$(echo "$RESPONSE" | jq '[.[] | select(.success == true)] | length')
   ERROR_COUNT=$(echo "$RESPONSE" | jq '[.[] | select(.success == false)] | length')

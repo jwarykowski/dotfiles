@@ -88,5 +88,5 @@ customCommands:
         title: "Message"
         key: Message
     command: >-
-      git commit -m "{{.Form.Type}}{{if .Form.Scope}}({{.Form.Scope}}){{end}}: {{.Form.Message}}"
+      git commit -m {{.Form.Type}}{{if .Form.Scope}}"("{{.Form.Scope | quote}}")"{{end}}": "{{.Form.Message | quote}}
     loadingText: committing...

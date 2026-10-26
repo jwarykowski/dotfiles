@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 keymap = [
   { on = ["<Esc>"], run = "escape", desc = "exit visual/select mode, clear filter" },
   { on = ["q"], run = "quit", desc = "quit" },

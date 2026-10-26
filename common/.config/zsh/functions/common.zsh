@@ -35,15 +35,16 @@ fman() {
   man "$(apropos . | fzf | awk '{print $1}')"
 }
 
-## git worktrees (beside the repo as <repo>--<branch>)
+## git worktrees (herdr's layout: ~/development/worktrees/<repo>/<branch>)
 gwa() {
   if [[ -z "$1" ]]; then
     echo "usage: gwa <branch>"
     return 1
   fi
-  local root
-  root=$(git rev-parse --show-toplevel) || return 1
-  local dir="${root}--${1//\//-}"
+  local main
+  main=$(git worktree list --porcelain | awk 'NR == 1 { print $2 }')
+  [[ -n "$main" ]] || return 1
+  local dir="$HOME/development/worktrees/${main:t}/${1//\//-}"
   git worktree add -b "$1" "$dir" && cd "$dir"
 }
 

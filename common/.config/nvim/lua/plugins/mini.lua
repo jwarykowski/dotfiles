@@ -46,7 +46,7 @@ return {
 		version = false,
 		event = "VeryLazy",
 		config = function()
-			require("mini.operators").setup({ replace = { prefix = "gR" } })
+			require("mini.operators").setup({ replace = { prefix = "gR" }, exchange = { prefix = "gX" } })
 		end,
 	},
 	{

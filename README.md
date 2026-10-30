@@ -229,6 +229,7 @@ dotfiles/
 │   │   ├── nvim/               # neovim
 │   │   ├── ripgrep/            # ripgrep
 │   │   ├── shepherd/           # shepherd todo board (config only)
+│   │   ├── vimium/             # key mappings, search engines, css (paste into the extension)
 │   │   ├── yazi/               # yazi file manager
 │   │   └── zsh/                # aliases, functions, utils
 │   ├── .newsboat/              # newsboat rss reader

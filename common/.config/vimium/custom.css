@@ -1,0 +1,117 @@
+/* paste into Vimium > Options > Advanced > CSS for Vimium UI
+   lackluster palette, matches ghostty/themes/lackluster (vimium 2.4) */
+
+/* hud, help dialog and other extension pages read these */
+:root {
+  --vimium-background-color: #0a0a0a;
+  --vimium-background-text-color: #deeeed;
+  --vimium-foreground-color: #191919;
+  --vimium-foreground-text-color: #deeeed;
+  --vimium-link-color: #7788aa;
+}
+
+/* link hints */
+div.vimiumHintMarker {
+  background: #191919;
+  border: 1px solid #555555;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 2px 5px;
+}
+div.vimiumHintMarker span {
+  color: #ffaa88;
+  font-family: "Berkeley Mono", monospace;
+  font-size: 13px;
+  font-weight: bold;
+  text-shadow: none;
+}
+div.vimiumHintMarker > .matchingCharacter {
+  color: #7a7a7a;
+}
+div.vimiumHintMarker.vimiumActiveHintMarker span {
+  color: #789978 !important;
+}
+
+/* hud (find mode, messages) */
+#hud-container {
+  background: #0a0a0a;
+  border: 1px solid #444444;
+  border-radius: 2px;
+  box-shadow: none;
+  color: #deeeed;
+  font-family: "Berkeley Mono", monospace;
+}
+
+/* vomnibar */
+#vomnibar {
+  background: #0a0a0a;
+  border: 1px solid #444444;
+  border-radius: 2px;
+  box-shadow: none;
+  font-family: "Berkeley Mono", monospace;
+}
+#vomnibar-search-area {
+  background: #0a0a0a;
+  border-bottom: 1px solid #2a2a2a;
+}
+#vomnibar input {
+  background: #191919;
+  border: 1px solid #444444;
+  border-radius: 2px;
+  box-shadow: none;
+  color: #deeeed;
+  font-family: "Berkeley Mono", monospace;
+  font-size: 16px;
+}
+#vomnibar input::selection {
+  background: #7a7a7a;
+  color: #0a0a0a;
+}
+#vomnibar li {
+  background: #0a0a0a;
+  border-bottom: 1px solid #191919;
+  color: #aaaaaa;
+  font-size: 14px;
+}
+#vomnibar li.selected {
+  background: #2a2a2a;
+}
+#vomnibar li .title {
+  color: #deeeed;
+}
+#vomnibar li .url {
+  color: #708090;
+}
+#vomnibar li .source,
+#vomnibar li .relevancy {
+  color: #555555;
+}
+#vomnibar li .match,
+#vomnibar li .title .match {
+  color: #ffaa88;
+  font-weight: normal;
+}
+
+/* find mode: current match (vimium only highlights the active one) */
+body.vimium-find-mode ::selection {
+  background: #ffaa88;
+  color: #0a0a0a;
+}
+#hud.hud-find {
+  background: #191919;
+  border: 1px solid #444444;
+  border-radius: 2px;
+}
+span#hud-find-input {
+  color: #deeeed;
+}
+span#hud-find-input:before {
+  color: #708090;
+}
+span#hud-match-count {
+  color: #789978;
+}
+/* outline flashed on the matched element after n / N and on focus */
+div.vimium-flash {
+  box-shadow: 0 0 0 1px #ffaa88;
+}

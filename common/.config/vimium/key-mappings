@@ -1,0 +1,17 @@
+# paste into Vimium > Options > Custom key mappings
+
+# tabs behave like nvim buffers (<s-h>/<s-l>); history moves to J/K
+map H previousTab
+map L nextTab
+map J goBack
+map K goForward
+
+# half-page scroll on the nvim keys (d/u still work)
+map <c-d> scrollPageDown
+map <c-u> scrollPageUp
+
+# ; is the nvim leader: ;, buffer picker -> tab picker
+map ;, Vomnibar.activateTabSelection
+map ;t createTab
+map ;q removeTab
+map ;w Vomnibar.activateBookmarks

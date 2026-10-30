@@ -1,0 +1,11 @@
+# paste into Vimium > Options > Custom search engines
+# usage: o then keyword and query, e.g. "o gh herdr"
+
+g: https://www.google.com/search?q=%s Google
+gh: https://github.com/search?q=%s GitHub
+mdn: https://developer.mozilla.org/search?q=%s MDN
+npm: https://www.npmjs.com/search?q=%s npm
+pkg: https://pkg.go.dev/search?q=%s Go packages
+crates: https://crates.io/search?q=%s crates.io
+yt: https://www.youtube.com/results?search_query=%s YouTube
+w: https://en.wikipedia.org/w/index.php?search=%s Wikipedia

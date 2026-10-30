@@ -54,3 +54,9 @@ vim.diagnostic.config({
 	severity_sort = true,
 	virtual_text = { spacing = 4, prefix = "●", source = "if_many" },
 })
+
+-- remote plugin hosts: unused, keeps :checkhealth quiet
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0

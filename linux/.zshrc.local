@@ -8,3 +8,6 @@ case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
+
+# dotnet global tools (sdks come from mise)
+export PATH="$PATH:$HOME/.dotnet/tools"

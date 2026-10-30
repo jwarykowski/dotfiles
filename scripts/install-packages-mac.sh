@@ -70,6 +70,12 @@ export MISE_GLOBAL_CONFIG_FILE
 mise install node
 mise install
 
+# --- roslyn (c# lsp): a dotnet tool; mason's nuget install trips on extra feeds ---
+if [[ ! -x "$HOME/.dotnet/tools/roslyn-language-server" ]]; then
+  log "installing roslyn-language-server..."
+  mise exec dotnet -- dotnet tool install -g roslyn-language-server --prerelease --ignore-failed-sources
+fi
+
 # --- rust ---
 if ! installed rustup; then
   log "installing rust..."

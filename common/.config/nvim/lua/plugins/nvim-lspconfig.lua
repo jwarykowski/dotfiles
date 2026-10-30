@@ -41,8 +41,6 @@ return {
 		dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
 		event = lsp_events,
 		opts = {
-			-- omnisharp_mono needs mono, only installed on mac
-			automatic_enable = { exclude = vim.fn.has("mac") == 1 and {} or { "omnisharp_mono" } },
 			ensure_installed = {
 				"bashls",
 				"clangd",
@@ -136,22 +134,15 @@ return {
 				vim.lsp.enable("sourcekit")
 			end
 
-			-- omnisharp_mono setup
-			vim.lsp.config("omnisharp_mono", {
+			-- roslyn: a global dotnet tool (see scripts/), not mason
+			vim.lsp.config("roslyn_ls", {
 				settings = {
-					FormattingOptions = {
-						EnableEditorConfigSupport = true,
-						OrganizeImports = true,
-					},
-					RoslynExtensionsOptions = {
-						EnableAnalyzersSupport = true,
-						EnableImportCompletion = true,
+					["csharp|completion"] = {
+						dotnet_show_completion_items_from_unimported_namespaces = true,
 					},
 				},
-				root_dir = function(bufnr, on_dir)
-					on_dir(root_by_pattern(bufnr, { "%.sln$", "%.csproj$" }))
-				end,
 			})
+			vim.lsp.enable("roslyn_ls")
 		end,
 	},
 }

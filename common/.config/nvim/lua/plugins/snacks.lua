@@ -11,6 +11,7 @@ return {
 				hidden = { "preview" },
 			},
 		},
+		image = { enabled = true },
 		notifier = { enabled = true, style = "minimal" },
 		lazygit = { enabled = true, configure = true, env = { TERM = "xterm-256color", DELTA_PAGER = "cat" } },
 		gitbrowse = { enabled = true },

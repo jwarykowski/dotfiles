@@ -18,9 +18,11 @@ sudo dnf install -y \
   fzf \
   gcc \
   gh \
+  ghostscript \
   git \
   git-delta \
   gnome-shell-extension-appindicator \
+  ImageMagick \
   jq \
   lua-devel \
   luarocks \
@@ -41,6 +43,7 @@ sudo dnf install -y \
   ShellCheck \
   shfmt \
   stow \
+  texlive-scheme-basic \
   tldr \
   unzip \
   yt-dlp \

@@ -34,6 +34,7 @@ return {
 				"gitcommit",
 				"git_rebase",
 				"jsdoc",
+				"latex",
 				"query",
 				"regex",
 			}

@@ -24,14 +24,17 @@ brew install \
   forgejo-cli \
   fzf \
   gh \
+  ghostscript \
   git \
   git-delta \
   herdr \
+  imagemagick \
   jq \
   lazydocker \
   lazygit \
   llvm \
   luacheck \
+  mermaid-cli \
   mise \
   neovim \
   newsboat \
@@ -45,6 +48,7 @@ brew install \
   shfmt \
   stow \
   stylua \
+  tectonic \
   tlrc \
   yazi \
   yt-dlp \

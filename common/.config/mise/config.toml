@@ -19,7 +19,6 @@ dotnet = ["8", "10"]
 "gem:cocoapods" = { version = "latest", os = ["macos"] }
 
 [settings]
-# follow .nvmrc / .node-version / .ruby-version, as fnm and rbenv did
 idiomatic_version_file_enable_tools = ["node", "ruby"]
 # running a missing tool's command installs it
 not_found_auto_install = true

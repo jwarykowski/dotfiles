@@ -5,9 +5,9 @@ cursor-style = bar
 cursor-style-blink = false
 font-family = Berkeley Mono
 font-size = 14
-shell-integration-features = "no-cursor"
+shell-integration-features = "no-cursor,ssh-env,ssh-terminfo"
 
-copy-on-select = true
+copy-on-select = primary
 window-padding-x = 8
 window-padding-y = 8
 

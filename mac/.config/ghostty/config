@@ -7,9 +7,9 @@ font-family = Berkeley Mono
 font-size = 24
 macos-icon = blueprint
 macos-option-as-alt = true
-shell-integration-features = "no-cursor"
+shell-integration-features = "no-cursor,ssh-env,ssh-terminfo"
 
-copy-on-select = true
+copy-on-select = clipboard
 window-padding-x = 8
 window-padding-y = 8
 

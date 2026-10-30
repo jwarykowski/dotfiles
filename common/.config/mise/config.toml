@@ -1,11 +1,11 @@
 [tools]
 node = "lts"
-ruby = "3.3"
+ruby = "3.4"
 go = "latest"
 bun = "latest"
 uv = "latest"
 java = "zulu-17"
-dotnet = ["8", "9"]
+dotnet = ["8", "10"]
 "npm:prettier" = "latest"
 "npm:@fsouza/prettierd" = "latest"
 "npm:tree-sitter-cli" = "latest"

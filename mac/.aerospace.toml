@@ -69,6 +69,10 @@ if.app-id = 'com.zeller.zeller_demo'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.window-title-regex-substring = 'Zeller Payments SDK'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'org.flameshot.Flameshot'
 run = "layout floating"
 check-further-callbacks = false

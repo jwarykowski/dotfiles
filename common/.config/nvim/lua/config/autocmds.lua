@@ -13,6 +13,14 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
+if vim.fn.has("nvim-0.13") == 1 then
+	vim.api.nvim_create_autocmd({ "TextYankPost", "TextPutPost" }, {
+		callback = function()
+			vim.hl.hl_op({ timeout = 200 })
+		end,
+	})
+end
+
 -- disable heavy features for large files
 vim.api.nvim_create_autocmd("BufReadPre", {
 	callback = function(ev)

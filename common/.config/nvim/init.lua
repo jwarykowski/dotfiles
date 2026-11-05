@@ -29,7 +29,7 @@ require("lazy").setup("plugins", {
 	performance = {
 		rtp = {
 			-- netrw: oil replaces it
-			disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+			disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zip", "zipPlugin" },
 		},
 	},
 })

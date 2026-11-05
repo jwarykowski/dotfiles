@@ -30,7 +30,6 @@ return {
 				"rust",
 				"markdown",
 				"markdown_inline",
-				"diff",
 				"gitcommit",
 				"git_rebase",
 				"jsdoc",
@@ -38,6 +37,10 @@ return {
 				"query",
 				"regex",
 			}
+			-- bundled from 0.13
+			if vim.fn.has("nvim-0.13") == 0 then
+				table.insert(ensure, "diff")
+			end
 			local have = ts.get_installed and ts.get_installed("parsers") or {}
 			local missing = vim.tbl_filter(function(lang)
 				return not vim.tbl_contains(have, lang)

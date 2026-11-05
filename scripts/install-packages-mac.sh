@@ -15,6 +15,7 @@ fi
 log "installing brew packages..."
 brew install \
   bat \
+  bob \
   btop \
   cloudflared \
   cmake \
@@ -36,7 +37,6 @@ brew install \
   luacheck \
   mermaid-cli \
   mise \
-  neovim \
   newsboat \
   ninja \
   pinentry-mac \
@@ -60,6 +60,10 @@ brew install --cask \
   ghostty \
   font-berkeley-mono \
   keymapp
+
+# --- neovim (bob; .zshrc puts its nvim-bin on PATH) ---
+log "installing neovim stable..."
+bob use stable
 
 # --- runtimes + npm globals (mise, see common/.config/mise/config.toml) ---
 # packages run before stow, so point mise at the repo's config

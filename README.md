@@ -264,6 +264,7 @@ dotfiles/
 │   │   ├── ghostty/            # ghostty terminal
 │   │   └── zsh/                # mac-only aliases
 │   ├── .gnupg/                 # gpg agent config
+│   ├── Library/Application Support/bob/  # bob (neovim versions) config
 │   ├── .local/bin/             # mac scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools
 │   │   └── cleanup             # free disk space

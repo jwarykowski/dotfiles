@@ -72,8 +72,12 @@ fi
 
 # tool hooks (after .zshrc.local so brew's PATH is in place on mac)
 [[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
+for d in "$HOME/Library/Application Support/bob/nvim-bin" "$HOME/.local/share/bob/nvim-bin"; do
+  [[ -d "$d" ]] && path=("$d" $path)
+done
 command -v direnv >/dev/null && znap eval direnv 'direnv hook zsh'
-command -v mise >/dev/null && znap eval mise 'mise activate zsh'
+# not znap-cached: activate bakes the current PATH into its output
+command -v mise >/dev/null && eval "$(mise activate zsh)"
 command -v zoxide >/dev/null && znap eval zoxide 'zoxide init zsh'
 
 # bun

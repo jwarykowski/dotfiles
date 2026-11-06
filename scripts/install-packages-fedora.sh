@@ -254,6 +254,13 @@ if ! installed herdr; then
   curl -fsSL https://herdr.dev/install.sh | sh
 fi
 
+# --- proton pass cli (pass-clear) ---
+if ! installed pass-cli; then
+  log "installing pass-cli..."
+  curl -fsSL https://proton.me/download/pass-cli/install.sh |
+    PROTON_PASS_CLI_INSTALL_DIR="$HOME/.local/bin" bash
+fi
+
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."

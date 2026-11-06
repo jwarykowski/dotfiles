@@ -18,6 +18,7 @@ has flatpak && step "flatpak update" flatpak update -y
 has rustup && step "rustup" rustup update
 has mise && step "mise" mise upgrade
 has herdr && step "herdr" herdr update
+has pass-cli && step "pass-cli" pass-cli update
 
 step "zsh plugins" zsh -ic 'znap pull'
 step "nvim plugins" nvim --headless "+Lazy! sync" "+MasonUpdate" +qa

@@ -113,6 +113,12 @@ if ! installed shepherd; then
   brew install jwarykowski/tap/shepherd
 fi
 
+# --- proton pass cli (pass-clear) ---
+if ! installed pass-cli; then
+  log "installing pass-cli..."
+  brew install protonpass/tap/pass-cli
+fi
+
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."

@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+# delete Proton Pass items with pass-cli: every item in the named vaults (or
+# all vaults), active and trashed, keeping the vaults; --vaults deletes the
+# vaults themselves. Deletion is permanent. Dry run unless --apply.
+#
+# usage: pass-clear [--apply] [--vaults] (--all | VAULT...)
+set -euo pipefail
+
+apply=0 vaults=0 all=0
+names=()
+for arg in "$@"; do
+  case "$arg" in
+    --apply) apply=1 ;;
+    --vaults) vaults=1 ;;
+    --all) all=1 ;;
+    -h | --help)
+      sed -n '2,6p' "$0" | sed 's/^# \{0,1\}//'
+      exit 0
+      ;;
+    -*)
+      echo "pass-clear: unknown flag $arg" >&2
+      exit 2
+      ;;
+    *) names+=("$arg") ;;
+  esac
+done
+if [[ $all == 0 && ${#names[@]} == 0 ]] || [[ $all == 1 && ${#names[@]} -gt 0 ]]; then
+  echo "usage: pass-clear [--apply] [--vaults] (--all | VAULT...)" >&2
+  exit 2
+fi
+command -v pass-cli >/dev/null || {
+  echo "pass-clear: needs pass-cli (and pass-cli login)" >&2
+  exit 1
+}
+command -v jq >/dev/null || {
+  echo "pass-clear: needs jq" >&2
+  exit 1
+}
+
+# pass-cli doesn't document its JSON fields, so take the likely spellings
+vault_list=$(pass-cli vault list --output json)
+vault_rows=$(jq -r '(.vaults? // .) | .[] | [.name, (.share_id // .shareId // .id)] | @tsv' <<<"$vault_list")
+
+if [[ $all == 1 ]]; then
+  while IFS=$'\t' read -r name _; do
+    [[ -n $name ]] && names+=("$name")
+  done <<<"$vault_rows"
+fi
+
+share_of() {
+  awk -F'\t' -v n="$1" '$1 == n { print $2; exit }' <<<"$vault_rows"
+}
+
+# vault<TAB>share<TAB>item, for every item in the named vaults
+plan=$(mktemp)
+trap 'rm -f "$plan"' EXIT
+for name in "${names[@]}"; do
+  share=$(share_of "$name")
+  if [[ -z $share ]]; then
+    echo "pass-clear: no vault named \"$name\"" >&2
+    exit 1
+  fi
+  for state in active trashed; do
+    pass-cli item list --vault-name "$name" --filter-state "$state" --output json |
+      jq -r --arg v "$name" --arg s "$share" '(.items? // .) | .[] | [$v, $s, (.id // .item_id)] | @tsv' >>"$plan"
+  done
+done
+
+items=$(grep -c . "$plan" || true)
+for name in "${names[@]}"; do
+  printf '%6d  %s\n' "$(awk -F'\t' -v n="$name" '$1 == n' "$plan" | grep -c . || true)" "$name"
+done
+if [[ $vaults == 1 ]]; then
+  n=${#names[@]}
+  what="$n vault$([[ $n == 1 ]] || echo s) and their $items items"
+else
+  what="$items items (the vaults stay)"
+fi
+echo "would delete $what"
+
+if [[ $apply == 0 ]]; then
+  echo "dry run: add --apply to delete them, permanently"
+  exit 0
+fi
+read -r -p "Deleting $what can't be undone. Type delete to go on: " answer
+[[ $answer == delete ]] || {
+  echo "cancelled"
+  exit 1
+}
+
+if [[ $vaults == 1 ]]; then
+  for name in "${names[@]}"; do
+    pass-cli vault delete --share-id "$(share_of "$name")"
+    echo "deleted vault $name"
+  done
+  exit 0
+fi
+
+done_count=0
+while IFS=$'\t' read -r name share id; do
+  [[ -n $id ]] || continue
+  pass-cli item delete --share-id "$share" --item-id "$id"
+  done_count=$((done_count + 1))
+  printf '\r%d/%d' "$done_count" "$items"
+done <"$plan"
+printf '\ndeleted %d items\n' "$done_count"

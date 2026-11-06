@@ -232,7 +232,7 @@ dotfiles/
 │   │   ├── vimium/             # key mappings, search engines, css (paste into the extension)
 │   │   ├── yazi/               # yazi file manager
 │   │   └── zsh/                # aliases, functions, utils
-│   ├── .local/bin/             # shared scripts (pass-clear, op-to-pass, proton-drive-update)
+│   ├── .local/bin/             # shared scripts (pass-clear, op-to-pass, proton-drive-update, gdrive-to-proton)
 │   ├── .newsboat/              # newsboat rss reader
 │   ├── .ssh/
 │   │   ├── config.d/           # per-host snippets (forgejo, homelab)

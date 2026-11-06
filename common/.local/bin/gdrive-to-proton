@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# copy Google Drive to Proton Drive: rclone downloads it to a local folder
+# (Docs, Sheets and Slides as Office files), checks the copy, then
+# proton-drive uploads it into one Proton folder. Both steps resume when
+# rerun, and nothing is deleted on either side. Dry run unless --apply.
+#
+# usage: gdrive-to-proton [--apply] [--remote NAME] [--local DIR] [--dest NAME]
+#   --remote  rclone Google Drive remote (default gdrive)
+#   --local   local copy (default ~/gdrive)
+#   --dest    folder in /my-files (default "Google Drive")
+set -euo pipefail
+
+apply=0 remote=gdrive local="$HOME/gdrive" dest="Google Drive"
+while (($#)); do
+  case "$1" in
+    --apply) apply=1 ;;
+    --remote | --local | --dest)
+      [[ -n ${2:-} ]] || {
+        echo "gdrive-to-proton: $1 needs a value" >&2
+        exit 2
+      }
+      case "$1" in
+        --remote) remote=$2 ;;
+        --local) local=$2 ;;
+        --dest) dest=$2 ;;
+      esac
+      shift
+      ;;
+    -h | --help)
+      sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+      exit 0
+      ;;
+    *)
+      echo "gdrive-to-proton: unknown argument $1" >&2
+      exit 2
+      ;;
+  esac
+  shift
+done
+
+log() { echo "==> $*"; }
+for tool in rclone proton-drive; do
+  command -v "$tool" >/dev/null || {
+    echo "gdrive-to-proton: needs $tool" >&2
+    exit 1
+  }
+done
+if ! rclone listremotes | grep -qx "$remote:"; then
+  echo "gdrive-to-proton: no rclone remote \"$remote\"; run rclone config (type drive, scope drive.readonly)" >&2
+  exit 1
+fi
+
+src="$remote:"
+drive=(--drive-export-formats "docx,xlsx,pptx,svg" --drive-skip-shortcuts)
+target="/my-files/$dest"
+
+log "google drive ($src)"
+rclone size "$src" "${drive[@]}"
+log "local copy: $local ($(df -h "$(dirname "$local")" | awk 'NR == 2 { print $4 }') free)"
+log "proton folder: $target"
+
+if ((!apply)); then
+  rclone copy "$src" "$local" "${drive[@]}" --dry-run 2>&1 | tail -3
+  echo "dry run: add --apply to download and upload"
+  exit 0
+fi
+
+log "downloading..."
+mkdir -p "$local"
+rclone copy "$src" "$local" "${drive[@]}" --progress
+
+log "checking the local copy..."
+# exported Docs have no fixed size, so they can show up here too
+rclone check "$src" "$local" "${drive[@]}" --one-way ||
+  log "check found differences (above); rerun to fetch anything missing"
+
+log "uploading..."
+proton-drive filesystem info "$target" >/dev/null 2>&1 ||
+  proton-drive filesystem create-folder /my-files "$dest"
+shopt -s nullglob dotglob
+files=("$local"/*)
+((${#files[@]})) || {
+  echo "gdrive-to-proton: $local is empty" >&2
+  exit 1
+}
+proton-drive filesystem upload -f skip -d merge "${files[@]}" "$target"
+
+log "done: check $target in Proton Drive, then remove $local when you're happy"

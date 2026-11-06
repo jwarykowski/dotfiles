@@ -138,6 +138,13 @@ return {
 			end,
 			desc = "delete buffer",
 		},
+		{
+			"<leader>qh",
+			function()
+				Snacks.bufdelete.invisible()
+			end,
+			desc = "delete hidden buffers",
+		},
 		-- github
 		{
 			"<leader>ghi",

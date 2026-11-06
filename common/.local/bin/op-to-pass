@@ -1,0 +1,186 @@
+#!/usr/bin/env bash
+# copy 1Password items into Proton Pass with op and pass-cli: logins,
+# passwords, secure notes and credit cards, each vault into a Proton vault of
+# the same name (or all into --into VAULT). Anything else, and attachments,
+# are listed and left for the app's import. Items whose title is already in
+# the target vault are skipped, so it can be rerun. Dry run unless --apply.
+#
+# usage: op-to-pass [--apply] [--into VAULT] [OP_VAULT...]
+set -euo pipefail
+
+apply=0 into=""
+names=()
+while (($#)); do
+  case "$1" in
+    --apply) apply=1 ;;
+    --into)
+      into="${2:?--into needs a vault name}"
+      shift
+      ;;
+    -h | --help)
+      sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
+      exit 0
+      ;;
+    -*)
+      echo "op-to-pass: unknown flag $1" >&2
+      exit 2
+      ;;
+    *) names+=("$1") ;;
+  esac
+  shift
+done
+for tool in op pass-cli jq; do
+  command -v "$tool" >/dev/null || {
+    echo "op-to-pass: needs $tool (signed in)" >&2
+    exit 1
+  }
+done
+
+op_vaults=$(op vault list --format json | jq -r '.[] | [.id, .name] | @tsv')
+if ((${#names[@]} == 0)); then
+  while IFS=$'\t' read -r _ name; do
+    [[ -n $name ]] && names+=("$name")
+  done <<<"$op_vaults"
+fi
+
+# pass-cli doesn't document its JSON fields, so take the likely spellings
+pass_vaults() {
+  pass-cli vault list --output json | jq -r '(.vaults? // .) | .[] | .name'
+}
+pass_titles() {
+  pass-cli item list --vault-name "$1" --output json |
+    jq -r '(.items? // .) | .[] | (.title // .content.title // empty)'
+}
+
+# 1Password item JSON -> pass-cli login template
+# shellcheck disable=SC2016
+login_template='
+def purpose(p): [.fields[]? | select(.purpose == p) | .value // empty][0] // "";
+def email: [.fields[]? | select(.purpose == null and ((.label // "") | ascii_downcase) == "email") | .value // empty][0] // "";
+([.fields[]? | select(.type == "OTP") | .value // empty]) as $otp
+| {
+    title: .title,
+    username: purpose("USERNAME"),
+    email: email,
+    password: purpose("PASSWORD"),
+    totp_uri: ($otp[0] // ""),
+    urls: [.urls[]?.href | select(. != null)],
+    extra_fields: (
+      [.fields[]?
+        | select(.purpose == null and (.value // "") != "")
+        | select(((.label // "") | ascii_downcase) != "email")
+        | select(.type != "OTP" or .value != $otp[0])
+        | {kind: (if .type == "CONCEALED" then "hidden" elif .type == "OTP" then "totp" else "text" end),
+           title: (.label // "field"), value: .value}]
+      + (if purpose("NOTES") != "" then [{kind: "text", title: "Note", value: purpose("NOTES")}] else [] end)
+    )
+  }
+| with_entries(select(.key == "title" or (.value != "" and .value != [])))'
+
+note_template='{title: .title, note: ([.fields[]? | select(.purpose == "NOTES") | .value // empty][0] // "")}'
+
+card_field() {
+  jq -r --arg id "$1" '[.fields[]? | select(.id == $id) | .value // empty][0] // ""' <<<"$2"
+}
+
+# 202612 or 12/2026 -> 2026-12
+card_expiry() {
+  local v=${1//[^0-9]/}
+  if ((${#v} == 6)) && [[ ${1:2:1} == / ]]; then
+    echo "${v:2:4}-${v:0:2}"
+  elif ((${#v} == 6)); then
+    echo "${v:0:4}-${v:4:2}"
+  fi
+}
+
+copy_item() {
+  local vault="$1" item="$2" category
+  category=$(jq -r .category <<<"$item")
+  case "$category" in
+    LOGIN | PASSWORD)
+      jq "$login_template" <<<"$item" | pass-cli item create login --vault-name "$vault" --from-template - >/dev/null
+      ;;
+    SECURE_NOTE)
+      jq "$note_template" <<<"$item" | pass-cli item create note --vault-name "$vault" --from-template - >/dev/null
+      ;;
+    CREDIT_CARD)
+      local args=(--vault-name "$vault" --title "$(jq -r .title <<<"$item")")
+      local holder number cvv expiry pin
+      holder=$(card_field cardholder "$item")
+      number=$(card_field ccnum "$item")
+      cvv=$(card_field cvv "$item")
+      expiry=$(card_expiry "$(card_field expiry "$item")")
+      pin=$(card_field pin "$item")
+      [[ -n $holder ]] && args+=(--cardholder-name "$holder")
+      [[ -n $number ]] && args+=(--number "$number")
+      [[ -n $cvv ]] && args+=(--cvv "$cvv")
+      [[ -n $expiry ]] && args+=(--expiration-date "$expiry")
+      [[ -n $pin ]] && args+=(--pin "$pin")
+      pass-cli item create credit-card "${args[@]}" >/dev/null
+      ;;
+  esac
+}
+
+existing_vaults=$(pass_vaults)
+copied=0 skipped=0 left=0
+leftovers=()
+for name in "${names[@]}"; do
+  id=$(awk -F'\t' -v n="$name" '$2 == n { print $1; exit }' <<<"$op_vaults")
+  if [[ -z $id ]]; then
+    echo "op-to-pass: no 1Password vault named \"$name\"" >&2
+    exit 1
+  fi
+  target=${into:-$name}
+  titles="" n=0
+  if grep -qxF "$target" <<<"$existing_vaults"; then
+    titles=$(pass_titles "$target")
+  else
+    echo "$target: new Proton vault"
+    if ((apply)); then
+      pass-cli vault create --name "$target" >/dev/null
+      existing_vaults+=$'\n'"$target"
+    fi
+  fi
+
+  while IFS=$'\t' read -r item_id category title; do
+    [[ -n $item_id ]] || continue
+    case "$category" in
+      LOGIN | PASSWORD | SECURE_NOTE | CREDIT_CARD) ;;
+      *)
+        leftovers+=("$name: $title ($category)")
+        left=$((left + 1))
+        continue
+        ;;
+    esac
+    if grep -qxF "$title" <<<"$titles"; then
+      skipped=$((skipped + 1))
+      continue
+    fi
+    if ((apply)); then
+      item=$(op item get "$item_id" --vault "$id" --format json)
+      if jq -e '(.files // []) | length > 0' <<<"$item" >/dev/null; then
+        leftovers+=("$name: $title (attachments not copied)")
+      fi
+      if ! copy_item "$target" "$item"; then
+        echo "op-to-pass: failed on \"$title\" in $name" >&2
+        exit 1
+      fi
+      titles+=$'\n'"$title"
+      n=$((n + 1))
+      printf '\r%s: %d copied' "$target" "$n"
+    fi
+    copied=$((copied + 1))
+  done < <(op item list --vault "$id" --format json | jq -r '.[] | [.id, .category, .title] | @tsv')
+  ((apply && n)) && echo
+done
+
+if ((${#leftovers[@]})); then
+  echo "not copied (use the Proton Pass app's 1Password import for these):"
+  printf '  %s\n' "${leftovers[@]}"
+fi
+if ((apply)); then
+  echo "copied $copied, skipped $skipped already there, left $left"
+else
+  echo "would copy $copied, skip $skipped already there, leave $left"
+  echo "dry run: add --apply to copy them"
+fi

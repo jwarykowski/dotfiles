@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# install or update Proton's desktop apps as RPMs from their stable releases
+# (checking each SHA-512), then remove the Flatpak copies. Their data in
+# ~/.var/app stays; sign in again in the RPM app.
+#
+# usage: proton-apps [-n|--dry-run]
+set -euo pipefail
+
+dry=0
+case "${1:-}" in
+  -n | --dry-run) dry=1 ;;
+  "") ;;
+  *)
+    sed -n '2,6p' "$0" | sed 's/^# \{0,1\}//'
+    exit 2
+    ;;
+esac
+
+log() { echo "==> $*"; }
+
+# rpm package, release path, flatpak id (or -)
+apps=(
+  "proton-pass pass/linux me.proton.Pass"
+  "proton-mail mail/linux me.proton.Mail"
+  "proton-authenticator authenticator/linux -"
+  "proton-meet meet/linux -"
+)
+
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+newer() { [[ $1 != "$2" && $(printf '%s\n%s\n' "$1" "$2" | sort -V | tail -1) == "$1" ]]; }
+
+rpms=() flatpaks=()
+for app in "${apps[@]}"; do
+  read -r pkg path flatpak <<<"$app"
+  release=$(curl -fsSL "https://proton.me/download/$path/version.json" |
+    jq -r '[.Releases[] | select(.CategoryName == "Stable")][0]
+      | .Version as $v | .File[] | select(.Url | endswith(".rpm")) | [$v, .Url, .Sha512CheckSum] | @tsv')
+  IFS=$'\t' read -r version url sum <<<"$release"
+  if [[ -z ${url:-} ]]; then
+    log "$pkg: no stable rpm, skipped"
+    continue
+  fi
+
+  installed=$(rpm -q --qf '%{VERSION}' "$pkg" 2>/dev/null || true)
+  if [[ $installed == *"not installed"* ]]; then
+    installed=""
+  fi
+  if [[ -z $installed ]] || newer "$version" "$installed"; then
+    log "$pkg: ${installed:-none} -> $version"
+    if ((!dry)); then
+      file="$tmp/${url##*/}"
+      curl -fsSL "$url" -o "$file"
+      got=$(sha512sum "$file")
+      if [[ ${got%% *} != "$sum" ]]; then
+        echo "proton-apps: checksum mismatch for $url" >&2
+        exit 1
+      fi
+      rpms+=("$file")
+    fi
+  else
+    log "$pkg $installed is current"
+  fi
+
+  if [[ $flatpak != - ]] && flatpak info "$flatpak" >/dev/null 2>&1; then
+    log "$flatpak: flatpak copy to remove"
+    flatpaks+=("$flatpak")
+  fi
+done
+
+if ((dry)); then
+  echo "dry run: run without -n to apply"
+  exit 0
+fi
+if ((${#rpms[@]})); then
+  sudo dnf install -y "${rpms[@]}"
+fi
+if ((${#flatpaks[@]})); then
+  for id in "${flatpaks[@]}"; do
+    flatpak kill "$id" 2>/dev/null || true
+  done
+  sudo flatpak uninstall -y "${flatpaks[@]}"
+  log "removed ${flatpaks[*]}; their data is in ~/.var/app, sign in again in the rpm apps"
+fi

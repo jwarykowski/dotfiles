@@ -253,6 +253,7 @@ dotfiles/
 │   ├── .local/bin/             # linux scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools
 │   │   ├── cleanup             # free disk space
+│   │   ├── proton-apps         # proton desktop apps as rpms
 │   │   ├── disk-report
 │   │   ├── journalctl-report
 │   │   ├── system-ports

@@ -261,6 +261,9 @@ if ! installed pass-cli; then
     PROTON_PASS_CLI_INSTALL_DIR="$HOME/.local/bin" bash
 fi
 
+# --- proton drive cli ---
+"$(dirname "$0")/../common/.local/bin/proton-drive-update"
+
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."

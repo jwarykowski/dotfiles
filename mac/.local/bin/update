@@ -17,6 +17,7 @@ step "brew cask upgrade" brew upgrade --cask --greedy
 
 has rustup && step "rustup" rustup update
 has mise && step "mise" mise upgrade
+has proton-drive && step "proton-drive" proton-drive-update
 
 step "zsh plugins" zsh -ic 'znap pull'
 step "nvim plugins" nvim --headless "+Lazy! sync" "+MasonUpdate" +qa

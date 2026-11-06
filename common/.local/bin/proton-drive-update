@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# install or update Proton's Drive CLI (proton-drive) in ~/.local/bin from its
+# stable release, checking the published SHA-512
+set -euo pipefail
+
+dir="$HOME/.local/bin"
+case "$(uname -s)/$(uname -m)" in
+  Linux/x86_64) platform=linux/x64 ;;
+  Linux/aarch64) platform=linux/arm64 ;;
+  Darwin/x86_64) platform=macos/x64 ;;
+  Darwin/arm64) platform=macos/arm64 ;;
+  *)
+    echo "proton-drive-update: no build for $(uname -sm)" >&2
+    exit 1
+    ;;
+esac
+
+release=$(curl -fsSL https://proton.me/download/drive/cli/version.json |
+  jq -r --arg p "$platform" '[.Releases[] | select(.CategoryName == "Stable")][0]
+    | .Version as $v | .Files[] | select(.Platform == $p) | [$v, .Url, .Sha512CheckSum] | @tsv')
+IFS=$'\t' read -r version url sum <<<"$release"
+[[ -n ${url:-} ]] || {
+  echo "proton-drive-update: no stable $platform release" >&2
+  exit 1
+}
+
+if [[ -x $dir/proton-drive ]] && "$dir/proton-drive" version 2>/dev/null | grep -q "cli-drive@$version+"; then
+  echo "proton-drive $version is current"
+  exit 0
+fi
+
+tmp=$(mktemp)
+trap 'rm -f "$tmp"' EXIT
+curl -fsSL "$url" -o "$tmp"
+if command -v sha512sum >/dev/null; then
+  got=$(sha512sum "$tmp")
+else
+  got=$(shasum -a 512 "$tmp")
+fi
+[[ ${got%% *} == "$sum" ]] || {
+  echo "proton-drive-update: checksum mismatch for $url" >&2
+  exit 1
+}
+mkdir -p "$dir"
+install -m755 "$tmp" "$dir/proton-drive"
+echo "installed proton-drive $version"

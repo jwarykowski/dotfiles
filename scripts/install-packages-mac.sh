@@ -119,6 +119,9 @@ if ! installed pass-cli; then
   brew install protonpass/tap/pass-cli
 fi
 
+# --- proton drive cli ---
+"$(dirname "$0")/../common/.local/bin/proton-drive-update"
+
 # --- herdr plugins ---
 if installed herdr; then
   log "installing herdr plugins..."

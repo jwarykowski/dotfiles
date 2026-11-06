@@ -19,6 +19,7 @@ has rustup && step "rustup" rustup update
 has mise && step "mise" mise upgrade
 has herdr && step "herdr" herdr update
 has pass-cli && step "pass-cli" pass-cli update
+has proton-drive && step "proton-drive" proton-drive-update
 
 step "zsh plugins" zsh -ic 'znap pull'
 step "nvim plugins" nvim --headless "+Lazy! sync" "+MasonUpdate" +qa

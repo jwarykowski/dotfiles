@@ -51,16 +51,15 @@ if ! rclone listremotes | grep -qx "$remote:"; then
 fi
 
 src="$remote:"
-drive=(--drive-export-formats "docx,xlsx,pptx,svg" --drive-skip-shortcuts)
+drive=(--drive-export-formats "docx,xlsx,pptx,svg" --drive-skip-shortcuts --fast-list)
 target="/my-files/$dest"
 
-log "google drive ($src)"
+log "google drive ($src), listing every file (slow on a big drive)..."
 rclone size "$src" "${drive[@]}"
 log "local copy: $local ($(df -h "$(dirname "$local")" | awk 'NR == 2 { print $4 }') free)"
 log "proton folder: $target"
 
 if ((!apply)); then
-  rclone copy "$src" "$local" "${drive[@]}" --dry-run 2>&1 | tail -3
   echo "dry run: add --apply to download and upload"
   exit 0
 fi

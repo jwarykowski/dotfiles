@@ -5,7 +5,6 @@ setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 setopt SHARE_HISTORY
@@ -22,7 +21,13 @@ setopt CORRECT
     git clone --depth 1 -- \
         https://github.com/marlonrichert/zsh-snap.git ~/Repos/znap
 
-source ~/Repos/znap/znap.zsh  # start znap
+# clone failed (offline first run): stub znap so the rest still loads
+if [[ -r ~/Repos/znap/znap.zsh ]]; then
+  source ~/Repos/znap/znap.zsh
+else
+  echo "znap unavailable: plugins skipped" >&2
+  znap() { : }
+fi
 
 ## configuration
 # load pure without znap's instant-prompt (avoids the double-render on launch)
@@ -84,6 +89,3 @@ command -v zoxide >/dev/null && znap eval zoxide 'zoxide init zsh'
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
-
-# Added by sonarqube-cli installer
-export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"

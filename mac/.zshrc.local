@@ -19,8 +19,8 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
-#  llvm
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# llvm (appended: apple clang stays first for xcode builds)
+export PATH="$PATH:/opt/homebrew/opt/llvm/bin"
 
 # sonarqube-cli
 export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"

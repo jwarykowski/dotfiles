@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       # shellcheck ships on ubuntu runners
-      - run: shellcheck install.sh scripts/*.sh scripts/immich/*.sh linux/.local/bin/* mac/.local/bin/*
+      - run: shellcheck install.sh scripts/*.sh scripts/immich/*.sh common/.local/bin/* linux/.local/bin/* mac/.local/bin/*
 
   zsh:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: zsh -n
         run: |
           status=0
-          for f in common/.zshrc common/.zshenv mac/.zshrc.local linux/.zshrc.local common/.config/zsh/*.zsh common/.config/zsh/*/*.zsh linux/.config/zsh/*/*.zsh; do
+          for f in common/.zshrc common/.zshenv mac/.zshrc.local linux/.zshrc.local common/.config/zsh/*.zsh common/.config/zsh/*/*.zsh linux/.config/zsh/*/*.zsh mac/.config/zsh/*/*.zsh; do
             zsh -n "$f" || status=1
           done
           exit "$status"
@@ -34,7 +34,7 @@ jobs:
       - name: stylua
         # a plain download: the action looks releases up on the forge's API
         run: |
-          curl -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/latest/download/stylua-linux-x86_64.zip
+          curl -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/download/v2.6.0/stylua-linux-x86_64.zip
           unzip -q /tmp/stylua.zip -d /tmp
           /tmp/stylua --check common/.config/nvim/lua
           /tmp/stylua --config-path common/.config/nvim/stylua.toml --check linux/.config/hypr

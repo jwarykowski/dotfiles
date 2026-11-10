@@ -27,6 +27,7 @@ IFS=$'\t' read -r id text note <<<"$item"
 
 slug=$(tr '[:upper:]' '[:lower:]' <<<"$text" | tr -cs 'a-z0-9' '-' |
   sed 's/^-//' | cut -c1-40 | sed 's/-*$//')
+[[ -n "$slug" ]] || slug="todo-$id"
 branch="todo/$slug"
 
 created=$(herdr worktree create --cwd "$repo" --branch "$branch" --label "$slug" --focus)

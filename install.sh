@@ -23,14 +23,14 @@ esac
 
 echo "detected platform: $platform"
 
-# location of dotfiles repo (assumes script is run from repo root)
+# location of dotfiles repo
 dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$dotfiles_dir"
 
 # install packages if requested
 if [[ "$packages" == "true" ]]; then
   pkg_script="$dotfiles_dir/scripts/install-packages-$pkg_platform.sh"
-  if [[ -x "$pkg_script" ]]; then
+  if [[ -f "$pkg_script" ]]; then
     echo "installing packages for $pkg_platform..."
     bash "$pkg_script"
   else
@@ -86,9 +86,10 @@ fi
 # user services shipped in the platform package
 services=(herdr-todo-sync)
 if [[ "$platform" == "linux" ]] && command -v systemctl >/dev/null 2>&1; then
-  systemctl --user daemon-reload
+  systemctl --user daemon-reload || true
   for service in "${services[@]}"; do
-    systemctl --user enable --now "$service.service"
+    systemctl --user enable --now "$service.service" ||
+      echo "could not enable $service (no user session?)" >&2
   done
 elif [[ "$platform" == "mac" ]]; then
   for service in "${services[@]}"; do

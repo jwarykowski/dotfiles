@@ -33,10 +33,6 @@ fi
 # load pure without znap's instant-prompt (avoids the double-render on launch)
 znap source mafredri/zsh-async
 znap source sindresorhus/pure
-fpath+=( ${ZNAP_REPOS:-~/Repos}/sindresorhus/pure )   # ensure promptinit can find prompt_pure_setup
-autoload -Uz promptinit
-promptinit
-prompt pure
 
 ## plugins
 # fzf picker for tab completion; must load before plugins that wrap widgets
@@ -59,8 +55,15 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 znap source zsh-users/zsh-completions
 
-# herdr subcommand completion (znap regenerates into site-functions each start)
-command -v herdr >/dev/null && znap fpath _herdr 'herdr completion zsh'
+# herdr subcommand completion, regenerated only when the binary changes
+if (( $+commands[herdr] )); then
+  _herdr_comp=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions/_herdr
+  if [[ ! -s $_herdr_comp || $commands[herdr] -nt $_herdr_comp ]]; then
+    mkdir -p ${_herdr_comp:h} && herdr completion zsh >| $_herdr_comp
+  fi
+  fpath=(${_herdr_comp:h} $fpath)
+  unset _herdr_comp
+fi
 
 if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
@@ -75,6 +78,9 @@ if [[ -f "$HOME/.zshrc.local" ]]; then
   source "$HOME/.zshrc.local"
 fi
 
+# macOS path_helper pushes ~/.local/bin behind system dirs in login shells
+path=("$HOME/.local/bin" $path)
+
 # tool hooks (after .zshrc.local so brew's PATH is in place on mac)
 [[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
 for d in "$HOME/Library/Application Support/bob/nvim-bin" "$HOME/.local/share/bob/nvim-bin"; do
@@ -85,7 +91,7 @@ command -v direnv >/dev/null && znap eval direnv 'direnv hook zsh'
 command -v mise >/dev/null && eval "$(mise activate zsh)"
 command -v zoxide >/dev/null && znap eval zoxide 'zoxide init zsh'
 
-# bun
+# bun globals (bun itself comes from mise); appended so mise's bun wins
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+[[ -d "$BUN_INSTALL/bin" ]] && path+=("$BUN_INSTALL/bin")
 [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"

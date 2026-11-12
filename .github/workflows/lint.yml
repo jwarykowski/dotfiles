@@ -6,18 +6,21 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   shell:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       # shellcheck ships on ubuntu runners
       - run: shellcheck install.sh scripts/*.sh scripts/immich/*.sh common/.local/bin/* linux/.local/bin/* mac/.local/bin/*
 
   zsh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - run: sudo apt-get update && sudo apt-get install -y zsh
       - name: zsh -n
         run: |
@@ -30,18 +33,19 @@ jobs:
   lua:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: stylua
         # a plain download: the action looks releases up on the forge's API
         run: |
           curl -fsSL -o /tmp/stylua.zip https://github.com/JohnnyMorganz/StyLua/releases/download/v2.6.0/stylua-linux-x86_64.zip
+          echo 'a485f72bbfa22e4642e77a84b5edc2611a5cab7477b34e2e709dd8f78e919895  /tmp/stylua.zip' | sha256sum -c -
           unzip -q /tmp/stylua.zip -d /tmp
           /tmp/stylua --check common/.config/nvim/lua
           /tmp/stylua --config-path common/.config/nvim/stylua.toml --check linux/.config/hypr
-      - uses: leafo/gh-actions-lua@v10
+      - uses: leafo/gh-actions-lua@35bcb06abec04ec87df82e08caa84d545348536e # v10
         with:
           luaVersion: "5.1"
-      - uses: leafo/gh-actions-luarocks@v4
+      - uses: leafo/gh-actions-luarocks@e65774a6386cb4f24e293dca7fc4ff89165b64c5 # v4
       - name: luacheck
         # the luacheck action's container mangles its args under act
         run: |

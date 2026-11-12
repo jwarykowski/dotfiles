@@ -30,7 +30,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("mason-tool-installer").setup({
-				ensure_installed = { "goimports", "prettierd", "shfmt", "stylua", "taplo" },
+				ensure_installed = { "clang-format", "goimports", "prettierd", "ruff", "shfmt", "stylua", "taplo" },
 				run_on_start = false,
 			})
 			require("mason-tool-installer").check_install(false)

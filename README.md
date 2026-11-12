@@ -45,7 +45,7 @@
  │  autosuggest     │  blink.cmp · mini.*      │  gpg sign · work includeIf     │
  │  syntax-hl       │  mason + lspconfig       │  lazygit · gh                  │
  │  substring hist  │  conform · treesitter    │  ~90 aliases + git_main_branch │
- │  zoxide · fzf-tab│  oil · trouble · neotest │                                │
+ │  zoxide · fzf-tab│  oil · neotest           │                                │
  │  direnv · mise   │  shepherd todo board     │                                │
  └──────────────────┴──────────────────────────┴────────────────────────────────┘
    CLI: eza · bat · ripgrep · fd · fzf · yazi · btop · newsboat · jq · uv · tldr

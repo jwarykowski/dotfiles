@@ -54,7 +54,9 @@ return {
 					if vim.b[ev.buf].slow_file then
 						return
 					end
-					pcall(vim.treesitter.start, ev.buf)
+					if pcall(vim.treesitter.start, ev.buf) then
+						vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
 				end,
 			})
 		end,

@@ -90,7 +90,7 @@ return {
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files({ hidden = true })
+				Snacks.picker.git_files()
 			end,
 			desc = "find git files",
 		},
@@ -260,6 +260,13 @@ return {
 				Snacks.picker.diagnostics()
 			end,
 			desc = "diagnostics",
+		},
+		{
+			"<leader>sD",
+			function()
+				Snacks.picker.diagnostics_buffer()
+			end,
+			desc = "buffer diagnostics",
 		},
 		{
 			"<leader>sh",

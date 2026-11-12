@@ -25,10 +25,6 @@ map("v", ">", ">gv")
 map("n", "ss", "<cmd>split<cr>", { desc = "split horizontal" })
 map("n", "sv", "<cmd>vsplit<cr>", { desc = "split vertical" })
 
--- scrolling
-map("n", "<C-d>", "<C-d>zz", { desc = "scroll down centered" })
-map("n", "<C-u>", "<C-u>zz", { desc = "scroll up centered" })
-
 -- formatting (manual; format_on_save handles the usual case)
 map({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ lsp_format = "fallback" })

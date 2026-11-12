@@ -13,7 +13,8 @@ return {
 		"saghen/blink.cmp",
 		opts = {
 			sources = {
-				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+				-- opts_extend appends this to blink's own list
+				default = { "lazydev" },
 				providers = {
 					lazydev = {
 						name = "LazyDev",

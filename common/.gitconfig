@@ -23,7 +23,6 @@
 
 [core]
   editor = nvim
-  ignorecase = false
   pager = delta
   untrackedCache = true
 
@@ -61,6 +60,10 @@
 
 [push]
   autoSetupRemote = true
+  followTags = true
+
+[column]
+  ui = auto
 
 [status]
   showUntrackedFiles = all
@@ -70,6 +73,7 @@
 
 [tag]
   gpgSign = true
+  sort = version:refname
 
 [rebase]
   autoSquash = true

@@ -4,5 +4,3 @@
 --glob=!node_modules
 --glob=!.pnpm-store
 --glob=!.next
---glob=!dist
---glob=!build

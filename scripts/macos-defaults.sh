@@ -24,7 +24,7 @@ defaults write -g com.apple.mouse.scaling 3
 defaults write -g com.apple.trackpad.scaling 2
 
 # Terminal
-defaults write com.apple.terminal StringEncodings -array 4
+defaults write com.apple.Terminal StringEncodings -array 4
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
 defaults write com.apple.TextEdit RichText -int 0

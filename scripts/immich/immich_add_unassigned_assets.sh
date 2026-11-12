@@ -6,9 +6,8 @@
 #   Finds all assets in immich that are not currently assigned to any album
 #   and adds them to a specified album. Supports batching and dry-run mode.
 #
-# usage:
-#   ./immich_add_unassigned_assets.sh \
-#     --api-key <API_KEY> \
+# usage (key from the environment keeps it out of ps and shell history):
+#   IMMICH_API_KEY=<API_KEY> ./immich_add_unassigned_assets.sh \
 #     --album-id <ALBUM_ID> \
 #     [--url http://localhost:2283] \
 #     [--taken-after 2020-01-01T00:00:00Z] \
@@ -17,7 +16,6 @@
 #
 # example:
 #   ./immich_add_unassigned_assets.sh \
-#     --api-key "123" \
 #     --album-id "abc123" \
 #     --url "http://immich.local:2283" \
 #     --dry-run false
@@ -34,7 +32,7 @@ IMMICH_URL="http://localhost:2283"
 TAKEN_AFTER="2020-01-01T00:00:00Z"
 BATCH_SIZE=100
 DRY_RUN="true"
-API_KEY=""
+API_KEY="${IMMICH_API_KEY:-}"
 ALBUM_ID=""
 
 while [[ $# -gt 0 ]]; do
@@ -56,7 +54,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-[[ -z "$API_KEY" ]] && { echo "missing required argument: --api-key"; exit 1; }
+[[ -z "$API_KEY" ]] && { echo "missing IMMICH_API_KEY (or --api-key)"; exit 1; }
 [[ -z "$ALBUM_ID" ]] && { echo "missing required argument: --album-id"; exit 1; }
 
 echo -e "searching for assets not in any album taken after $TAKEN_AFTER"
@@ -67,10 +65,12 @@ ASSET_IDS=()
 while true; do
   echo -e "\nfetching page $PAGE"
 
-  RESPONSE=$(curl -s -X POST \
+  BODY=$(jq -n --arg after "$TAKEN_AFTER" --argjson page "$PAGE" \
+    '{isNotInAlbum: true, withExif: true, isVisible: true, takenAfter: $after, page: $page}')
+  RESPONSE=$(curl -fsS -X POST \
     -H "Content-Type: application/json" \
     -H "x-api-key: $API_KEY" \
-    -d "{\"isNotInAlbum\": true, \"withExif\": true, \"isVisible\": true, \"takenAfter\": \"$TAKEN_AFTER\", \"page\": $PAGE}" \
+    -d "$BODY" \
     "$IMMICH_URL/api/search/metadata")
 
   RESPONSE_ERROR=$(echo "$RESPONSE" | jq -r '.error')
@@ -123,10 +123,10 @@ for ((i=0; i<TOTAL; i+=BATCH_SIZE)); do
 
   IDS_JSON=$(printf '%s\n' "${CHUNK[@]}" | jq -R . | jq -s .)
 
-  RESPONSE=$(curl -s -X PUT \
+  RESPONSE=$(curl -fsS -X PUT \
     -H "Content-Type: application/json" \
     -H "x-api-key: $API_KEY" \
-    -d "{\"ids\": $IDS_JSON}" \
+    -d "$(jq -n --argjson ids "$IDS_JSON" '{ids: $ids}')" \
     "$IMMICH_URL/api/albums/$ALBUM_ID/assets")
 
   SUCCESS_COUNT=$(echo "$RESPONSE" | jq '[.[] | select(.success == true)] | length')

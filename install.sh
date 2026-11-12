@@ -59,6 +59,7 @@ stow_flags=(-v --no-folding --restow)
 # created once, never overwritten
 claude_local="$HOME/.claude/CLAUDE.local.md"
 if [[ ! -e "$claude_local" ]]; then
+  mkdir -p "$HOME/.claude"
   case "$profile" in
     personal) echo "@~/.claude/CLAUDE.personal.md" > "$claude_local" ;;
     work)     printf '# Work machine\n\n<!-- work-only rules: repos, tickets, signing, attribution -->\n' > "$claude_local" ;;
@@ -96,7 +97,8 @@ elif [[ "$platform" == "mac" ]]; then
     label="io.warykowski.$service"
     # bootstrap fails when already loaded; restart it then so changes apply
     launchctl bootstrap "gui/$(id -u)" "$HOME/Library/LaunchAgents/$label.plist" 2>/dev/null ||
-      launchctl kickstart -k "gui/$(id -u)/$label"
+      launchctl kickstart -k "gui/$(id -u)/$label" ||
+      echo "could not load $label" >&2
   done
 fi
 

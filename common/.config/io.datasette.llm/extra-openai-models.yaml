@@ -1,0 +1,6 @@
+# LiteLLM on wellington (LAN only); its virtual key is stored with
+# `llm keys set litellm`, in keys.json beside this file, never in this repo
+- model_id: jev
+  model_name: jev
+  api_base: "http://wellington.local:4000/v1"
+  api_key_name: litellm

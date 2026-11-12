@@ -16,6 +16,7 @@ dotnet = ["8", "10"]
 "npm:@redocly/cli" = "latest"
 "npm:@google/gemini-cli" = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
+"pipx:llm" = "latest"
 "gem:cocoapods" = { version = "latest", os = ["macos"] }
 
 [settings]

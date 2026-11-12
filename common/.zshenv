@@ -7,6 +7,8 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 export EDITOR="$VISUAL"
 export MYVIMRC="$HOME/.config/nvim/init.lua"
 export XDG_CONFIG_HOME="$HOME/.config"
+# llm (the CLI) keeps its config here on macOS too, not ~/Library/Application Support
+export LLM_USER_PATH="$XDG_CONFIG_HOME/io.datasette.llm"
 export DELTA_PAGER=cat
 export SHEPHERD_CONFIG="$XDG_CONFIG_HOME/shepherd/config.toml"
 

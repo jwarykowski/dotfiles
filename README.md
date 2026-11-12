@@ -222,7 +222,7 @@ dotfiles/
 │   │   ├── btop/               # btop system monitor
 │   │   ├── gh/                 # github cli
 │   │   ├── git/ignore          # global excludes (stow skips a top-level .gitignore)
-│   │   ├── ghostty/themes/     # shared ghostty colour theme
+│   │   ├── ghostty/            # ghostty config and colour theme
 │   │   ├── herdr/              # herdr agent multiplexer
 │   │   ├── lazygit/            # lazygit
 │   │   ├── mise/               # node, ruby, go, bun, uv, java, dotnet, npm globals
@@ -246,7 +246,7 @@ dotfiles/
 ├── linux/                      # fedora-specific configs
 │   ├── .config/
 │   │   ├── fontconfig/         # monospace -> berkeley mono
-│   │   ├── ghostty/            # ghostty terminal
+│   │   ├── ghostty/            # config.local: font size, clipboard
 │   │   ├── hypr/               # hyprland (lua), hypridle, hyprlock, hyprpaper
 │   │   ├── quickshell/         # bar, notifications, launcher, clipboard, power menu
 │   │   └── zsh/                # linux-only functions
@@ -263,7 +263,7 @@ dotfiles/
 │   └── .zshrc.local
 ├── mac/                        # macos-specific configs
 │   ├── .config/
-│   │   ├── ghostty/            # ghostty terminal
+│   │   ├── ghostty/            # config.local: font size, clipboard, macos-*
 │   │   └── zsh/                # mac-only aliases
 │   ├── .gnupg/                 # gpg agent config
 │   ├── Library/Application Support/bob/  # bob (neovim versions) config
@@ -285,8 +285,9 @@ dotfiles/
 `install.sh` stows with `--no-folding`: every file is linked individually and
 directories are always real, so files an app writes into its config dir
 (herdr sockets and plugins, gh tokens, shepherd boards) never land in the repo.
-It also lets packages share a directory — ghostty's `config` is per-platform
-(fonts differ) while its colour theme lives in `common/`.
+It also lets packages share a directory: ghostty's `config` and colour theme
+live in `common/`, and the config loads each platform's `config.local` (font
+size, clipboard, `macos-*`).
 
 ## getting started
 

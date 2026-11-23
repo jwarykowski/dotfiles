@@ -51,7 +51,8 @@ sudo dnf install -y \
   zsh
 
 # --- berkeley mono: licensed, so it can't be downloaded here ---
-if ! fc-list | grep -q "Berkeley Mono"; then
+# not grep -q: it exits early, fc-list gets SIGPIPE and pipefail reports a miss
+if ! fc-list : family | grep "Berkeley Mono" >/dev/null; then
   log "berkeley mono missing: copy its .otf/.ttf files to ~/.local/share/fonts and run fc-cache -f"
 fi
 
@@ -283,12 +284,12 @@ if installed herdr; then
   plugin_install cloudmanic/herdr-plus
   plugin_install natori-hrj/herdr-lazy
   plugin_install jwarykowski/herdr-keybars
-  # shepherd needs a newer go than fedora ships; let go fetch the toolchain
-  GOTOOLCHAIN=auto plugin_install jwarykowski/shepherd
+  # shepherd builds with go, which only mise provides (not on PATH outside zsh)
+  GOTOOLCHAIN=auto PATH="$(mise where go)/bin:$PATH" plugin_install jwarykowski/shepherd
 fi
 
 # --- shepherd cli (used by nvim-shepherd); reuse the plugin's build ---
-shepherd_bin=$(compgen -G "$HOME/.config/herdr/plugins/github/jwarykowski.herdr-shepherd-*/bin/shepherd" | head -1 || true)
+shepherd_bin=$(compgen -G "$HOME/.config/herdr/plugins/github-installations/jwarykowski.herdr-shepherd-*/*/checkout/bin/shepherd" | tail -1 || true)
 if [[ -n "$shepherd_bin" ]]; then
   log "linking shepherd..."
   ln -sf "$shepherd_bin" "$HOME/.local/bin/shepherd"

@@ -21,6 +21,7 @@ sudo dnf install -y \
   ghostscript \
   git \
   git-delta \
+  gnome-connections \
   gnome-shell-extension-appindicator \
   ImageMagick \
   jq \
@@ -38,7 +39,6 @@ sudo dnf install -y \
   python3 \
   python3-pip \
   python3-ruff \
-  remmina \
   ripgrep \
   ShellCheck \
   shfmt \

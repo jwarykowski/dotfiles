@@ -132,6 +132,45 @@ if ! rpm -q ladybird >/dev/null 2>&1; then
   sudo dnf install -y ladybird
 fi
 
+# --- signal: official appimage (no rpm); it updates itself after install ---
+if [[ ! -x "$HOME/.local/bin/signal-desktop" ]]; then
+  log "installing signal..."
+  signal_tmp=$(mktemp -d)
+  signal_url=https://updates.signal.org/desktop/signal-desktop.AppImage
+  curl -fsSL "$signal_url" -o "$signal_tmp/signal-desktop.AppImage"
+  curl -fsSL "$signal_url.gpg" -o "$signal_tmp/signal-desktop.AppImage.gpg"
+  curl -fsSL https://updates.signal.org/static/desktop/appimage.asc -o "$signal_tmp/appimage.asc"
+  # throwaway keyring; pin signal's signing key fingerprint
+  mkdir -m700 "$signal_tmp/gnupg"
+  GNUPGHOME="$signal_tmp/gnupg" gpg -q --import "$signal_tmp/appimage.asc"
+  if ! GNUPGHOME="$signal_tmp/gnupg" gpg --status-fd 1 \
+    --verify "$signal_tmp/signal-desktop.AppImage.gpg" "$signal_tmp/signal-desktop.AppImage" 2>/dev/null |
+    grep "VALIDSIG 4B16B7232DFAA439AD791002EF9F501F13EED94C" >/dev/null; then
+    echo "signal: appimage signature check failed" >&2
+    exit 1
+  fi
+  install -m755 "$signal_tmp/signal-desktop.AppImage" "$HOME/.local/bin/signal-desktop"
+  (cd "$signal_tmp" && "$HOME/.local/bin/signal-desktop" --appimage-extract 'usr/share/icons/*' >/dev/null)
+  mkdir -p "$HOME/.local/share/icons"
+  cp -r "$signal_tmp/squashfs-root/usr/share/icons/hicolor" "$HOME/.local/share/icons/"
+  rm -rf "$signal_tmp"
+  mkdir -p "$HOME/.local/share/applications"
+  cat >"$HOME/.local/share/applications/signal-desktop.desktop" <<DESKTOP
+[Desktop Entry]
+Type=Application
+Name=Signal
+Comment=Private messaging from your desktop
+Exec=$HOME/.local/bin/signal-desktop %U
+Icon=signal-desktop
+StartupWMClass=signal
+MimeType=x-scheme-handler/sgnl;x-scheme-handler/signalcaptcha;
+Categories=Network;InstantMessaging;Chat;
+DESKTOP
+  if installed update-desktop-database; then
+    update-desktop-database "$HOME/.local/share/applications"
+  fi
+fi
+
 # --- rust ---
 if ! installed rustup; then
   log "installing rust..."

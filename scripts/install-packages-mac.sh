@@ -59,7 +59,8 @@ log "installing brew casks..."
 brew install --cask \
   ghostty \
   font-berkeley-mono \
-  keymapp
+  keymapp \
+  signal
 
 # --- neovim (bob; .zshrc puts its nvim-bin on PATH) ---
 log "installing neovim stable..."

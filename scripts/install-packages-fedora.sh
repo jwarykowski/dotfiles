@@ -124,6 +124,14 @@ if ! installed cloudflared; then
   sudo dnf install -y cloudflared
 fi
 
+# --- ladybird (its own repo, signed) ---
+if ! rpm -q ladybird >/dev/null 2>&1; then
+  log "installing ladybird..."
+  [ -f /etc/yum.repos.d/ladybird.repo ] ||
+    sudo dnf config-manager addrepo --from-repofile=https://rpm.ladybird.org/ladybird.repo
+  sudo dnf install -y ladybird
+fi
+
 # --- rust ---
 if ! installed rustup; then
   log "installing rust..."

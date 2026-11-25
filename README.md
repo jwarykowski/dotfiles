@@ -250,6 +250,7 @@ dotfiles/
 │   │   ├── hypr/               # hyprland (lua), hypridle, hyprlock, hyprpaper
 │   │   ├── quickshell/         # bar, notifications, launcher, clipboard, power menu
 │   │   └── zsh/                # linux-only functions
+│   ├── .gnupg/                 # scdaemon: reach the yubikey through pcscd
 │   ├── .local/bin/             # linux scripts (auto on PATH)
 │   │   ├── update              # update all packages + tools
 │   │   ├── cleanup             # free disk space
@@ -333,6 +334,7 @@ Re-apply dotfiles (safe, idempotent):
 - **zsh plugins**: znap clones and caches plugins automatically on first shell start
 - **zsh default shell**: `chsh -s $(which zsh)`
 - **ssh config**: copy `~/.ssh/config.template` to `~/.ssh/config` and add your hosts; git over SSH to Forgejo (`config.d/forgejo`) needs `cloudflared` and your public key added in Forgejo
+- **gpg signing**: the key lives on the YubiKey; import its public half once with `curl -s https://github.com/jwarykowski.gpg | gpg --import`, then `gpg --card-status` links it to the card
 - **gh cli**: `gh auth login` — `hosts.yml` is deliberately untracked, it can hold an oauth token
 
 ## license

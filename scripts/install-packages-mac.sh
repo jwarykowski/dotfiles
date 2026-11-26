@@ -62,6 +62,12 @@ brew install --cask \
   keymapp \
   signal
 
+# --- herdr desktop app (apple silicon only; the cask refuses intel) ---
+if [[ "$(uname -m)" == arm64 ]]; then
+  log "installing herdr app..."
+  brew install --cask herdr-app
+fi
+
 # --- neovim (bob; .zshrc puts its nvim-bin on PATH) ---
 log "installing neovim stable..."
 bob use stable

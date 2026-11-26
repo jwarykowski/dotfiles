@@ -25,3 +25,6 @@ export PATH="$PATH:/opt/homebrew/opt/llvm/bin"
 # sonarqube-cli
 export PATH="$HOME/.local/share/sonarqube-cli/bin:$PATH"
 
+# zscaler root CA for node tools behind TLS inspection
+[ -f "$HOME/.local/share/certs/zscaler.pem" ] && export NODE_EXTRA_CA_CERTS="$HOME/.local/share/certs/zscaler.pem"
+

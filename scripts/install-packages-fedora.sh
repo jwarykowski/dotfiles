@@ -302,6 +302,12 @@ if ! installed herdr; then
   curl -fsSL https://herdr.dev/install.sh | sh
 fi
 
+# --- herdr desktop app (and herdr-core if missing; the app updates itself after) ---
+if ! installed herdr-app; then
+  log "installing herdr app..."
+  curl -fsSL https://releases.herdr.dev/app/install.sh | sh
+fi
+
 # --- proton pass cli (pass-clear) ---
 if ! installed pass-cli; then
   log "installing pass-cli..."

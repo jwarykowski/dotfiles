@@ -18,7 +18,7 @@
 - **Shell**: [zsh](https://wiki.archlinux.org/index.php/Zsh) + [znap](https://github.com/marlonrichert/zsh-snap)
 - **Terminal**: [Ghostty](https://ghostty.org/)
 - **Editor**: [Neovim](https://neovim.io/) + [lazy.nvim](https://github.com/folke/lazy.nvim)
-- **Multiplexer**: [herdr](https://herdr.dev) (old tmux config in `archive/tmux`)
+- **Multiplexer**: [herdr](https://herdr.dev), and its desktop app (Fedora, and Apple silicon Macs) (old tmux config in `archive/tmux`)
 - **Todos**: [shepherd](https://github.com/jwarykowski/shepherd) todo board — `<leader>T` in nvim via [nvim-shepherd](https://github.com/jwarykowski/nvim-shepherd)
 - **RSS**: [newsboat](https://newsboat.org/)
 - **Theme**: [lackluster](https://github.com/slugbyte/lackluster.nvim) (nvim, ghostty, btop, delta)
